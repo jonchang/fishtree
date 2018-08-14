@@ -110,7 +110,7 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
 #'
 #' @param name Download an alignment for this rank (only families and orders are currently supported), or NULL for the alignment for all species.
 #' @param split Split the alignment into a list of sequences by gene?
-#' @return An object of class \code{DNAbin}
+#' @return An object of class \code{DNAbin}, or a named list of the same if \code{split = TRUE}
 #' @seealso [ape::DNAbin()]
 #' @export
 fishtree_alignment <- function(name = NULL, split = FALSE) {
@@ -135,11 +135,11 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 
 .split_seqs <- function(sequence, raxml_partition_file = paste0(.baseurl, "downloads/final_alignment.partitions")) {
   partitions <- readLines(raxml_partition_file)
-  tt <- stringr::str_replace_all(partitions, "DNA, ", "")
-  splat <- stringr::str_split_fixed(tt, "[= -]+", 3)
-  part_names <- splat[, 1]
-  part_start <- as.integer(splat[, 2])
-  part_end <- as.integer(splat[, 3])
+  tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
+  splat <- strsplit(tt, "[= -]+")
+  part_names <- sapply(splat, `[`, 1)
+  part_start <- as.integer(sapply(splat, `[`, 2))
+  part_end <- as.integer(sapply(splat, `[`, 3))
   result = list()
   for (ii in 1:length(part_names)) {
     result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]

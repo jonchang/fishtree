@@ -12,7 +12,7 @@ fishtree_alignment(name = NULL, split = FALSE)
 \item{split}{Split the alignment into a list of sequences by gene?}
 }
 \value{
-An object of class \code{DNAbin}
+An object of class \code{DNAbin}, or a named list of the same if \code{split = TRUE}
 }
 \description{
 Retrieves an aligned sequence
