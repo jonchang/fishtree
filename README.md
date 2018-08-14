@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jonchang/fishtree.svg?token=CAAYReeKsDcnZM7jk2wY&branch=master)](https://travis-ci.com/jonchang/fishtree)
+
 # fishtree
 
 The goal of `fishtree` is to provide an easy interface to the Fish Tree of Life API.
