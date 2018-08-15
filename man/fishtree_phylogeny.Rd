@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_phylogeny}
 \alias{fishtree_phylogeny}
-\title{Download a phylogeny for the fish tree of life}
+\title{Phylogenies from the Fish Tree of Life}
 \usage{
 fishtree_phylogeny(name = NULL, type = c("chronogram", "phylogram"))
 }
@@ -15,7 +15,7 @@ fishtree_phylogeny(name = NULL, type = c("chronogram", "phylogram"))
 An object of class \code{phylo}
 }
 \description{
-Retrieves a phylogeny from the fish tree of life website.
+Retrieves a phylogeny via the Fish Tree of Life API
 }
 \examples{
 surgeons <- fishtree_phylogeny("Acanthuridae")

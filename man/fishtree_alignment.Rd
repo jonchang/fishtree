@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_alignment}
 \alias{fishtree_alignment}
-\title{Download aligned sequences for the fish tree of life}
+\title{Aligned sequences from the Fish Tree of Life}
 \usage{
 fishtree_alignment(name = NULL, split = FALSE)
 }
@@ -15,7 +15,7 @@ fishtree_alignment(name = NULL, split = FALSE)
 An object of class \code{\link[ape]{DNAbin}}, or a named list of the same if \code{split = TRUE}
 }
 \description{
-Retrieves an aligned sequence
+Retrieves an aligned sequence via the Fish Tree of Life API.
 }
 \references{
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1

@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_tip_rates}
 \alias{fishtree_tip_rates}
-\title{Retrieves tip rates for the fish tree of life}
+\title{Tip rates for the Fish Tree of Life}
 \usage{
 fishtree_tip_rates(name = NULL, sampled_only = TRUE)
 }
@@ -15,7 +15,7 @@ fishtree_tip_rates(name = NULL, sampled_only = TRUE)
 a data.frame
 }
 \description{
-Downloads tip rates for the entire fish tree of life, or for a specified subset. Tip rates can be thought of as an
+Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
 a lineage is more likely to split a new lineage at the present time.
 }

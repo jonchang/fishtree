@@ -1,7 +1,7 @@
 
-#' Download a phylogeny for the fish tree of life
+#' Phylogenies from the Fish Tree of Life
 #'
-#' Retrieves a phylogeny from the fish tree of life website.
+#' Retrieves a phylogeny via the Fish Tree of Life API
 #'
 #' @param name Download phylogenies for this rank (only families and orders are currently supported)
 #' @param type Either \code{chronogram} or \code{phylogram}
@@ -41,9 +41,9 @@ fishtree_phylogeny <- function(name = NULL, type = c("chronogram", "phylogram"))
   return(.get(paste0(.baseurl, url), ape::read.tree))
 }
 
-#' Download a taxonomy for the fish tree of life
+#' Taxonomies and other data from the Fish Tree of Life
 #'
-#' Retrieves taxonomic and other information from the fish tree of life API. One of
+#' Retrieves taxonomic and other information from the Fish Tree of Life API. One of
 #' \code{family} or \code{order} must be specified.
 #'
 #' @param family retrieve one or more families
@@ -76,9 +76,9 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
   scan(dnafile, what = list(character(), character()), quiet = TRUE, nlines = nlines, strip.white = TRUE, skip = 1)
 }
 
-#' Download aligned sequences for the fish tree of life
+#' Aligned sequences from the Fish Tree of Life
 #'
-#' Retrieves an aligned sequence
+#' Retrieves an aligned sequence via the Fish Tree of Life API.
 #'
 #' @param name Download an alignment for this rank (only families and orders are currently supported), or NULL for the alignment for all species.
 #' @param split Split the alignment into a list of sequences by gene?
@@ -105,9 +105,9 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
   return(dna)
 }
 
-#' Retrieves tip rates for the fish tree of life
+#' Tip rates for the Fish Tree of Life
 #'
-#' Downloads tip rates for the entire fish tree of life, or for a specified subset. Tip rates can be thought of as an
+#' Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 #' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
 #' a lineage is more likely to split a new lineage at the present time.
 #'
