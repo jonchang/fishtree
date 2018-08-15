@@ -3,3 +3,4 @@
 export(fishtree_alignment)
 export(fishtree_phylogeny)
 export(fishtree_taxonomy)
+export(fishtree_tip_rates)

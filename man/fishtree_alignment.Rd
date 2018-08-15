@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_alignment}
 \alias{fishtree_alignment}
-\title{Download aligned sequences}
+\title{Download aligned sequences for the fish tree of life}
 \usage{
 fishtree_alignment(name = NULL, split = FALSE)
 }

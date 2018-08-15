@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_phylogeny}
 \alias{fishtree_phylogeny}
-\title{Download a phylogeny}
+\title{Download a phylogeny for the fish tree of life}
 \usage{
 fishtree_phylogeny(name = NULL, type = c("chronogram", "phylogram"))
 }

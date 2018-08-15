@@ -32,7 +32,21 @@
   list(context, what)
 }
 
-#' Download a phylogeny
+.split_seqs <- function(sequence, raxml_partition_file = paste0(.baseurl, "downloads/final_alignment.partitions")) {
+  partitions <- readLines(raxml_partition_file)
+  tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
+  splat <- strsplit(tt, "[= -]+")
+  part_names <- sapply(splat, `[`, 1)
+  part_start <- as.integer(sapply(splat, `[`, 2))
+  part_end <- as.integer(sapply(splat, `[`, 3))
+  result = list()
+  for (ii in 1:length(part_names)) {
+    result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]
+  }
+  result
+}
+
+#' Download a phylogeny for the fish tree of life
 #'
 #' Retrieves a phylogeny from the fish tree of life website.
 #'
@@ -73,15 +87,18 @@ fishtree_phylogeny <- function(name = NULL, type = c("chronogram", "phylogram"))
   return(.get(paste0(.baseurl, url), ape::read.tree))
 }
 
-#' Download a taxonomy
+#' Download a taxonomy for the fish tree of life
 #'
-#' Retrieves taxonomic information from the fish tree of life website. One of
+#' Retrieves taxonomic and other information from the fish tree of life API. One of
 #' \code{family} or \code{order} must be specified.
 #'
 #' @param family retrieve one or more families
 #' @param order retrieve one or more orders
 #' @return A list, with components containing data on the specified family or order.
 #' @export
+#' @examples
+#' test <- fishtree_taxonomy(family = "Labridae")
+#' paste("There are ", length(test$sampled_species), "sampled species out of ", length(test$species), "in wrasses.")
 fishtree_taxonomy <- function(family = NULL, order = NULL) {
   if (!is.null(family) && !is.null(order))
     rlang::abort("Either `family` or `order` must be specified, not both.")
@@ -104,7 +121,7 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
   scan(dnafile, what = list(character(), character()), quiet = TRUE, nlines = nlines, strip.white = TRUE, skip = 1)
 }
 
-#' Download aligned sequences
+#' Download aligned sequences for the fish tree of life
 #'
 #' Retrieves an aligned sequence
 #'
@@ -133,17 +150,28 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
   return(dna)
 }
 
-.split_seqs <- function(sequence, raxml_partition_file = paste0(.baseurl, "downloads/final_alignment.partitions")) {
-  partitions <- readLines(raxml_partition_file)
-  tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
-  splat <- strsplit(tt, "[= -]+")
-  part_names <- sapply(splat, `[`, 1)
-  part_start <- as.integer(sapply(splat, `[`, 2))
-  part_end <- as.integer(sapply(splat, `[`, 3))
-  result = list()
-  for (ii in 1:length(part_names)) {
-    result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]
-  }
-  result
+#' Retrieves tip rates for the fish tree of life
+#'
+#' Downloads tip rates for the entire fish tree of life, or for a specified subset. Tip rates can be thought of as an
+#' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
+#' a lineage is more likely to split a new lineage at the present time.
+#'
+#' @param name optionally subset by a taxonomy rank (currently restricted to family and order)
+#' @param sampled_only only include taxa actually present in the phylogeny?
+#' @return a data.frame
+#' @export
+#' @examples
+#' rates <- fishtree_tip_rates("Cichlidae")
+#' plot(dr ~ lambda.tv, data = rates, main = "Do BAMM and DR speciation rates correlate?", xlab = "BAMM", ylab = "DR")
+#' abline(0, 1, lty = 2, col = "red")
+fishtree_tip_rates <- function(name = NULL, sampled_only = TRUE) {
+  rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", read.csv, row.names = NULL)
+  if (is.null(name)) return(rates)
+  res <- .fetch_rank(name)
+  ctx <- res[[1]][[1]]
+  what <- res[[2]]
+  if (sampled_only) wanted <- ctx$sampled_species
+  else wanted <- ctx$species
+  if (length(wanted) < 1) rlang::abort(paste("Can't get tip rates for", what, name, "because there are not enough sampled species"))
+  return(rates[rates$species %in% wanted, ])
 }
-

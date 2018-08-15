@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_taxonomy}
 \alias{fishtree_taxonomy}
-\title{Download a taxonomy}
+\title{Download a taxonomy for the fish tree of life}
 \usage{
 fishtree_taxonomy(family = NULL, order = NULL)
 }
@@ -15,6 +15,10 @@ fishtree_taxonomy(family = NULL, order = NULL)
 A list, with components containing data on the specified family or order.
 }
 \description{
-Retrieves taxonomic information from the fish tree of life website. One of
+Retrieves taxonomic and other information from the fish tree of life API. One of
 \code{family} or \code{order} must be specified.
+}
+\examples{
+test <- fishtree_taxonomy(family = "Labridae")
+paste("There are ", length(test$sampled_species), "sampled species out of ", length(test$species), "in wrasses.")
 }
