@@ -20,7 +20,32 @@ instantaneous speciation or extinction rate; for example, a higher tip-specific 
 a lineage is more likely to split a new lineage at the present time.
 }
 \examples{
+# Get cichlid rates and trees
 rates <- fishtree_tip_rates("Cichlidae")
-plot(dr ~ lambda.tv, data = rates, main = "Do BAMM and DR speciation rates correlate?", xlab = "BAMM", ylab = "DR")
-abline(0, 1, lty = 2, col = "red")
+tree <- fishtree_phylogeny("Cichlidae")
+
+# Plot tree and extract plotting data
+plot(tree, show.tip.label = FALSE)
+obj <- get("last_plot.phylo", .PlotPhyloEnv)
+
+# Generate a color ramp
+ramp <- grDevices::colorRamp(c("black", "red"), bias = 10)
+tiporder <- match(rates$species, gsub("_", " ", tree$tip.label))
+scaled_rates <- rates$lambda.tv / max(rates$lambda.tv, na.rm = TRUE)
+tipcols <- apply(ramp(scaled_rates), 1, function(x) do.call(rgb, as.list(x / 255)))
+
+# Place colored bars
+for (ii in 1:length(tiporder)) {
+    tip <- tiporder[ii]
+    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]), y = rep(obj$yy[tip], 2), col = tipcols[ii])
+}
+}
+\references{
+Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631
+
+Rabosky, D. L. (2014). Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees. PLoS ONE, 9(2), e89543. doi:10.1371/journal.pone.0089543
+
+Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+
+Chang, J., Rabosky, D. L., Title, P.O., Alfaro, M. E. (2018). Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
 }

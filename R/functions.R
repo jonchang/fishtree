@@ -1,50 +1,3 @@
-.cache <- rlang::new_environment()
-
-.baseurl <- "https://fishtreeoflife.org/"
-
-.get <- function(url, reader = NULL, quiet = TRUE, ...) {
-  if (exists(url, envir = .cache)) {
-    return(get(url, envir = .cache))
-  }
-
-  if (is.null(reader)) rlang::abort("reader` must be specified when `url` is not in the cache.")
-  tmp <- tempfile()
-  utils::download.file(url, tmp, quiet = quiet)
-  assign(url, reader(tmp, ...), envir = .cache)
-  .get(url)
-}
-
-.fetch_rank <- function(name) {
-  if (length(name) > 1) {
-    rlang::warn(paste0("`", what, "` should be length 1, not ", length(name), ". Only the first element was used (", name[1], ")."))
-    name <- name[1]
-  }
-
-  if (endsWith(name, "idae")) {
-    context <- fishtree_taxonomy(family = name)
-    what <- "family"
-  } else if (endsWith(name, "iformes")) {
-    context <- fishtree_taxonomy(order = name)
-    what <- "order"
-  } else {
-    rlang::abort(paste0("Can't find data for ", name, " (only families and orders are currently supported)."))
-  }
-  list(context, what)
-}
-
-.split_seqs <- function(sequence, raxml_partition_file = paste0(.baseurl, "downloads/final_alignment.partitions")) {
-  partitions <- readLines(raxml_partition_file)
-  tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
-  splat <- strsplit(tt, "[= -]+")
-  part_names <- sapply(splat, `[`, 1)
-  part_start <- as.integer(sapply(splat, `[`, 2))
-  part_end <- as.integer(sapply(splat, `[`, 3))
-  result = list()
-  for (ii in 1:length(part_names)) {
-    result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]
-  }
-  result
-}
 
 #' Download a phylogeny for the fish tree of life
 #'
@@ -53,6 +6,7 @@
 #' @param name Download phylogenies for this rank (only families and orders are currently supported)
 #' @param type Either \code{chronogram} or \code{phylogram}
 #' @return An object of class \code{phylo}
+#' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
 #' surgeons <- fishtree_phylogeny("Acanthuridae")
 #' # Chronograms may not be ultrametric due to numerical precision issues
@@ -96,6 +50,7 @@ fishtree_phylogeny <- function(name = NULL, type = c("chronogram", "phylogram"))
 #' @param order retrieve one or more orders
 #' @return A list, with components containing data on the specified family or order.
 #' @export
+#' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
 #' test <- fishtree_taxonomy(family = "Labridae")
 #' paste("There are ", length(test$sampled_species), "sampled species out of ", length(test$species), "in wrasses.")
@@ -127,8 +82,8 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
 #'
 #' @param name Download an alignment for this rank (only families and orders are currently supported), or NULL for the alignment for all species.
 #' @param split Split the alignment into a list of sequences by gene?
-#' @return An object of class \code{DNAbin}, or a named list of the same if \code{split = TRUE}
-#' @seealso [ape::DNAbin()]
+#' @return An object of class \code{\link[ape]{DNAbin}}, or a named list of the same if \code{split = TRUE}
+#' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @export
 fishtree_alignment <- function(name = NULL, split = FALSE) {
   if (is.null(name)) {
@@ -160,10 +115,34 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #' @param sampled_only only include taxa actually present in the phylogeny?
 #' @return a data.frame
 #' @export
+#' @references
+#' Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631
+#'
+#' Rabosky, D. L. (2014). Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees. PLoS ONE, 9(2), e89543. doi:10.1371/journal.pone.0089543
+#'
+#' Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+#'
+#' Chang, J., Rabosky, D. L., Title, P.O., Alfaro, M. E. (2018). Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
 #' @examples
+#' # Get cichlid rates and trees
 #' rates <- fishtree_tip_rates("Cichlidae")
-#' plot(dr ~ lambda.tv, data = rates, main = "Do BAMM and DR speciation rates correlate?", xlab = "BAMM", ylab = "DR")
-#' abline(0, 1, lty = 2, col = "red")
+#' tree <- fishtree_phylogeny("Cichlidae")
+#'
+#' # Plot tree and extract plotting data
+#' plot(tree, show.tip.label = FALSE)
+#' obj <- get("last_plot.phylo", .PlotPhyloEnv)
+#'
+#' # Generate a color ramp
+#' ramp <- grDevices::colorRamp(c("black", "red"), bias = 10)
+#' tiporder <- match(rates$species, gsub("_", " ", tree$tip.label))
+#' scaled_rates <- rates$lambda.tv / max(rates$lambda.tv, na.rm = TRUE)
+#' tipcols <- apply(ramp(scaled_rates), 1, function(x) do.call(rgb, as.list(x / 255)))
+#'
+#' # Place colored bars
+#' for (ii in 1:length(tiporder)) {
+#'     tip <- tiporder[ii]
+#'     lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]), y = rep(obj$yy[tip], 2), col = tipcols[ii])
+#' }
 fishtree_tip_rates <- function(name = NULL, sampled_only = TRUE) {
   rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", read.csv, row.names = NULL)
   if (is.null(name)) return(rates)

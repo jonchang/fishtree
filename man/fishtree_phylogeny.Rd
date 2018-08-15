@@ -23,6 +23,9 @@ surgeons <- fishtree_phylogeny("Acanthuridae")
 ape::is.ultrametric(surgeons)
 ape::is.ultrametric(surgeons, tol = 0.00001)
 }
+\references{
+Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+}
 \seealso{
 [ape::read.tree()]
 }
