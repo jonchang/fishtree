@@ -20,7 +20,8 @@ Retrieves taxonomic and other information from the Fish Tree of Life API. One of
 }
 \examples{
 test <- fishtree_taxonomy(family = "Labridae")
-paste("There are ", length(test$sampled_species), "sampled species out of ", length(test$species), "in wrasses.")
+paste("There are ", length(test$sampled_species), "sampled species out of",
+      length(test$species), "in wrasses.")
 }
 \references{
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1

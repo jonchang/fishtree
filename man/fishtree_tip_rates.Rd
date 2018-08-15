@@ -26,7 +26,7 @@ tree <- fishtree_phylogeny("Cichlidae")
 
 # Plot tree and extract plotting data
 plot(tree, show.tip.label = FALSE)
-obj <- get("last_plot.phylo", .PlotPhyloEnv)
+obj <- get("last_plot.phylo", ape::.PlotPhyloEnv)
 
 # Generate a color ramp
 ramp <- grDevices::colorRamp(c("black", "red"), bias = 10)
@@ -37,7 +37,9 @@ tipcols <- apply(ramp(scaled_rates), 1, function(x) do.call(rgb, as.list(x / 255
 # Place colored bars
 for (ii in 1:length(tiporder)) {
     tip <- tiporder[ii]
-    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]), y = rep(obj$yy[tip], 2), col = tipcols[ii])
+    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]),
+          y = rep(obj$yy[tip], 2),
+          col = tipcols[ii])
 }
 }
 \references{

@@ -53,7 +53,8 @@ fishtree_phylogeny <- function(name = NULL, type = c("chronogram", "phylogram"))
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
 #' test <- fishtree_taxonomy(family = "Labridae")
-#' paste("There are ", length(test$sampled_species), "sampled species out of ", length(test$species), "in wrasses.")
+#' paste("There are ", length(test$sampled_species), "sampled species out of",
+#'       length(test$species), "in wrasses.")
 fishtree_taxonomy <- function(family = NULL, order = NULL) {
   if (!is.null(family) && !is.null(order))
     rlang::abort("Either `family` or `order` must be specified, not both.")
@@ -130,7 +131,7 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #'
 #' # Plot tree and extract plotting data
 #' plot(tree, show.tip.label = FALSE)
-#' obj <- get("last_plot.phylo", .PlotPhyloEnv)
+#' obj <- get("last_plot.phylo", ape::.PlotPhyloEnv)
 #'
 #' # Generate a color ramp
 #' ramp <- grDevices::colorRamp(c("black", "red"), bias = 10)
@@ -141,10 +142,12 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #' # Place colored bars
 #' for (ii in 1:length(tiporder)) {
 #'     tip <- tiporder[ii]
-#'     lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]), y = rep(obj$yy[tip], 2), col = tipcols[ii])
+#'     lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]),
+#'           y = rep(obj$yy[tip], 2),
+#'           col = tipcols[ii])
 #' }
 fishtree_tip_rates <- function(name = NULL, sampled_only = TRUE) {
-  rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", read.csv, row.names = NULL)
+  rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
   if (is.null(name)) return(rates)
   res <- .fetch_rank(name)
   ctx <- res[[1]][[1]]
