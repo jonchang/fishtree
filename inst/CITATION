@@ -1,0 +1,16 @@
+citHeader("To cite the 'fishtree' package in publications use:")
+
+#year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+#vers <- paste("R package version", meta$Version)
+
+citEntry(entry="Book",
+         title = "RFISH",
+         author = personList(as.person("Jonathan Chang"),
+                             as.person("Daniel L Rabosky"),
+                             as.person("Stephen A Smith"),
+                             as.person("Michael E Alfaro")),
+         #publisher = "Cambridge University Press",
+         year     = "2018",
+         #url      = "https",
+         textVersion = "XXXYYY"
+         )

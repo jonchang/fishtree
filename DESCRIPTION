@@ -25,3 +25,10 @@ Imports:
     rlang (>= 0.2.1),
     jsonlite (>= 1.5),
     utils
+Suggests:
+    rfishbase,
+    hisse,
+    geiger,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
