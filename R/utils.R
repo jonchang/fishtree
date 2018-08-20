@@ -21,7 +21,7 @@
 # Auto detects the rank from the name and downloads the relevant taxonomy file
 .fetch_rank <- function(name) {
   if (length(name) > 1) {
-    rlang::warn(paste0("`", what, "` should be length 1, not ", length(name), ". Only the first element was used (", name[1], ")."))
+    rlang::warn(paste0("`name` should be length 1, not ", length(name), ". Only the first element was used (", name[1], ")."))
     name <- name[1]
   }
 
