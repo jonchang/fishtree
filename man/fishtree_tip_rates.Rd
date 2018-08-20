@@ -2,19 +2,19 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_tip_rates}
 \alias{fishtree_tip_rates}
-\title{Tip rates for the Fish Tree of Life}
+\title{Get tip rates for the Fish Tree of Life}
 \usage{
 fishtree_tip_rates(species, rank, sampled_only = TRUE)
 }
 \arguments{
-\item{species}{optionally subset by a vector of species names.}
+\item{species}{(Optionally) subset the results based on a vector of species names.}
 
-\item{rank}{optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)}
+\item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
-\item{sampled_only}{only include taxa actually present in the phylogeny?}
+\item{sampled_only}{Restricts the returned dataset to only those species that have genetic data available. Defaults to `TRUE`.}
 }
 \value{
-a data.frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. DR refers to the DR statistic (see references), while lambda and mu are speciation and extinction, respectively.
+A data frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. The `dr` column refers to the DR statistic, while `lambda` and `mu` are speciation and extinction, respectively.
 }
 \description{
 Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an

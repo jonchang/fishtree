@@ -1,12 +1,12 @@
 
-#' Phylogenies from the Fish Tree of Life
+#' Get a phylogeny from the Fish Tree of Life
 #'
 #' Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 #'
-#' @param species optionally subset by a vector of species names.
-#' @param rank optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)
-#' @param type Either \code{chronogram} or \code{phylogram}
-#' @return An object of class \code{phylo}
+#' @param species (Optionally) subset the results based on a vector of species names.
+#' @param rank (Optionally) subset the results based on the supplied taxonomic rank.
+#' @param type Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change.
+#' @return An object of class `"phylo"`.
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
 #' surgeons <- fishtree_phylogeny("Acanthuridae")
@@ -51,13 +51,13 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
   }
 }
 
-#' Taxonomies and other data from the Fish Tree of Life
+#' Get taxonomies and other data from the Fish Tree of Life
 #'
-#' Retrieves taxonomic and other information from the Fish Tree of Life API. One of
-#' \code{family} or \code{order} must be specified.
+#' Retrieves taxonomic and other information from the Fish Tree of Life API. Either
+#' `family` or `order` must be specified.
 #'
-#' @param family retrieve one or more families
-#' @param order retrieve one or more orders
+#' @param family One or more families to retrieve.
+#' @param order One or more orders to retrieve.
 #' @return A list, with components containing data on the specified family or order.
 #' @export
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
@@ -83,13 +83,15 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
   return(ff)
 }
 
-#' Aligned sequences from the Fish Tree of Life
+#' Get aligned sequences from the Fish Tree of Life
 #'
 #' Retrieves an aligned sequence via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire sequence matrix.
 #'
 #' @inheritParams fishtree_phylogeny
-#' @return An object of class \code{\link[ape]{DNAbin}}, or a named list of the same if \code{split = TRUE}
+#' @param split Splits the output into a list by gene locus.
+#' @return An object of class `"DNAbin"`, or a named list of the same if `split = TRUE``
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+#' @seealso \link[ape]{DNAbin}
 #' @export
 fishtree_alignment <- function(species, rank, split = FALSE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
@@ -115,15 +117,15 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
   dna
 }
 
-#' Tip rates for the Fish Tree of Life
+#' Get tip rates for the Fish Tree of Life
 #'
 #' Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 #' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
 #' a lineage is more likely to split a new lineage at the present time. If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
 #'
 #' @inheritParams fishtree_phylogeny
-#' @param sampled_only only include taxa actually present in the phylogeny?
-#' @return a data.frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. DR refers to the DR statistic (see references), while lambda and mu are speciation and extinction, respectively.
+#' @param sampled_only Restricts the returned dataset to only those species that have genetic data available. Defaults to `TRUE`.
+#' @return A data frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. The `dr` column refers to the DR statistic, while `lambda` and `mu` are speciation and extinction, respectively.
 #' @export
 #' @references
 #' DR rates (supplement, section 1.2.2): Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631

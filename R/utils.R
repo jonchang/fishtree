@@ -1,11 +1,26 @@
 # Non-exported utilities for the fishtree package
 
+#' The base URL for the Fish Tree of Life API endpoint
+#' @noRd
 .baseurl <- "https://fishtreeoflife.org/"
 
-# Cache so we don't have to redownload the huge files
+#' Cache object, to avoid redownloading massive files constantly
+#' @noRd
 .cache <- rlang::new_environment()
 
-# Gets data from a URL, or from the cache if it's there.
+#' Gets data from a URL, or a cache keyed by the same
+#'
+#' Uses the `.cache` internal object to check if an object keyed by `url` exists.
+#' If it does, returns it. Otherwise, it will download the `url` to a temporary
+#' file and load it with the `reader` function.
+#'
+#' @param url The URL to retrieve, and the key for the cached data for the same.
+#' @param reader A function responsible for parsing the downloaded data. Its
+#'   first parameter should take a file name.
+#' @param quiet Should we \code{\link{download.file}} quietly? Defaults to `TRUE`.
+#' @param ... Additional arguments passed to `reader`.
+#' @return Whatever `reader` returns.
+#' @noRd
 .get <- function(url, reader, quiet = TRUE, ...) {
   if (exists(url, envir = .cache)) {
     return(get(url, envir = .cache))
@@ -18,7 +33,18 @@
   .get(url)
 }
 
-# Like the geiger function of yore, checks a set of names that we have against a known set of valid names
+#' Reconcile names against a known good set
+#'
+#' Ensures that two lists of species names matche up. Automatically accounts
+#' for underscores and spaces.
+#'
+#' @param wanted_names A vector of names to check for validity.
+#' @param valid_names A vector of names known to be valid. Defaults to the
+#'   species in the phylogeny from \code{\link{fishtree_phylogeny}}.
+#' @param warn Warn the user if we find a mismatch? Defaults to `TRUE`.
+#' @return A vector of valid names, possibly smaller than `wanted_names`.
+#' @seealso \code\link[geiger]{name.check}
+#' @noRd
 .name_check <- function(wanted_names, valid_names = fishtree_phylogeny()$tip.label, warn = TRUE) {
   missing <- setdiff(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
   if (!rlang::is_empty(missing)) {
@@ -28,9 +54,6 @@
     if (warn) rlang::warn(paste0("Requested ", length(wanted_names), " but only found ", length(wanted_names) - length(missing), " species. Missing names:\n", missing_str))
   }
   intersect(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
-}
-
-.detect_rank <- function(name) {
 }
 
 # Auto detects the rank from the name and downloads the relevant taxonomy file

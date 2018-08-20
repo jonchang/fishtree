@@ -2,21 +2,21 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_taxonomy}
 \alias{fishtree_taxonomy}
-\title{Taxonomies and other data from the Fish Tree of Life}
+\title{Get taxonomies and other data from the Fish Tree of Life}
 \usage{
 fishtree_taxonomy(family = NULL, order = NULL)
 }
 \arguments{
-\item{family}{retrieve one or more families}
+\item{family}{One or more families to retrieve.}
 
-\item{order}{retrieve one or more orders}
+\item{order}{One or more orders to retrieve.}
 }
 \value{
 A list, with components containing data on the specified family or order.
 }
 \description{
-Retrieves taxonomic and other information from the Fish Tree of Life API. One of
-\code{family} or \code{order} must be specified.
+Retrieves taxonomic and other information from the Fish Tree of Life API. Either
+`family` or `order` must be specified.
 }
 \examples{
 test <- fishtree_taxonomy(family = "Labridae")

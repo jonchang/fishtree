@@ -2,19 +2,19 @@
 % Please edit documentation in R/functions.R
 \name{fishtree_phylogeny}
 \alias{fishtree_phylogeny}
-\title{Phylogenies from the Fish Tree of Life}
+\title{Get a phylogeny from the Fish Tree of Life}
 \usage{
 fishtree_phylogeny(species, rank, type = c("chronogram", "phylogram"))
 }
 \arguments{
-\item{species}{optionally subset by a vector of species names.}
+\item{species}{(Optionally) subset the results based on a vector of species names.}
 
-\item{rank}{optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)}
+\item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
-\item{type}{Either \code{chronogram} or \code{phylogram}}
+\item{type}{Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change.}
 }
 \value{
-An object of class \code{phylo}
+An object of class `"phylo"`.
 }
 \description{
 Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
