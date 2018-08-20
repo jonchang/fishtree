@@ -30,7 +30,7 @@ First, load the `fishtree` package and download the subset of the Fish Tree of L
 ```{r, fig.width = 7, fig.height = 7}
 library(fishtree)
 
-tree <- fishtree_phylogeny("Tetraodontiformes")
+tree <- fishtree_phylogeny(rank = "Tetraodontiformes")
 
 plot(tree, show.tip.label = FALSE, no.margin = TRUE)
 ```
@@ -90,7 +90,7 @@ Ntip(tree) == nrow(reef)
 There are several other data sources available in the `fishtree` package, including speciation rates computed via the DR method (CITE). Retrieve speciation rate data:
 
 ```{r}
-rates <- fishtree_tip_rates("Tetraodontiformes")
+rates <- fishtree_tip_rates(rank = "Tetraodontiformes")
 head(rates)
 ```
 

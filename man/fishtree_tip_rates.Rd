@@ -4,25 +4,27 @@
 \alias{fishtree_tip_rates}
 \title{Tip rates for the Fish Tree of Life}
 \usage{
-fishtree_tip_rates(name = NULL, sampled_only = TRUE)
+fishtree_tip_rates(species, rank, sampled_only = TRUE)
 }
 \arguments{
-\item{name}{optionally subset by a taxonomy rank (currently restricted to family and order)}
+\item{species}{optionally subset by a vector of species names.}
+
+\item{rank}{optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)}
 
 \item{sampled_only}{only include taxa actually present in the phylogeny?}
 }
 \value{
-a data.frame
+a data.frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. DR refers to the DR statistic (see references), while lambda and mu are speciation and extinction, respectively.
 }
 \description{
 Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
-a lineage is more likely to split a new lineage at the present time.
+a lineage is more likely to split a new lineage at the present time. If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
 }
 \examples{
 # Get cichlid rates and trees
-rates <- fishtree_tip_rates("Cichlidae")
-tree <- fishtree_phylogeny("Cichlidae")
+rates <- fishtree_tip_rates(rank = "Cichlidae")
+tree <- fishtree_phylogeny(rank = "Cichlidae")
 
 # Plot tree and extract plotting data
 plot(tree, show.tip.label = FALSE)

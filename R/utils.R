@@ -6,12 +6,12 @@
 .cache <- rlang::new_environment()
 
 # Gets data from a URL, or from the cache if it's there.
-.get <- function(url, reader = NULL, quiet = TRUE, ...) {
+.get <- function(url, reader, quiet = TRUE, ...) {
   if (exists(url, envir = .cache)) {
     return(get(url, envir = .cache))
   }
 
-  if (is.null(reader)) rlang::abort("reader` must be specified when `url` is not in the cache.")
+  if (rlang::is_missing(reader)) rlang::abort("reader` must be specified when `url` is not in the cache.")
   tmp <- tempfile()
   utils::download.file(url, tmp, quiet = quiet)
   assign(url, reader(tmp, ...), envir = .cache)
@@ -30,9 +30,12 @@
   intersect(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
 }
 
+.detect_rank <- function(name) {
+}
+
 # Auto detects the rank from the name and downloads the relevant taxonomy file
 .fetch_rank <- function(name) {
-  if (length(name) > 1) {
+  if (!rlang::is_scalar_character(name)) {
     rlang::warn(paste0("`name` should be length 1, not ", length(name), ". Only the first element was used (", name[1], ")."))
     name <- name[1]
   }
@@ -44,7 +47,7 @@
     context <- fishtree_taxonomy(order = name)
     what <- "order"
   } else {
-    rlang::abort(paste0("Can't find data for ", name, " (only families and orders are currently supported)."))
+    rlang::abort(paste0("Can't find data for `", name, "`` (only families and orders are currently supported)."))
   }
   list(context, what)
 }
@@ -56,8 +59,8 @@
   tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
   splat <- strsplit(tt, "[= -]+")
   part_names <- sapply(splat, `[`, 1)
-  part_start <- as.integer(sapply(splat, `[`, 2))
-  part_end <- as.integer(sapply(splat, `[`, 3))
+  part_start <- rlang::as_integer(sapply(splat, `[`, 2))
+  part_end <- rlang::as_integer(sapply(splat, `[`, 3))
   result = list()
   for (ii in 1:length(part_names)) {
     result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]

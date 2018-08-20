@@ -1,9 +1,10 @@
 
 #' Phylogenies from the Fish Tree of Life
 #'
-#' Retrieves a phylogeny via the Fish Tree of Life API
+#' Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 #'
-#' @param name Download phylogenies for this rank (only families and orders are currently supported)
+#' @param species optionally subset by a vector of species names.
+#' @param rank optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)
 #' @param type Either \code{chronogram} or \code{phylogram}
 #' @return An object of class \code{phylo}
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
@@ -14,31 +15,40 @@
 #' ape::is.ultrametric(surgeons, tol = 0.00001)
 #' @seealso [ape::read.tree()]
 #' @export
-fishtree_phylogeny <- function(name = NULL, type = c("chronogram", "phylogram")) {
+fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram")) {
+  if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+
   type <- rlang::arg_match(type)
+  fullurl <- switch(type,
+                    chronogram = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
+                    phylogram = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz")
 
-  if (is.null(name)) {
-    if (type == "chronogram")
-      return(.get("https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz", ape::read.tree))
-    if (type == "phylogram")
-      return(.get("https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz"), ape::read.tree)
+  if (rlang::is_missing(rank)) {
+    if (rlang::is_missing(species)) return(.get(fullurl, ape::read.tree))
+    if (length(species) < 2) rlang::abort("Must include at least 2 tips in `species`")
+    valid_names <- .name_check(species)
+    if (length(valid_names) < 2) rlang::abort("Must include at least 2 sampled tips in `species`")
+    tree <- .get(fullurl, ape::read.tree)
+    return(ape::drop.tip(tree, tree$tip.label[!tree$tip.label %in% gsub(" ", "_", valid_names)]))
   }
 
-  res <- .fetch_rank(name)
-  context <- res[[1]][[1]]
-  what <- res[[2]]
+  if (!rlang::is_missing(rank)) {
+    res <- .fetch_rank(rank)
+    context <- res[[1]][[1]]
+    what <- res[[2]]
 
-  if (length(context) < 1) rlang::abort(paste("Can't find data for", what, name))
+    if (length(context) < 1) rlang::abort(paste("Can't find data for", what, rank))
 
-  url <- context[[type]]
-  if (is.null(url)) {
-      msg <- paste("Can't retrieve a", type, "for", what, name, "because")
-      if (length(context$species) == 1) msg <- paste(msg, "it is monotypic.")
-      else if (length(context$species) < 3) msg <- paste0(msg, " it has too few species (", length(context$species), ").")
-      else if (length(context$sampled_species) < 3) msg <- paste0(msg, " it has too few species sampled (", length(context$sampled_species), ").")
-      rlang::abort(msg)
+    url <- context[[type]]
+    if (rlang::is_empty(url)) {
+        msg <- paste("Can't retrieve a", type, "for", what, rank, "because")
+        if (length(context$species) == 1) msg <- paste(msg, "it is monotypic.")
+        else if (length(context$species) < 3) msg <- paste0(msg, " it has too few species (", length(context$species), ").")
+        else if (length(context$sampled_species) < 3) msg <- paste0(msg, " it has too few species sampled (", length(context$sampled_species), ").")
+        rlang::abort(msg)
+    }
+    return(.get(paste0(.baseurl, url), ape::read.tree))
   }
-  return(.get(paste0(.baseurl, url), ape::read.tree))
 }
 
 #' Taxonomies and other data from the Fish Tree of Life
@@ -73,49 +83,47 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
   return(ff)
 }
 
-.fastDNAbin <- function(dnafile, nlines = 0) {
-  scan(dnafile, what = list(character(), character()), quiet = TRUE, nlines = nlines, strip.white = TRUE, skip = 1)
-}
-
 #' Aligned sequences from the Fish Tree of Life
 #'
-#' Retrieves an aligned sequence via the Fish Tree of Life API.
+#' Retrieves an aligned sequence via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire sequence matrix.
 #'
-#' @param name Download an alignment for this rank (only families and orders are currently supported), or NULL for the alignment for all species.
-#' @param split Split the alignment into a list of sequences by gene?
+#' @inheritParams fishtree_phylogeny
 #' @return An object of class \code{\link[ape]{DNAbin}}, or a named list of the same if \code{split = TRUE}
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @export
-fishtree_alignment <- function(name = NULL, split = FALSE) {
-  if (is.null(name)) {
+fishtree_alignment <- function(species, rank, split = FALSE) {
+  if (!rlang::is_missing(species) && !rlang::is_missing(rank))
+    rlang::warn("Supplying both `species` and `rank` arguments may limit the number of results you see")
+
+  if (rlang::is_missing(rank)) {
     url <- "https://fishtreeoflife.org/downloads/final_alignment.phylip.xz"
     if(!exists(url, envir = .cache)) rlang::inform("Loading alignment for all species, this will take a while...")
     nlines <- 11650
   } else {
-    res <- .fetch_rank(name)
+    res <- .fetch_rank(rank)
     context <- res[[1]][[1]]
     what <- res[[2]]
 
-    if (is.null(context$matrix_phylip)) rlang::abort(paste("Can't find sequences for", what, name, "because there are too few sampled species."))
+    if (is.null(context$matrix_phylip)) rlang::abort(paste("Can't find sequences for", what, rank, "because there are too few sampled species."))
     url <- paste0(.baseurl, context$matrix_phylip)
     nlines <- length(context$sampled_species) + 2
   }
 
   dna <- .get(url, ape::read.dna, format = "sequential", nlines = nlines)
+  if (!rlang::is_missing(species)) dna <- dna[.name_check(species), ]
   if (split) dna <- .split_seqs(dna)
-  return(dna)
+  dna
 }
 
 #' Tip rates for the Fish Tree of Life
 #'
 #' Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 #' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
-#' a lineage is more likely to split a new lineage at the present time.
+#' a lineage is more likely to split a new lineage at the present time. If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
 #'
-#' @param species optionally subset by a vector of species names
-#' @param rank optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)
+#' @inheritParams fishtree_phylogeny
 #' @param sampled_only only include taxa actually present in the phylogeny?
-#' @return a data.frame
+#' @return a data.frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. DR refers to the DR statistic (see references), while lambda and mu are speciation and extinction, respectively.
 #' @export
 #' @references
 #' DR rates (supplement, section 1.2.2): Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631
@@ -127,8 +135,8 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #' Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
 #' @examples
 #' # Get cichlid rates and trees
-#' rates <- fishtree_tip_rates("Cichlidae")
-#' tree <- fishtree_phylogeny("Cichlidae")
+#' rates <- fishtree_tip_rates(rank = "Cichlidae")
+#' tree <- fishtree_phylogeny(rank = "Cichlidae")
 #'
 #' # Plot tree and extract plotting data
 #' plot(tree, show.tip.label = FALSE)
@@ -147,13 +155,13 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #'           y = rep(obj$yy[tip], 2),
 #'           col = tipcols[ii])
 #' }
-fishtree_tip_rates <- function(species = NULL, rank = NULL, sampled_only = TRUE) {
-  if (!is.null(species) && !is.null(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
+  if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
-  if (is.null(species) & is.null(rank)) return(rates)
+  if (rlang::is_missing(species) && rlang::is_missing(rank)) return(rates)
 
-  if (!is.null(species)) {
+  if (!rlang::is_missing(species)) {
     # Figure out what species are in the tree to begin with
     tree <- fishtree_phylogeny()
     tips <- gsub("_", " ", tree$tip.label)
@@ -162,24 +170,17 @@ fishtree_tip_rates <- function(species = NULL, rank = NULL, sampled_only = TRUE)
     all_species <- rates[rates$species %in% requested_species, ]
     if (sampled_only) wanted <- sampled_species
     else wanted <- all_species
-    missing <- setdiff(requested_species, wanted$species)
-    if (length(missing) > 0) {
-      tmp <- missing
-      if (length(missing) > 10) tmp <- c(missing[1:10], paste("(and", length(missing) - 10, "other species)"))
-      missing_str <- paste("*", tmp, collapse = "\n")
-      rlang::warn(paste0("Requested ", length(requested_species), " but only retrieved ", nrow(wanted), " species. Unmatched species:\n", missing_str))
-    }
     return(wanted)
   }
 
-  if (!is.null(rank)) {
-    res <- .fetch_rank(species)
+  if (!rlang::is_missing(rank)) {
+    res <- .fetch_rank(rank)
     sampled_species <- res[[1]][[1]]$sampled_species
     species <- res[[1]][[1]]$species
     what <- res[[2]]
     if (sampled_only) wanted <- sampled_species
     else wanted <- species
-    if (length(wanted) < 1) rlang::abort(paste("Can't get tip rates for", what, name, "because there are not enough sampled species"))
+    if (rlang::is_empty(wanted)) rlang::abort(paste("Can't get tip rates for", what, rank, "because there are not enough sampled species"))
     return(rates[rates$species %in% wanted, ])
   }
 }

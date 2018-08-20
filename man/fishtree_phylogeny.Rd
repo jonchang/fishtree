@@ -4,10 +4,12 @@
 \alias{fishtree_phylogeny}
 \title{Phylogenies from the Fish Tree of Life}
 \usage{
-fishtree_phylogeny(name = NULL, type = c("chronogram", "phylogram"))
+fishtree_phylogeny(species, rank, type = c("chronogram", "phylogram"))
 }
 \arguments{
-\item{name}{Download phylogenies for this rank (only families and orders are currently supported)}
+\item{species}{optionally subset by a vector of species names.}
+
+\item{rank}{optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)}
 
 \item{type}{Either \code{chronogram} or \code{phylogram}}
 }
@@ -15,7 +17,7 @@ fishtree_phylogeny(name = NULL, type = c("chronogram", "phylogram"))
 An object of class \code{phylo}
 }
 \description{
-Retrieves a phylogeny via the Fish Tree of Life API
+Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 }
 \examples{
 surgeons <- fishtree_phylogeny("Acanthuridae")
