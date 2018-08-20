@@ -9,11 +9,12 @@
 #' @return An object of class `"phylo"`.
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
-#' surgeons <- fishtree_phylogeny("Acanthuridae")
+#' surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
+#'
 #' # Chronograms may not be ultrametric due to numerical precision issues
 #' ape::is.ultrametric(surgeons)
 #' ape::is.ultrametric(surgeons, tol = 0.00001)
-#' @seealso [ape::read.tree()]
+#' @seealso \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 #' @export
 fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram")) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")

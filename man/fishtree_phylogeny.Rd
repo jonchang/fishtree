@@ -20,7 +20,8 @@ An object of class `"phylo"`.
 Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 }
 \examples{
-surgeons <- fishtree_phylogeny("Acanthuridae")
+surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
+
 # Chronograms may not be ultrametric due to numerical precision issues
 ape::is.ultrametric(surgeons)
 ape::is.ultrametric(surgeons, tol = 0.00001)
@@ -29,5 +30,5 @@ ape::is.ultrametric(surgeons, tol = 0.00001)
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 }
 \seealso{
-[ape::read.tree()]
+\code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 }
