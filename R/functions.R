@@ -112,7 +112,8 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
 #' a lineage is more likely to split a new lineage at the present time.
 #'
-#' @param name optionally subset by a taxonomy rank (currently restricted to family and order)
+#' @param species optionally subset by a vector of species names
+#' @param rank optionally subset by a taxonomy rank (a vector of length 1, currently restricted to family and order)
 #' @param sampled_only only include taxa actually present in the phylogeny?
 #' @return a data.frame
 #' @export
@@ -146,14 +147,39 @@ fishtree_alignment <- function(name = NULL, split = FALSE) {
 #'           y = rep(obj$yy[tip], 2),
 #'           col = tipcols[ii])
 #' }
-fishtree_tip_rates <- function(name = NULL, sampled_only = TRUE) {
+fishtree_tip_rates <- function(species = NULL, rank = NULL, sampled_only = TRUE) {
+  if (!is.null(species) && !is.null(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+
   rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
-  if (is.null(name)) return(rates)
-  res <- .fetch_rank(name)
-  ctx <- res[[1]][[1]]
-  what <- res[[2]]
-  if (sampled_only) wanted <- ctx$sampled_species
-  else wanted <- ctx$species
-  if (length(wanted) < 1) rlang::abort(paste("Can't get tip rates for", what, name, "because there are not enough sampled species"))
-  return(rates[rates$species %in% wanted, ])
+  if (is.null(species) & is.null(rank)) return(rates)
+
+  if (!is.null(species)) {
+    # Figure out what species are in the tree to begin with
+    tree <- fishtree_phylogeny()
+    tips <- gsub("_", " ", tree$tip.label)
+    requested_species <- gsub("_", " ", species)
+    sampled_species <- rates[rates$species %in% intersect(requested_species, tips), ]
+    all_species <- rates[rates$species %in% requested_species, ]
+    if (sampled_only) wanted <- sampled_species
+    else wanted <- all_species
+    missing <- setdiff(requested_species, wanted$species)
+    if (length(missing) > 0) {
+      tmp <- missing
+      if (length(missing) > 10) tmp <- c(missing[1:10], paste("(and", length(missing) - 10, "other species)"))
+      missing_str <- paste("*", tmp, collapse = "\n")
+      rlang::warn(paste0("Requested ", length(requested_species), " but only retrieved ", nrow(wanted), " species. Unmatched species:\n", missing_str))
+    }
+    return(wanted)
+  }
+
+  if (!is.null(rank)) {
+    res <- .fetch_rank(species)
+    sampled_species <- res[[1]][[1]]$sampled_species
+    species <- res[[1]][[1]]$species
+    what <- res[[2]]
+    if (sampled_only) wanted <- sampled_species
+    else wanted <- species
+    if (length(wanted) < 1) rlang::abort(paste("Can't get tip rates for", what, name, "because there are not enough sampled species"))
+    return(rates[rates$species %in% wanted, ])
+  }
 }
