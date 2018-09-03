@@ -94,6 +94,16 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @seealso \link[ape]{DNAbin}
 #' @export
+#' @examples
+#' surgeon_dna <- fishtree_alignment(rank = "Acanthuridae", split = TRUE)
+#' surgeon_dna[[1]]
+#' \dontrun{
+#' par(mfrow = c(9, 3), mar = c(0.5, 0.5, 1, 0.5), xaxt = "n", yaxt = "n")
+#' for (gene in names(surgeon_dna)) {
+#'   image(surgeon_dna[[gene]], legend = FALSE, show.labels = FALSE)
+#'   title(gene)
+#' }
+#' }
 fishtree_alignment <- function(species, rank, split = FALSE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
     rlang::warn("Supplying both `species` and `rank` arguments may limit the number of results you see")
