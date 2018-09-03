@@ -9,8 +9,6 @@ citEntry(entry="Article",
                              as.person("Daniel L Rabosky"),
                              as.person("Stephen A Smith"),
                              as.person("Michael E Alfaro")),
-         #publisher = "Cambridge University Press",
-         year     = "2018"
-         #url      = "https",
-         #textVersion = "XXXYYY"
+         year     = "2018",
+         textVersion = "Chang et al. An R package and online resource for the ray-finned fish tree of life."
          )
