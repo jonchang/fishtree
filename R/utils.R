@@ -82,8 +82,8 @@
   tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
   splat <- strsplit(tt, "[= -]+")
   part_names <- sapply(splat, `[`, 1)
-  part_start <- rlang::as_integer(sapply(splat, `[`, 2))
-  part_end <- rlang::as_integer(sapply(splat, `[`, 3))
+  part_start <- as.integer(sapply(splat, `[`, 2))
+  part_end <- as.integer(sapply(splat, `[`, 3))
   result = list()
   for (ii in 1:length(part_names)) {
     result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]
