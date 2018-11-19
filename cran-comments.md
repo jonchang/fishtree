@@ -1,3 +1,10 @@
+## Resubmission
+This is a resubmission. In response to maintainer comments:
+
+> Please only ship the CRAN template for the BSD_2_clause license.
+
+I have updated the LICENSE file to use the CRAN template.
+
 ## Test environments
 * local OS X install, R 3.5.1
 * ubuntu 14.04 (on travis-ci), R 3.4.4 and 3.5.1
