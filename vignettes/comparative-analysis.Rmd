@@ -25,7 +25,7 @@ To demonstrate the functionality of the `fishtree` package and how it integrates
 
 A common hypothesis tested in comparative methods is whether habitat shifts drive rates of diversification in various groups. For example, [Santini et al. (2013)](https://doi.org/10.1111/jeb.12112) tested, among other things, whether reef-associated pufferfishes enjoyed faster rates of speciation compared to their non-reef relatives.
 
-First, load the `fishtree` package and download the subset of the Fish Tree of Life corresponding to the taxon of interest. To make things more interesting we'll work on the entire order ([Tetraodontiformes](https://fishtreeoflife.org/order/Tetraodontiformes)) rather than the family in the 2013 study.
+First, load the `fishtree` package and download the subset of the Fish Tree of Life corresponding to the taxon of interest. To make things more interesting we'll work on the entire order ([Tetraodontiformes](https://fishtreeoflife.org/taxonomy/order/Tetraodontiformes/)) rather than the family in the 2013 study.
 
 ```{r, fig.width = 7, fig.height = 7}
 library(fishtree)

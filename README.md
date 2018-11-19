@@ -18,6 +18,6 @@ install.packages("fishtree")
 library(fishtree)
 library(ape)
 phy <- fishtree_phylogeny("Acanthuridae")
-branchin.times(phy)
+branching.times(phy)
 ```
 
