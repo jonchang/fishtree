@@ -42,7 +42,8 @@ library(rfishbase)
 
 tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
 
-fb_results <- species(species_list = tips, fields = c("sciname", "DemersPelag"), limit = 5000)
+fb_results <- species(species_list = tips, fields = c("Species", "DemersPelag"))
+fb_results <- fb_results[!is.na(fb_results$Species), ]
 head(fb_results)
 ```
 
@@ -51,7 +52,7 @@ Note that we had to replace the underscores in the tip labels with spaces. This 
 There's a lot of data in the `DemersPelag` field, but we only want to know if the species is reef-associated or not.
 
 ```{r}
-reef <- data.frame(tip = gsub(" ", "_", fb_results$sciname),
+reef <- data.frame(tip = gsub(" ", "_", fb_results$Species),
                    is_reef = as.numeric(fb_results$DemersPelag == "reef-associated"))
 head(reef)
 ```
@@ -106,8 +107,10 @@ As a quick check our data, let's plot histograms of the DR rate of reef and non-
 
 ```{r, fig.width = 7, fig.height = 7}
 breaks <- seq(min(merged$dr), max(merged$dr), length.out = 30)
-hist(subset(merged, is_reef == 1)$dr, col = "orange", density = 20, angle = 135, breaks = breaks)
-hist(subset(merged, is_reef == 0)$dr, col = "purple", density = 20, angle = 45, breaks = breaks, add = TRUE)
+hist(subset(merged, is_reef == 1)$dr, col = "orange", density = 20, angle = 135,
+     breaks = breaks)
+hist(subset(merged, is_reef == 0)$dr, col = "purple", density = 20, angle = 45,
+     breaks = breaks, add = TRUE)
 ```
 
 It seems like for the most part, the Tetraodontiformes have a low speciation rate, except for a subset of non-reef species that have a faster rate.
@@ -128,7 +131,9 @@ tipcols <- apply(ramp(scaled_rates), 1, function(x) do.call(rgb, as.list(x / 255
 # Place colored bars
 for (ii in 1:length(tiporder)) {
     tip <- tiporder[ii]
-    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] * 1.5 + 0.5 + scaled_rates[ii]), y = rep(obj$yy[tip], 2), col = tipcols[ii])
+    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] * 1.5 + 0.5 + scaled_rates[ii]),
+          y = rep(obj$yy[tip], 2),
+          col = tipcols[ii])
 }
 ```
 
@@ -147,8 +152,14 @@ First we'll construct and run the BiSSE model and the BiSSE null model:
 
 ```{r}
 trans.rates.bisse <- ParEqual(TransMatMaker(hidden.states = FALSE), c(1, 2))
-pp.bisse.full <- hisse(tree, reef, hidden.states = FALSE, turnover.anc = c(1,2,0,0), eps.anc = c(1,1,0,0), trans.rate = trans.rates.bisse, output.type="raw")
-pp.bisse.null <- hisse(tree, reef, hidden.states = FALSE, turnover.anc = c(1,1,0,0), eps.anc = c(1,1,0,0), trans.rate = trans.rates.bisse, output.type="raw")
+
+pp.bisse.full <- hisse(tree, reef, hidden.states = FALSE,
+                       turnover.anc = c(1,2,0,0), eps.anc = c(1,1,0,0),
+                       trans.rate = trans.rates.bisse, output.type="raw")
+
+pp.bisse.null <- hisse(tree, reef, hidden.states = FALSE,
+                       turnover.anc = c(1,1,0,0), eps.anc = c(1,1,0,0),
+                       trans.rate = trans.rates.bisse, output.type="raw")
 ```
 
 Next, we'll run the full hisse model, save for the constrained transition rates and epsilon.
@@ -157,13 +168,18 @@ Next, we'll run the full hisse model, save for the constrained transition rates 
 trans.rates.hisse <- TransMatMaker(hidden.states = TRUE)
 trans.rates.hisse <- ParDrop(trans.rates.hisse, c(3,5,8,10))
 trans.rates.hisse <- ParEqual(trans.rates.hisse, c(1,2,1,3,1,4,1,5,1,6,1,7,1,8))
-pp.hisse.full <- hisse(tree, reef, hidden.states = TRUE, turnover.anc=c(1,2,3,4), eps.anc=c(1,1,1,1), trans.rate=trans.rates.hisse, output.type="raw")
+
+pp.hisse.full <- hisse(tree, reef, hidden.states = TRUE,
+                       turnover.anc=c(1,2,3,4), eps.anc=c(1,1,1,1),
+                       trans.rate=trans.rates.hisse, output.type="raw")
 ```
 
 Finally, we'll build the 2 state character independent diversification model, sometimes called CID-2. We'll use this as our null model by forcing the visible states (reef or non-reef) to have the same net turnover rates, while permitting the hidden states to vary freely.
 
 ```{r}
-pp.hisse.null2 <- hisse(tree, reef, hidden.states = TRUE, turnover.anc=c(1,1,2,2), eps.anc=c(1,1,1,1), trans.rate=trans.rates.hisse, output.type="raw")
+pp.hisse.null2 <- hisse(tree, reef, hidden.states = TRUE,
+                        turnover.anc=c(1,1,2,2), eps.anc=c(1,1,1,1),
+                        trans.rate=trans.rates.hisse, output.type="raw")
 ```
 
 We can combine all of our results into a single table for easy comparison.
