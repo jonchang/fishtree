@@ -8,3 +8,8 @@ r:
 - oldrel
 - release
 - devel
+
+addons:
+    apt:
+        packages:
+            - libgsl0-dev
