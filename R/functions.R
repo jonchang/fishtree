@@ -5,7 +5,7 @@
 #'
 #' @param species (Optionally) subset the results based on a vector of species names.
 #' @param rank (Optionally) subset the results based on the supplied taxonomic rank.
-#' @param type Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change.
+#' @param type Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retriving a phylogeny by rank, and that rank is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the specified rank.
 #' @return An object of class `"phylo"`.
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
@@ -14,15 +14,29 @@
 #' # Chronograms may not be ultrametric due to numerical precision issues
 #' ape::is.ultrametric(surgeons)
 #' ape::is.ultrametric(surgeons, tol = 0.00001)
-#' @seealso \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
+#'
+#' # Difference between MRCA trees and regular trees
+#' gobies_mrca <- fishtree_phylogeny(rank = "Gobiidae", type = "chronogram_mrca")
+#' gobies <- fishtree_phylogeny(rank = "Gobiidae", type = "chronogram")
+#' # MRCA trees will have more tips for non-monophyletic groups
+#' length(gobies_mrca$tip.label) > length(gobies$tip.label)
+#' # Drop rogue tips in the MRCA tree
+#' rogue_gobies <- fishtree_rogues("Gobiidae")
+#' pruned_gobies <- ape::drop.tip(gobies_mrca, rogue_gobies)
+#' # Now the trees are identical
+#' setequal(gobies$tip.label, pruned_gobies$tip.label)
+
+#' @seealso \code{\link[fishtree]{fishtree_rogues}}, \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 #' @export
-fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram")) {
+fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   type <- rlang::arg_match(type)
   fullurl <- switch(type,
                     chronogram = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
-                    phylogram = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz")
+                    chronogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
+                    phylogram = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz",
+                    phylogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz")
 
   if (rlang::is_missing(rank)) {
     if (rlang::is_missing(species)) return(.get(fullurl, ape::read.tree))
@@ -33,23 +47,62 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
     return(ape::drop.tip(tree, tree$tip.label[!tree$tip.label %in% gsub(" ", "_", valid_names)]))
   }
 
-  if (!rlang::is_missing(rank)) {
-    res <- .fetch_rank(rank)
-    context <- res[[1]][[1]]
-    what <- res[[2]]
+  res <- .fetch_rank(rank)
+  context <- res[[1]][[1]]
+  what <- res[[2]]
 
-    if (length(context) < 1) rlang::abort(paste("Can't find data for", what, rank))
+  if (length(context) < 1) rlang::abort(paste("Can't find data for", what, rank))
 
+  url <- context[[type]]
+
+  # `type` is *_mrca
+  if (rlang::is_empty(url) && type %in% c("chronogram_mrca", "phylogram_mrca")) {
+    rlang::inform(paste0("Can't retrieve a `", type, "` for ", what, " ", rank, " because the family is monophyletic."))
+    type <- sub("_mrca", "", type)
     url <- context[[type]]
-    if (rlang::is_empty(url)) {
-        msg <- paste("Can't retrieve a", type, "for", what, rank, "because")
-        if (length(context$species) == 1) msg <- paste(msg, "it is monotypic.")
-        else if (length(context$species) < 3) msg <- paste0(msg, " it has too few species (", length(context$species), ").")
-        else if (length(context$sampled_species) < 3) msg <- paste0(msg, " it has too few species sampled (", length(context$sampled_species), ").")
-        rlang::abort(msg)
-    }
-    return(.get(paste0(.baseurl, url), ape::read.tree))
   }
+
+  # `type` is NOT *_mrca and we've already possibly corrected for asking for a
+  # MRCA tree for a monophyletic group
+  if (rlang::is_empty(url)) {
+    msg <- paste("Can't retrieve a", type, "for", what, rank, "because")
+    if (length(context$species) == 1) msg <- paste(msg, "it is monotypic.")
+    else if (length(context$species) < 3) msg <- paste0(msg, " it has too few species (", length(context$species), ").")
+    else if (length(context$sampled_species) < 3) msg <- paste0(msg, " it has too few species sampled (", length(context$sampled_species), ").")
+    rlang::abort(msg)
+  }
+
+  # Family not monophyletic?
+  if (length(fishtree_rogues(rank)) > 0 && type %in% c("chronogram", "phylogram")) {
+    rlang::inform(paste0(what, " ", rank, ' is not monophyletic. To instead retrieve the phylogeny descending from the common ancestor of all species in ', rank, ', use `type = "', paste0(type, "_mrca"), '"`'))
+  }
+  return(.get(paste0(.baseurl, url), ape::read.tree))
+}
+
+#' Get rogue taxa that break the monophyly of defined taxa
+#'
+#' For groups that were recovered as paraphyletic in the phylogenetic analysis,
+#' uses the Fish Tree of Life API to identify which species prevented that clade
+#' from being recovered as monophyletic.
+#'
+#' @param rank the (possibly paraphyletic) rank for which rogue or intruder species should be identified.
+#' @return A vector of species names, potentially empty.
+#' @export
+#' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+#' @examples
+#' fishtree_rogues("Gobiidae")   # several rogue taxa!
+#' fishtree_rogues("Labridae")   # nice and monophlyetic
+fishtree_rogues <- function(rank) {
+  if (rlang::is_missing(rank))
+    rlang::abort("`family` or `order` must be specified.")
+
+  res <- .fetch_rank(rank)
+  context <- res[[1]][[1]]
+  what <- res[[2]]
+
+  if (length(context) < 1) rlang::abort(paste("Can't find data for", what, rank))
+
+  return(as.vector(context[["rogues"]], mode = "character"))
 }
 
 #' Get taxonomies and other data from the Fish Tree of Life
