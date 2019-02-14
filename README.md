@@ -3,7 +3,7 @@
 
 # fishtree
 
-The goal of `fishtree` is to provide an easy interface to the Fish Tree of Life API.
+The goal of `fishtree` is to provide an easy interface to the Fish Tree of Life API, to download taxonomies, phylogenies, diversification rate information, and other data for ray-finned fishes.
 
 ## Example
 
