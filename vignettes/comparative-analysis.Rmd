@@ -57,7 +57,7 @@ reef <- data.frame(tip = gsub(" ", "_", fb_results$Species),
 head(reef)
 ```
 
-We've also converted the tip labels back to underscores, since we need to ensure that the tip labels on our phylogeny match the labels on our trait data. The `geiger` package (CITE) provides a convenient function that will perform this check. The `name.check` function expects row names on our data object, so we will do that as well.
+We've also converted the tip labels back to underscores, since we need to ensure that the tip labels on our phylogeny match the labels on our trait data. The `geiger` package ([Pennell et al. 2014](https://doi.org/10.1093/bioinformatics/btu181)) provides a convenient function that will perform this check. The `name.check` function expects row names on our data object, so we will do that as well.
 
 ```{r}
 library(geiger)
@@ -88,7 +88,7 @@ Ntip(tree) == nrow(reef)
 
 ## Plotting diversification rates
 
-There are several other data sources available in the `fishtree` package, including speciation rates computed via the DR method (CITE). Retrieve speciation rate data:
+There are several other data sources available in the `fishtree` package, including speciation rates computed via the DR method ([Jetz et al. 2012](https://doi.org/10.1038/nature11631)). Retrieve speciation rate data:
 
 ```{r}
 rates <- fishtree_tip_rates(rank = "Tetraodontiformes")
