@@ -125,13 +125,13 @@ fishtree_taxonomy <- function(family = NULL, order = NULL) {
     rlang::abort("Either `family` or `order` must be specified, not both.")
 
   if (!is.null(family)) {
-    js <- .get("https://fishtreeoflife.org/api/family.json", jsonlite::fromJSON)
+    js <- .get("https://fishtreeoflife.org/api/taxonomy/family.json", jsonlite::fromJSON)
     ff <- js[family]
     if (length(ff) < 1) rlang::abort(paste("No results found for", family))
   }
 
   if (!is.null(order)) {
-    js <- .get("https://fishtreeoflife.org/api/order.json", jsonlite::fromJSON)
+    js <- .get("https://fishtreeoflife.org/api/taxonomy/order.json", jsonlite::fromJSON)
     ff <- js[order]
     if (length(ff) < 1) rlang::abort(paste("No results found for", order))
   }
