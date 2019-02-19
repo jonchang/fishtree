@@ -7,7 +7,7 @@
   groups
 
 * `fishtree_taxonomy` revamped. It now takes a single argument `ranks = ...`
-  where you coan retrieve taxonomic information for any valid taxonomic rank
+  where you can retrieve taxonomic information for any valid taxonomic rank
   in our taxonomy. Calling it without arguments returns a data frame of all
   valid taxa names.
 

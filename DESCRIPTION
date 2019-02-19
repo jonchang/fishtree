@@ -31,5 +31,8 @@ Suggests:
     hisse,
     geiger,
     knitr,
-    rmarkdown
+    rmarkdown,
+    picante,
+    spelling
 VignetteBuilder: knitr
+Language: en-US
