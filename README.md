@@ -70,3 +70,7 @@ devtools::install_github("jonchang/fishtree")
 ## References
 
 The manuscript for this package is currently in review.
+
+## Releasing
+
+    withr::with_envvar(c("NOT_CRAN" = "true"), devtools::release())
