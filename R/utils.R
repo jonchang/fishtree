@@ -26,9 +26,17 @@
     return(get(url, envir = .cache))
   }
 
-  if (rlang::is_missing(reader)) rlang::abort("reader` must be specified when `url` is not in the cache.")
+  if (rlang::is_missing(reader)) {
+    rlang::abort("reader` must be specified when `url` is not in the cache.")
+  }
   tmp <- tempfile()
-  utils::download.file(url, tmp, quiet = quiet)
+  res <- tryCatch(suppressWarnings(utils::download.file(url, tmp, quiet = quiet)),
+                  error = function(e) {
+                    rlang::abort(paste("Download for URL", url, "failed with error:\n  ", e, "\nCheck your network status and consider retrying your request."))
+                  })
+  if (res != 0L) {
+    rlang::abort(paste("Download for URL", url, "failed with error code", res))
+  }
   assign(url, reader(tmp, ...), envir = .cache)
   .get(url)
 }
