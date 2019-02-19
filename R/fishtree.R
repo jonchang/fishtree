@@ -15,6 +15,7 @@ NULL
 release_questions <- function() {
   c(
     "Have you regenerated the README with `make`?",
-    "Have you committed any changes to the knit README?"
+    "Have you committed any changes to the knit README?",
+    "Have you set the NOT_CRAN environment variable to 'true' to build the vignette properly?"
   )
 }

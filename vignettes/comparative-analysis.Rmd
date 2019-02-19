@@ -11,8 +11,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include = FALSE}
+```{r setup, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
 knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = NOT_CRAN,
   collapse = TRUE,
   comment = "#>"
 )
