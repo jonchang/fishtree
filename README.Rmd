@@ -1,3 +1,18 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+library(fishtree)
+```
+
 [![Build Status](https://travis-ci.com/jonchang/fishtree.svg?token=CAAYReeKsDcnZM7jk2wY&branch=master)](https://travis-ci.com/jonchang/fishtree)
 [![CRAN status](https://www.r-pkg.org/badges/version/fishtree)](https://cran.r-project.org/package=fishtree)
 
@@ -7,13 +22,24 @@ The goal of `fishtree` is to provide an easy interface to the Fish Tree of Life 
 
 ## Example
 
+See a list of taxa available to download.
+
+```{r}
+library(fishtree)
+
+tax <- fishtree_taxonomy()
+head(tax)
+```
+
 Retrieve a phylogeny for the surgeonfishes and plot the phylogeny and lineage through time plot.
 
-``` r
-library(fishtree)
+```{r}
 library(ape)
 phy <- fishtree_phylogeny(rank = "Acanthuridae")
+phy
+```
 
+```r
 par(mfrow=c(2, 1))
 plot(phy, show.tip.label = FALSE)
 ltt.plot(phy)

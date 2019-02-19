@@ -11,3 +11,10 @@
 #' @docType package
 #' @name fishtree-package
 NULL
+
+release_questions <- function() {
+  c(
+    "Have you regenerated the README with `make`?",
+    "Have you committed any changes to the knit README?"
+  )
+}
