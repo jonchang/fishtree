@@ -9,8 +9,9 @@
 #' long-running R instances could use a lot of memory.
 #'
 #' @docType package
-#' @name fishtree-package
-NULL
+#' @keywords internal
+"_PACKAGE"
+
 
 release_questions <- function() {
   c(
