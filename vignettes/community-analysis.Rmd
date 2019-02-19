@@ -1,0 +1,33 @@
+---
+title: "Phylogenetic community assembly with the Fish Tree of Life"
+author: "Jonathan Chang"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Phylogenetic community assembly with the Fish Tree of Life}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo = FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = NOT_CRAN,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r load-packages}
+library(rfishbase)
+eco <- ecosystem()
+caspian_species <- unique(eco$Species[eco$EcosystemName == "Caspian Sea"])
+caspian_species <- gsub(" ", "_", gbr_species, fixed = TRUE)
+full_phylo <- fishtree_phylogeny()
+caspian_phy <- fishtree_phylogeny(caspian_species)
+mrca_node <- ape::getMRCA(full_phylo, caspian_phy$tip.label)
+pruned_phy <- ape::extract.clade(full_phylo, mrca_node)
+
+
+library(fishtree)
+```
