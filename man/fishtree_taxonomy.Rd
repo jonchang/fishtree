@@ -4,22 +4,20 @@
 \alias{fishtree_taxonomy}
 \title{Get taxonomies and other data from the Fish Tree of Life}
 \usage{
-fishtree_taxonomy(family = NULL, order = NULL)
+fishtree_taxonomy(ranks = NULL)
 }
 \arguments{
-\item{family}{One or more families to retrieve.}
-
-\item{order}{One or more orders to retrieve.}
+\item{ranks}{One or more taxonomic ranks to retrieve.}
 }
 \value{
-A list, with components containing data on the specified family or order.
+A list, with components containing data on the specified taxa. If `ranks`
+is unspecified, a data frame with all valid taxa is returned instead.
 }
 \description{
-Retrieves taxonomic and other information from the Fish Tree of Life API. Either
-`family` or `order` must be specified.
+Retrieves taxonomic and other information from the Fish Tree of Life API.
 }
 \examples{
-tax <- fishtree_taxonomy(family = "Labridae")
+tax <- fishtree_taxonomy(rank = "Labridae")
 n_total <- length(tax$Labridae$species)
 n_sampl <- length(tax$Labridae$sampled_species)
 paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")

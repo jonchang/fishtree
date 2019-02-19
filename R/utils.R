@@ -63,14 +63,13 @@
     name <- name[1]
   }
 
-  if (endsWith(name, "idae")) {
-    context <- fishtree_taxonomy(family = name)
-    what <- "family"
-  } else if (endsWith(name, "iformes")) {
-    context <- fishtree_taxonomy(order = name)
-    what <- "order"
+  tax <- fishtree_taxonomy()
+  what <- tax[tax$name == name, "rank"]
+
+  if (length(what) == 1) {
+    context <- fishtree_taxonomy(name)
   } else {
-    rlang::abort(paste0("Can't find data for `", name, "`` (only families and orders are currently supported)."))
+    rlang::abort(paste0("Can't find data for `", name, "`."))
   }
   list(context, what)
 }
@@ -89,4 +88,12 @@
     result[[part_names[ii]]] <- sequence[, part_start[ii]:part_end[ii]]
   }
   result
+}
+
+# Converts a named list of vectors to a data frame
+.list2df <- function(ll) {
+  out <- lapply(names(ll), function(name) {
+    data.frame(name = name, value = ll[[name]], stringsAsFactors = FALSE)
+  })
+  do.call(rbind, out)
 }

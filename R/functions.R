@@ -107,35 +107,35 @@ fishtree_rogues <- function(rank) {
 
 #' Get taxonomies and other data from the Fish Tree of Life
 #'
-#' Retrieves taxonomic and other information from the Fish Tree of Life API. Either
-#' `family` or `order` must be specified.
+#' Retrieves taxonomic and other information from the Fish Tree of Life API.
 #'
-#' @param family One or more families to retrieve.
-#' @param order One or more orders to retrieve.
-#' @return A list, with components containing data on the specified family or order.
+#' @param ranks One or more taxonomic ranks to retrieve.
+#' @return A list, with components containing data on the specified taxa. If `ranks`
+#' is unspecified, a data frame with all valid taxa is returned instead.
 #' @export
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
-#' tax <- fishtree_taxonomy(family = "Labridae")
+#' tax <- fishtree_taxonomy(rank = "Labridae")
 #' n_total <- length(tax$Labridae$species)
 #' n_sampl <- length(tax$Labridae$sampled_species)
 #' paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")
-fishtree_taxonomy <- function(family = NULL, order = NULL) {
-  if (!is.null(family) && !is.null(order))
-    rlang::abort("Either `family` or `order` must be specified, not both.")
+fishtree_taxonomy <- function(ranks = NULL) {
+  tax <- .get("https://fishtreeoflife.org/api/taxonomy.json", jsonlite::fromJSON)
+  tax_df <- .list2df(tax)
+  colnames(tax_df) <- c("rank", "name")
+  if (is.null(ranks)) return(tax_df)
 
-  if (!is.null(family)) {
-    js <- .get("https://fishtreeoflife.org/api/taxonomy/family.json", jsonlite::fromJSON)
-    ff <- js[family]
-    if (length(ff) < 1) rlang::abort(paste("No results found for", family))
+  wanted <- tax_df[tax_df$name %in% ranks, ]
+  if (nrow(wanted) < 1) rlang::abort("No matching taxa found.")
+
+  output <- list()
+  for (idx in 1:nrow(wanted)) {
+    row <- wanted[idx, ]
+    url <- paste0("https://fishtreeoflife.org/api/taxonomy/", row$rank, "/", row$name, ".json")
+    output[[row$name]] <- .get(url, jsonlite::fromJSON)
   }
 
-  if (!is.null(order)) {
-    js <- .get("https://fishtreeoflife.org/api/taxonomy/order.json", jsonlite::fromJSON)
-    ff <- js[order]
-    if (length(ff) < 1) rlang::abort(paste("No results found for", order))
-  }
-  return(ff)
+  output
 }
 
 #' Get aligned sequences from the Fish Tree of Life
