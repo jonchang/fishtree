@@ -1,14 +1,11 @@
 ---
 title: "Comparative methods with the Fish Tree of Life"
 author: "Jonathan Chang"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{A simple comparative analysis with the Fish Tree of Life}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, echo = FALSE}
