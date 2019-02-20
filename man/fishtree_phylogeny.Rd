@@ -20,6 +20,9 @@ An object of class `"phylo"`.
 \description{
 Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 }
+\details{
+For maximum interoperability, `species` considers spaces and underscores equivalently. Internally, the phylogenies use underscores.
+}
 \examples{
 surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
 

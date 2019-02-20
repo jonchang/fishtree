@@ -18,40 +18,75 @@ knitr::opts_chunk$set(
 )
 ```
 
+
+Here's a quick example to show how we could use the `fishtree` package to conduct some phylogenetic community analyses. First, we load `fishtree` and ensure that the other packages that we need are installed.
+
 ```{r load-packages}
+library(ape)
 library(fishtree)
-library(rfishbase)
-library(picante)
+requireNamespace("rfishbase")
+requireNamespace("picante")
+requireNamespace("geiger")
 ```
 
+Next we'll start downloading some data from `rfishbase`. We'll be seeing if reef-associated ray-finned fish species are clustered or overdispersed in the Atlantic, Pacific, and Indian Oceans.
+
 ```{r get-data}
-reef_species <- species(fields = c("Species", "DemersPelag"))
+# Get reef-associated species from the `species` table
+reef_species <- rfishbase::species(fields = c("Species", "DemersPelag"))
 reef_species <- reef_species[reef_species$DemersPelag == "reef-associated", ]
 
-eco <- ecosystem(species_list = reef_species$Species)
+# Get native and endemic species from the Atlantic, Pacific, and Indian Oceans
+eco <- rfishbase::ecosystem(species_list = reef_species$Species)
 valid_idx <- eco$Status %in% c("native", "endemic") & eco$EcosystemName %in% c("Atlantic Ocean", "Pacific Ocean", "Indian Ocean") 
 eco <- eco[valid_idx, c("Species", "EcosystemName")]
 
-reef_species <- unique(eco$Species)
-
-full_phylo <- fishtree_phylogeny()
-spp <- gsub(" ", "_", reef_species, fixed = TRUE)
-phy <- fishtree_phylogeny(spp)
+# Retrieve the phylogeny of only native reef species across all three oceans.
+phy <- fishtree_phylogeny(species = eco$Species)
 ```
 
-```{r data-cleaning}
+We'll have to clean up the data in a few ways before sending it to `picante` for analysis. First, we'll need to convert our species-by-site data frame into a presence-absence matrix. We'll use `base::table` for this, and use `unclass` to convert the `table` into a standard `matrix` object.
+
+```{r data-cleaning-1}
 sample_matrix <- unclass(table(eco))
 dimnames(sample_matrix)$Species <- gsub(" ", "_", dimnames(sample_matrix)$Species, fixed = TRUE)
+```
 
+Next, we'll use `geiger::name.check` to ensure the tip labels of the phylogeny and the rows of the data matrix match each other.
+
+```{r data-cleaning-2}
 nc <- geiger::name.check(phy, sample_matrix)
 sample_matrix <- sample_matrix[!rownames(sample_matrix) %in% nc$data_not_tree, ]
+```
 
+Finally, we'll generate the cophenetic matrix based on the phylogeny, and transpose the presence-absence matrix since `picante` likes its columns to be species and its rows to be sites.
+
+```{r data-cleaning-3}
 cophen <- cophenetic(phy)
 sample_matrix <- t(sample_matrix)
 ```
 
-```{r results}
-ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
+We'll run `ses.mpd` and `ses.mntd` with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.
 
-ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
+```{r results}
+picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
+picante::ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
+```
+
+The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MNTD is thought to be more sensitive to patterns closer to the root of the tree. We can confirm these patterns visually:
+
+```{r plot, fig.width = 7, fig.height = 15}
+plot(phy, show.tip.label = FALSE, no.margin = TRUE)
+obj <- get("last_plot.phylo", .PlotPhyloEnv)
+
+matr <- t(sample_matrix)[phy$tip.label, ]
+xx <- obj$xx[1:obj$Ntip]
+yy <- obj$yy[1:obj$Ntip]
+cols <- c("#1b9e77", "#d95f02", "#7570b3")
+for (ii in 1:ncol(matr)) {
+  present_idx <- matr[, ii] == 1
+  points(xx[present_idx] + ii, yy[present_idx], col = cols[ii], cex = 0.1)
+}
+
+
 ```

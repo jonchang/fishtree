@@ -3,6 +3,8 @@
 #'
 #' Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 #'
+#' For maximum interoperability, `species` considers spaces and underscores equivalently. Internally, the phylogenies use underscores.
+#'
 #' @param species (Optionally) subset the results based on a vector of species names.
 #' @param rank (Optionally) subset the results based on the supplied taxonomic rank.
 #' @param type Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retrieving a phylogeny by rank, and that rank is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the specified rank.
