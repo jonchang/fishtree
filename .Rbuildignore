@@ -1,3 +1,5 @@
+^Meta$
+^doc$
 .gitattributes
 .gitignore
 .travis.yml

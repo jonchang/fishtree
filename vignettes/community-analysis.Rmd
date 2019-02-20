@@ -19,15 +19,39 @@ knitr::opts_chunk$set(
 ```
 
 ```{r load-packages}
-library(rfishbase)
-eco <- ecosystem()
-caspian_species <- unique(eco$Species[eco$EcosystemName == "Caspian Sea"])
-caspian_species <- gsub(" ", "_", gbr_species, fixed = TRUE)
-full_phylo <- fishtree_phylogeny()
-caspian_phy <- fishtree_phylogeny(caspian_species)
-mrca_node <- ape::getMRCA(full_phylo, caspian_phy$tip.label)
-pruned_phy <- ape::extract.clade(full_phylo, mrca_node)
-
-
 library(fishtree)
+library(rfishbase)
+library(picante)
+```
+
+```{r get-data}
+reef_species <- species(fields = c("Species", "DemersPelag"))
+reef_species <- reef_species[reef_species$DemersPelag == "reef-associated", ]
+
+eco <- ecosystem(species_list = reef_species$Species)
+valid_idx <- eco$Status %in% c("native", "endemic") & eco$EcosystemName %in% c("Atlantic Ocean", "Pacific Ocean", "Indian Ocean") 
+eco <- eco[valid_idx, c("Species", "EcosystemName")]
+
+reef_species <- unique(eco$Species)
+
+full_phylo <- fishtree_phylogeny()
+spp <- gsub(" ", "_", reef_species, fixed = TRUE)
+phy <- fishtree_phylogeny(spp)
+```
+
+```{r data-cleaning}
+sample_matrix <- unclass(table(eco))
+dimnames(sample_matrix)$Species <- gsub(" ", "_", dimnames(sample_matrix)$Species, fixed = TRUE)
+
+nc <- geiger::name.check(phy, sample_matrix)
+sample_matrix <- sample_matrix[!rownames(sample_matrix) %in% nc$data_not_tree, ]
+
+cophen <- cophenetic(phy)
+sample_matrix <- t(sample_matrix)
+```
+
+```{r results}
+ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
+
+ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 ```
