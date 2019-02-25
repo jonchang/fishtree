@@ -96,7 +96,7 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
 #' fishtree_rogues("Labridae")   # nice and monophlyetic
 fishtree_rogues <- function(rank) {
   if (rlang::is_missing(rank))
-    rlang::abort("`family` or `order` must be specified.")
+    rlang::abort("`rank` must be specified.")
 
   res <- .fetch_rank(rank)
   context <- res[[1]][[1]]
