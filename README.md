@@ -8,9 +8,11 @@ status](https://www.r-pkg.org/badges/version/fishtree)](https://cran.r-project.o
 
 # fishtree
 
-The goal of `fishtree` is to provide an easy interface to the Fish Tree
-of Life API, to download taxonomies, phylogenies, diversification rate
-information, and other data for ray-finned fishes.
+The goal of `fishtree` is to provide an easy interface in R to the Fish
+Tree of Life API, to download taxonomies, phylogenies, diversification
+rate information, and other data for ray-finned fishes. It should
+seamlessly integrate with the rest of the R ecosystem, especially the
+package `ape`.
 
 ## Example
 
@@ -52,6 +54,8 @@ plot(phy, show.tip.label = FALSE)
 ltt.plot(phy)
 ```
 
+You can also check out the vignettes for more detailed examples.
+
 ## Installation
 
 You can install the released version of fishtree from
@@ -70,6 +74,11 @@ devtools::install_github("jonchang/fishtree")
 ## References
 
 The manuscript for this package is currently in review.
+
+## License
+
+The `fishtree` package is licensed under a [2-clause BSD
+license](https://opensource.org/licenses/BSD-2-Clause).
 
 ## Releasing
 
