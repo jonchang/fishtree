@@ -167,7 +167,6 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 
   if (rlang::is_missing(rank)) {
     url <- "https://fishtreeoflife.org/downloads/final_alignment.phylip.xz"
-    if(!exists(url, envir = .cache)) rlang::inform("Loading alignment for all species, this will take a while...")
     nlines <- 11650
   } else {
     res <- .fetch_rank(rank)
