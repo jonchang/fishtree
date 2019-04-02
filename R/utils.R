@@ -89,11 +89,3 @@
   }
   result
 }
-
-# Converts a named list of vectors to a data frame
-.list2df <- function(ll) {
-  out <- lapply(names(ll), function(name) {
-    data.frame(name = name, value = ll[[name]], stringsAsFactors = FALSE)
-  })
-  do.call(rbind, out)
-}

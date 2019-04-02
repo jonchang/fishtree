@@ -123,8 +123,9 @@ fishtree_rogues <- function(rank) {
 #' paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")
 fishtree_taxonomy <- function(ranks = NULL) {
   tax <- .get("https://fishtreeoflife.org/api/taxonomy.json", jsonlite::fromJSON)
-  tax_df <- .list2df(tax)
-  colnames(tax_df) <- c("rank", "name")
+  tax_df <- utils::stack(tax)
+  colnames(tax_df) <- c("name", "rank")
+  tax_df <- tax_df[c("rank", "name")]
   if (is.null(ranks)) return(tax_df)
 
   wanted <- tax_df[tax_df$name %in% ranks, ]
