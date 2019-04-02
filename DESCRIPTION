@@ -25,7 +25,8 @@ Imports:
     ape (>= 5.1),
     rlang (>= 0.2.2),
     jsonlite (>= 1.5),
-    utils
+    utils,
+    memoise
 Suggests:
     rfishbase,
     hisse,

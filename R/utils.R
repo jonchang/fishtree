@@ -4,10 +4,6 @@
 #' @noRd
 .baseurl <- "https://fishtreeoflife.org/"
 
-#' Cache object, to avoid redownloading massive files constantly
-#' @noRd
-.cache <- rlang::new_environment()
-
 #' Gets data from a URL, or a cache keyed by the same
 #'
 #' Uses the `.cache` internal object to check if an object keyed by `url` exists.
@@ -20,12 +16,9 @@
 #' @param quiet Should we \code{\link{download.file}} quietly? Defaults to `TRUE`.
 #' @param ... Additional arguments passed to `reader`.
 #' @return Whatever `reader` returns.
+#' @import memoise
 #' @noRd
-.get <- function(url, reader, quiet = TRUE, ...) {
-  if (exists(url, envir = .cache)) {
-    return(get(url, envir = .cache))
-  }
-
+.get <- memoise::memoise(function(url, reader, quiet = TRUE, ...) {
   if (rlang::is_missing(reader)) {
     rlang::abort("reader` must be specified when `url` is not in the cache.")
   }
@@ -37,9 +30,8 @@
   if (res != 0L) {
     rlang::abort(paste("Download for URL", url, "failed with error code", res))
   }
-  assign(url, reader(tmp, ...), envir = .cache)
-  .get(url)
-}
+  reader(tmp, ...)
+})
 
 #' Reconcile names against a known good set
 #'
