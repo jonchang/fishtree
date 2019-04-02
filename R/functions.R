@@ -46,7 +46,7 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
     valid_names <- .name_check(species)
     if (length(valid_names) < 2) rlang::abort("Must include at least 2 sampled tips in `species`")
     tree <- .get(fullurl, ape::read.tree)
-    return(ape::drop.tip(tree, tree$tip.label[!tree$tip.label %in% gsub(" ", "_", valid_names)]))
+    return(ape::keep.tip(tree, tree$tip.label[tree$tip.label %in% gsub(" ", "_", valid_names)]))
   }
 
   res <- .fetch_rank(rank)
