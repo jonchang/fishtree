@@ -2,6 +2,7 @@
 ^doc$
 .gitattributes
 .gitignore
+.github
 .travis.yml
 CONTRIBUTING.md
 README.Rmd
