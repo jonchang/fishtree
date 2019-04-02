@@ -18,12 +18,12 @@
 #' @return Whatever `reader` returns.
 #' @import memoise
 #' @noRd
-.get <- memoise::memoise(function(url, reader, quiet = TRUE, ...) {
+.get <- memoise::memoise(function(url, reader, ...) {
   if (rlang::is_missing(reader)) {
     rlang::abort("reader` must be specified when `url` is not in the cache.")
   }
   tmp <- tempfile()
-  res <- tryCatch(suppressWarnings(utils::download.file(url, tmp, quiet = quiet)),
+  res <- tryCatch(suppressWarnings(utils::download.file(url, tmp, quiet = getOption("fishtree.quiet", TRUE))),
                   error = function(e) {
                     rlang::abort(paste("Download for URL", url, "failed with error:\n  ", e, "\nCheck your network status and consider retrying your request."))
                   })
