@@ -1,5 +1,8 @@
 # fishtree (development version)
 
+* New function: `fishtree_complete_phylogeny`, gets complete phylogenies
+  where unsampled taxa were placed using stochastic polytomy resolution.
+
 * Use package `memoise` instead of rolling our own caching functionality.
 
 * New global option `fishtree.quiet`: when set to `FALSE`, be more verbose
