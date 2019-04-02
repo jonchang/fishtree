@@ -12,7 +12,7 @@ fishtree_complete_phylogeny(species, rank,
 
 \item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
-\item{mc.cores}{Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1``)}
+\item{mc.cores}{Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1`)}
 }
 \value{
 An object of class `"multiPhylo"`.
@@ -21,7 +21,17 @@ An object of class `"multiPhylo"`.
 Retrieves a complete, stochastically-resolved phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 }
 \examples{
+\dontrun{
 tree <- fishtree_complete_phylogeny(rank = "Acanthuridae")
+sampled_tips <- fishtree_phylogeny(rank = "Acanthuridae")$tip.label
+all_tips <- tree[[1]]$tip.label
+new_tips <- setdiff(all_tips, sampled_tips)
+par(mfrow = c(2,2))
+for (ii in 1:4) {
+  plot(tree[[ii]], show.tip.label = FALSE, no.margin = TRUE)
+  ape::tiplabels(pch = 19, col = ifelse(tree[[ii]]$tip.label \%in\% new_tips, "red", NA))
+}
+}
 }
 \references{
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1

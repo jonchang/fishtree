@@ -266,7 +266,7 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 #' Retrieves a complete, stochastically-resolved phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
 #'
 #' @inheritParams fishtree_phylogeny
-#' @param mc.cores Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1``)
+#' @param mc.cores Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1`)
 #' @return An object of class `"multiPhylo"`.
 #' @export
 #' @references
@@ -274,7 +274,17 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 #'
 #' Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
 #' @examples
+#' \dontrun{
 #' tree <- fishtree_complete_phylogeny(rank = "Acanthuridae")
+#' sampled_tips <- fishtree_phylogeny(rank = "Acanthuridae")$tip.label
+#' all_tips <- tree[[1]]$tip.label
+#' new_tips <- setdiff(all_tips, sampled_tips)
+#' par(mfrow = c(2,2))
+#' for (ii in 1:4) {
+#'   plot(tree[[ii]], show.tip.label = FALSE, no.margin = TRUE)
+#'   ape::tiplabels(pch = 19, col = ifelse(tree[[ii]]$tip.label %in% new_tips, "red", NA))
+#' }
+#' }
 #' @import parallel
 fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.cores", 1L)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
