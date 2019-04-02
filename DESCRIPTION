@@ -26,7 +26,8 @@ Imports:
     rlang (>= 0.2.2),
     jsonlite (>= 1.5),
     utils,
-    memoise
+    memoise,
+    parallel
 Suggests:
     rfishbase,
     hisse,
