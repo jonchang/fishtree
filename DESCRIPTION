@@ -1,7 +1,7 @@
 Package: fishtree
 Type: Package
 Title: Interface to the Fish Tree of Life API
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(
     person("Jonathan", "Chang", role = c("aut", "cre"),
            email = "jonathan.chang@ucla.edu",
