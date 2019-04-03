@@ -1,7 +1,5 @@
 # fishtree 0.3.0
 
-# fishtree (development version)
-
 * New function: `fishtree_complete_phylogeny`, gets complete phylogenies
   where unsampled taxa were placed using stochastic polytomy resolution.
 
