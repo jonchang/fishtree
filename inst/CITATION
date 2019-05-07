@@ -4,12 +4,10 @@ citEntry(
   entry    = "Article",
   title    = "An R package and online resource for macroevolutionary studies using the ray‐finned fish tree of life",
   author   = c(
-    person("Jonathan", "Chang", role = c("aut", "cre"),
-           email = "jonathan.chang@ucla.edu",
-           comment = c("ORCID" = "0000-0002-3811-1254")),
-    person("Michael E", "Alfaro", role = "ctb"),
+    person("Jonathan", "Chang", role = c("aut", "cre")),
     person("Daniel L", "Rabosky", role = "ctb"),
-    person("Stephen A", "Smith", role = "ctb")
+    person("Stephen A", "Smith", role = "ctb"),
+    person("Michael E", "Alfaro", role = "ctb")
   ),
   journal  = "Methods in Ecology and Evolution",
   year     = 2019,
