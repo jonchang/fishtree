@@ -16,7 +16,6 @@
 #' @param quiet Should we \code{\link{download.file}} quietly? Defaults to `TRUE`.
 #' @param ... Additional arguments passed to `reader`.
 #' @return Whatever `reader` returns.
-#' @import memoise
 #' @noRd
 .get <- memoise::memoise(function(url, reader, ...) {
   if (rlang::is_missing(reader)) {

@@ -284,7 +284,6 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 #'   ape::tiplabels(pch = 19, col = ifelse(tree[[ii]]$tip.label %in% new_tips, "red", NA))
 #' }
 #' }
-#' @import parallel
 fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.cores", 1L)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
