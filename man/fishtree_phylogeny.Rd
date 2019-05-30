@@ -24,9 +24,15 @@ Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `r
 For maximum interoperability, `species` considers spaces and underscores equivalently. Internally, the phylogenies use underscores.
 }
 \examples{
+# Get a phylogeny for a taxonomic rank
 surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
 
+# Get a phylogeny for only certain species
+genomic_fish <- c("Oryzias latipes", "Tetraodon nigroviridis", "Gasterosteus aculeatus", "Danio rerio")
+fishtree_phylogeny(species = genomic_fish)
+
 # Chronograms may not be ultrametric due to numerical precision issues
+# Consider using phytools::force.ultrametric
 ape::is.ultrametric(surgeons)
 ape::is.ultrametric(surgeons, tol = 0.00001)
 
