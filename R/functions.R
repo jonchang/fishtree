@@ -237,15 +237,14 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(rates)
 
   if (!rlang::is_missing(species)) {
-    # Figure out what species are in the tree to begin with
+    # Figure out which species are sampled
     tree <- fishtree_phylogeny()
     tips <- gsub("_", " ", tree$tip.label)
-    requested_species <- gsub("_", " ", species)
-    sampled_species <- rates[rates$species %in% intersect(requested_species, tips), ]
-    all_species <- rates[rates$species %in% requested_species, ]
-    if (sampled_only) wanted <- sampled_species
-    else wanted <- all_species
-    return(wanted)
+    if (sampled_only) wanted <- rates$species[rates$species %in% tips]
+    else wanted <- rates$species
+
+    names_to_get <- .name_check(species, valid_names = wanted)
+    return(rates[rates$species %in% names_to_get, ])
   }
 
   if (!rlang::is_missing(rank)) {
