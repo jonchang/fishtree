@@ -1,3 +1,5 @@
+# fishtree (development version)
+
 # fishtree 0.3.1
 
 * `fishtree_tip_rates` now warns on missing / invalid species.
