@@ -28,7 +28,8 @@ For maximum interoperability, `species` considers spaces and underscores equival
 surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
 
 # Get a phylogeny for only certain species
-genomic_fish <- c("Oryzias latipes", "Tetraodon nigroviridis", "Gasterosteus aculeatus", "Danio rerio")
+genomic_fish <- c("Oryzias latipes", "Tetraodon nigroviridis",
+                  "Gasterosteus aculeatus", "Danio rerio")
 fishtree_phylogeny(species = genomic_fish)
 
 # Chronograms may not be ultrametric due to numerical precision issues
