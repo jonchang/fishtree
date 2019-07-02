@@ -73,7 +73,7 @@ picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 picante::ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 ```
 
-The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MNTD is thought to be more sensitive to patterns closer to the root of the tree. We can confirm these patterns visually:
+The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny. We can confirm these patterns visually:
 
 ```{r plot, fig.width = 7, fig.height = 15}
 plot(phy, show.tip.label = FALSE, no.margin = TRUE)
