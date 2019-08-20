@@ -22,3 +22,5 @@ README.html
 appveyor.yml
 man-roxygen
 vignettes/figure
+^_pkgdown\.yml$
+^pkgdown$
