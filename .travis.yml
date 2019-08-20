@@ -16,7 +16,7 @@ addons:
             - libmagick++-dev
 
 before_cache:
-  - Rscript -e 'remotes::install_cran("pkgdown"); pkgdown::build_site(quiet = FALSE)'
+  - Rscript -e 'remotes::install_cran("pkgdown"); pkgdown::build_site()'
 
 deploy:
   provider: pages
