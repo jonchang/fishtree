@@ -17,7 +17,7 @@ License: BSD_2_clause + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-URL: https://fishtreeoflife.org/
+URL: https://fishtreeoflife.org/ https://jonchang.github.io/fishtree/
 BugReports: https://github.com/jonchang/fishtree/issues
 Depends:
     R (>= 3.4)
