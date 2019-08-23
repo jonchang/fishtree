@@ -9,6 +9,8 @@ jobs:
       image: rocker/verse:latest
     steps:
     - uses: actions/checkout@v1
+    - name: Install apt dependencies
+      run: sudo apt install libgsl-dev
     - name: Install dependencies
       run: |
         Rscript -e '
