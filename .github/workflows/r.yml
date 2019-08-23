@@ -8,7 +8,7 @@ jobs:
     container:
       image: rocker/verse:latest
       volumes:
-        - my_docker_volume:/volume_mount
+        - $PWD:/r
     steps:
     - name: Dump runner context
       env:
