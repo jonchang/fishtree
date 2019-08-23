@@ -8,5 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Run R checks
-      run: docker run rocker/verse:latest /bin/bash -c "git clone https://github.com/$GITHUB_REPOSITORY && git checkout $GITHUB_SHA && Rscript -e 'remotes::install_deps(dependencies = TRUE)' && R CMD build && R CMD check --as-cran"
+    - uses: actions/checkout@v1
+    - name: R checks
+      run: docker run -v $PWD:/ rocker/verse:latest /bin/bash -c "Rscript -e 'remotes::install_deps(dependencies = TRUE)' && R CMD build && R CMD check --as-cran"
