@@ -22,7 +22,7 @@ before_cache:
 deploy:
   provider: pages
   github_token: $GITHUB_TOKEN
-  local_dir: docs
+  local_dir: docs/dev
   skip_cleanup: true
   on:
       branch: master
