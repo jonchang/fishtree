@@ -1,0 +1,17 @@
+name: R package CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: docker run rocker/verse:latest /bin/bash -c "Rscript -e 'remotes::install_deps(dependencies = TRUE)'"
+    - name: Build package
+      run: docker run rocker/verse:latest /bin/bash -c "R CMD build"
+    - name: Check package
+      run: docker run rocker/verse:latest /bin/bash -c "R CMD check --as-cran"
