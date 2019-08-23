@@ -6,8 +6,12 @@ jobs:
   build:
     container:
       image: rocker/verse:latest
-      volumes: $PWD/r
+      volumes: test:r
     steps:
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: echo "$RUNNER_CONTEXT"
     - uses: actions/checkout@v1
     - name: R checks
       run: |
