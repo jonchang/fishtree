@@ -4,10 +4,14 @@ on: [push]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-    
+    container:
+      image: rocker/verse:latest
+      volumes: $PWD/r
     steps:
     - uses: actions/checkout@v1
     - name: R checks
-      run: docker run -v $PWD:/r rocker/verse:latest /bin/bash -c "cd r && Rscript -e 'remotes::install_deps(dependencies = TRUE)' && R CMD build && R CMD check --as-cran"
+      run: |
+        cd r
+        Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        R CMD build
+        R CMD check --as-cran
