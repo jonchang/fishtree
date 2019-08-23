@@ -15,7 +15,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: R checks
       run: |
-        cd r
         Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         R CMD build
         R CMD check --as-cran
