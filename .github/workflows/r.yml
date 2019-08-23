@@ -8,10 +8,6 @@ jobs:
     container:
       image: rocker/verse:latest
     steps:
-    - name: Dump runner context
-      env:
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-      run: echo "$RUNNER_CONTEXT"
     - uses: actions/checkout@v1
     - name: Install dependencies
       run: |
