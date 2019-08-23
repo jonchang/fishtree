@@ -6,7 +6,8 @@ jobs:
   build:
     container:
       image: rocker/verse:latest
-      volumes: 'test:r'
+      volumes:
+        - my_docker_volume:/volume_mount
     steps:
     - name: Dump runner context
       env:
