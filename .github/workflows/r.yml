@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: rocker/verse:latest
-      volumes:
-        - $PWD:/r
     steps:
     - name: Dump runner context
       env:
