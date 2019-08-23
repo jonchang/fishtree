@@ -13,8 +13,16 @@ jobs:
         RUNNER_CONTEXT: ${{ toJson(runner) }}
       run: echo "$RUNNER_CONTEXT"
     - uses: actions/checkout@v1
-    - name: R checks
+    - name: Install dependencies
       run: |
-        Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        R CMD build
-        R CMD check --as-cran
+        Rscript -e '
+        deps <- remotes::dev_package_deps(dependencies = NA);
+        remotes::install_deps(dependencies = TRUE);
+        if (!all(deps$package %in% installed.packages())) {
+          message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", "));
+          q(status = 1, save = "no")
+        }'
+    - name: Build package
+      run: R CMD build
+    - name: Check package
+      run: R CMD check --as-cran
