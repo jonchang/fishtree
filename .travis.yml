@@ -17,7 +17,7 @@ addons:
 
 before_cache:
   - R CMD INSTALL *.tar.gz
-  - Rscript -e 'remotes::install_cran("pkgdown"); pkgdown::build_site()'
+  - Rscript -e 'remotes::install_cran("pkgdown"); pkgdown::build_site(override = list(development = "auto"))'
 
 deploy:
   provider: pages
