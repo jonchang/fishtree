@@ -21,4 +21,4 @@ jobs:
     - name: Build package
       run: R CMD build
     - name: Check package
-      run: R CMD check --as-cran
+      run: R CMD check --as-cran *.tar.gz
