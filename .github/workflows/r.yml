@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     container:
       image: rocker/verse:latest
       volumes:
