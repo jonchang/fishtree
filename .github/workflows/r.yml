@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: R checks
-      run: docker run -v $PWD:/ rocker/verse:latest /bin/bash -c "Rscript -e 'remotes::install_deps(dependencies = TRUE)' && R CMD build && R CMD check --as-cran"
+      run: docker run -v $PWD:/r rocker/verse:latest /bin/bash -c "cd r && Rscript -e 'remotes::install_deps(dependencies = TRUE)' && R CMD build && R CMD check --as-cran"
