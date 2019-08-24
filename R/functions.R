@@ -268,13 +268,15 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 
 #' Get complete (stochastically-resolved) phylogenies from the Fish Tree of Life
 #'
-#' Retrieves a complete, stochastically-resolved phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
+#' Retrieves a complete, stochastically-resolved phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny. WARNING: These phylogenies should generally not be used for downstream analyses of trait evolution. See Rabosky (2015) in the references for details.
 #'
 #' @inheritParams fishtree_phylogeny
 #' @param mc.cores Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1`)
-#' @return An object of class `"multiPhylo"`.
+#' @return An object of class `"multiPhylo"` that should probably not be used for analyses of trait evolution, including (but not limited to) \link[ape]{pic}, \link[ape]{ace}, \link[ape]{corBrownian}, \link[diversitree]{make.bisse}, or \link[hisse]{hisse}.
 #' @export
 #' @references
+#' Rabosky, D. L. (2015). No substitute for real data: A cautionary note on the use of phylogenies from birth-death polytomy resolvers for downstream comparative analyses. Evolution, 69(12), 3207–3216. doi:10.1111/evo.12817
+#'
 #' Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #'
 #' Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
