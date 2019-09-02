@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install apt dependencies
-      run: apt update && apt install libgsl-dev
+      run: apt update && apt install -y libgsl-dev
     - name: Install dependencies
       run: |
         Rscript -e '
