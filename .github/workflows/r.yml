@@ -11,16 +11,19 @@ jobs:
           - ubuntu-latest
           - macOS-latest
     steps:
-    - name: Dump runner context
-      env:
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-      run: echo "$RUNNER_CONTEXT"
     - name: Install APT dependencies
       run: |
         sudo apt-get install --no-install-recommends -y libgsl-dev libmagick++-dev
       if: runner.os == 'Linux'
     - uses: actions/checkout@v1
     - uses: jonchang/setup-r@master
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: |
+        echo "$RUNNER_CONTEXT"
+        cat "$HOME"/.Rprofile
+        Rscript -e 'getOption("repos")'
     - uses: jonchang/r-cran-check@master
       id: package
     - name: Upload package artifact
