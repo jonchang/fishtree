@@ -5,6 +5,8 @@
 status](https://github.com/jonchang/fishtree/workflows/R%20package%20CI/badge.svg)](https://github.com/jonchang/fishtree/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fishtree)](https://cran.r-project.org/package=fishtree)
+[![Digital object
+identifier](https://zenodo.org/badge/DOI/10.1111/2041-210x.13182.svg)](https://doi.org/10.1111/2041-210x.13182)
 
 # fishtree
 
