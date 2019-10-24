@@ -4,23 +4,41 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: rocker/verse:latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macOS-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Install apt dependencies
-      run: apt update && apt install -y libgsl-dev
-    - name: Install dependencies
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJson(runner) }}
+      run: echo "$RUNNER_CONTEXT"
+    - name: Install APT dependencies
       run: |
-        Rscript -e '
-        deps <- remotes::dev_package_deps(dependencies = NA);
-        remotes::install_deps(dependencies = TRUE);
-        if (!all(deps$package %in% installed.packages())) {
-          message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", "));
-          q(status = 1, save = "no")
-        }'
-    - name: Build package
-      run: R CMD build
-    - name: Check package
-      run: R CMD check --as-cran *.tar.gz
+        sudo apt-get install --no-install-recommends -y libgsl-dev libmagick++-dev
+      if: runner.os == 'Linux'
+    - uses: actions/checkout@v1
+    - uses: jonchang/setup-r@master
+    - uses: jonchang/r-cran-check@master
+      id: package
+    - name: Upload package artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: tarball
+        path: ${{ steps.package.outputs.tarball }}
+    - name: Install packages
+      run: |
+        R CMD INSTALL ${{ steps.package.outputs.tarball }}
+        Rscript -e 'remotes::install_cran("pkgdown")'
+    - name: Build pkgdown site
+      run: |
+        Rscript -e 'pkgdown::build_site()'
+    - name: Deploy pkgdown site
+      if: success() && github.ref == 'refs/heads/master' && runner.os == 'macOS'
+      uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGE_ACCESS_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: docs
