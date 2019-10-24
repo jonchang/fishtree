@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 [![Build
-Status](https://travis-ci.com/jonchang/fishtree.svg?token=CAAYReeKsDcnZM7jk2wY&branch=master)](https://travis-ci.com/jonchang/fishtree)
+status](https://github.com/jonchang/fishtree/workflows/R%20package%20CI/badge.svg)](https://github.com/jonchang/fishtree/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fishtree)](https://cran.r-project.org/package=fishtree)
 
