@@ -92,6 +92,11 @@ speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:
 The `fishtree` package is licensed under a [2-clause BSD
 license](https://opensource.org/licenses/BSD-2-Clause).
 
+## Sponsorship
+
+Please consider sponsoring the maintenance of `fishtree` via [GitHub
+Sponsors](https://github.com/sponsors/jonchang).
+
 ## Releasing
 
     withr::with_envvar(c("NOT_CRAN" = "true"), devtools::release())
