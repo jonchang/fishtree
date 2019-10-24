@@ -1,0 +1,7 @@
+pandoc: '2.2'
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  community-analysis: community-analysis.html
+  comparative-analysis: comparative-analysis.html
+
