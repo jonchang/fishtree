@@ -14,12 +14,6 @@ jobs:
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install packages
       run: R CMD INSTALL .
-    - name: Build pkgdown site
-      run: Rscript -e 'pkgdown::build_site()'
     - name: Deploy pkgdown site
       if: success() && github.ref == 'refs/heads/master' && runner.os == 'macOS'
-      uses: peaceiris/actions-gh-pages@v2.5.0
-      env:
-          GITHUB_TOKEN: ${{ secrets.PACKAGE_ACCESS_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: docs
+      run: Rscript -e "pkgdown:::deploy_local(new_process = FALSE, remote_url = 'https://x-access-token:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git')"
