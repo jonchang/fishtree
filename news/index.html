@@ -124,6 +124,10 @@
 <h1 class="page-header">
 <a href="#fishtree-development-version" class="anchor"></a>fishtree (development version)<small> Unreleased </small>
 </h1>
+<ul>
+<li><p>The internal <code>.name_check</code> function now emits structured warning output. This means that users supplying species names to e.g., <code>fishtree_phylogeny</code> that do not have matches in the taxonomy may use functions that capture warning messages to programatically determine which species are missing, without parsing error messages.</p></li>
+<li><p>Converted some warnings to messages.</p></li>
+</ul>
 </div>
     <div id="fishtree-031" class="section level1">
 <h1 class="page-header">
