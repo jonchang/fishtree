@@ -47,10 +47,15 @@
 .name_check <- function(wanted_names, valid_names = fishtree_phylogeny()$tip.label, warn = TRUE) {
   missing <- setdiff(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
   if (!rlang::is_empty(missing)) {
-    tmp <- missing
-    if (length(missing) > 5) tmp <- c(missing[1:5], paste("...and", length(missing) - 5, "others"))
-    missing_str <- paste("*", tmp, collapse = "\n")
-    if (warn) rlang::warn(paste0("Requested ", length(wanted_names), " but only found ", length(wanted_names) - length(missing), " species. Missing names:\n", missing_str))
+    missing_short <- missing
+    if (length(missing) > 5)
+      missing_short <- c(missing[1:5], paste("...and", length(missing) - 5, "others"))
+    if (warn) {
+      msg <- paste0("Requested ", length(wanted_names), " but only found ", length(wanted_names) - length(missing), " species.")
+      rlang::warn("missing_species",
+                  message = c(msg, missing_short),
+                  missing_species = missing)
+    }
   }
   intersect(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
 }

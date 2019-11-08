@@ -170,7 +170,7 @@ fishtree_taxonomy <- function(ranks = NULL) {
 #' }
 fishtree_alignment <- function(species, rank, split = FALSE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
-    rlang::warn("Supplying both `species` and `rank` arguments may limit the number of results you see")
+    rlang::inform("Supplying both `species` and `rank` arguments may limit the number of results you see.")
 
   if (rlang::is_missing(rank)) {
     url <- "https://fishtreeoflife.org/downloads/final_alignment.phylip.xz"

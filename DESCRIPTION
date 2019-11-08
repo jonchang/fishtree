@@ -23,7 +23,7 @@ Depends:
     R (>= 3.4)
 Imports:
     ape (>= 5.2),
-    rlang (>= 0.2.2),
+    rlang (>= 0.4.1),
     jsonlite (>= 1.5),
     utils,
     memoise,

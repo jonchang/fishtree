@@ -1,5 +1,13 @@
 # fishtree (development version)
 
+* The internal `.name_check` function now emits structured warning output.
+  This means that users supplying species names to e.g., `fishtree_phylogeny`
+  that do not have matches in the taxonomy may use functions that capture
+  warning messages to programatically determine which species are missing,
+  without parsing error messages.
+
+* Converted some warnings to messages.
+
 # fishtree 0.3.1
 
 * `fishtree_tip_rates` now warns on missing / invalid species.
