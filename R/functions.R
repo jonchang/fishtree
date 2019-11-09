@@ -195,7 +195,8 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #'
 #' Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 #' instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
-#' a lineage is more likely to split a new lineage at the present time. If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
+#' a lineage is more likely to split a new lineage at the present time. See Title (2019) in references for details.
+#' If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
 #'
 #' @inheritParams fishtree_phylogeny
 #' @param sampled_only Restricts the returned dataset to only those species that have genetic data available. Defaults to `TRUE`.
@@ -203,6 +204,8 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #' @export
 #' @references
 #' DR rates (supplement, section 1.2.2): Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631
+#'
+#' Interpreting tip rates: Title, P. O., & Rabosky, D. L. (2019). Tip rates, phylogenies and diversification: What are we estimating, and how good are the estimates? Methods in Ecology and Evolution, 10(6), 821–834. doi:10.1111/2041-210x.13153
 #'
 #' BAMM rates: Rabosky, D. L. (2014). Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees. PLoS ONE, 9(2), e89543. doi:10.1371/journal.pone.0089543
 #'
