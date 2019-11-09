@@ -8,6 +8,8 @@
 
 * Converted some warnings to messages.
 
+* Minor documentation changes.
+
 # fishtree 0.3.1
 
 * `fishtree_tip_rates` now warns on missing / invalid species.
@@ -22,7 +24,7 @@
 * New global option `fishtree.quiet`: when set to `FALSE`, be more verbose
   during downloads (can help with debugging issues).
 
-* Some internal reorganization
+* Some internal reorganization.
 
 # fishtree 0.2.0
 
@@ -39,4 +41,4 @@
 
 # fishtree 0.1.0
 
-Initial release.
+* Initial release.
