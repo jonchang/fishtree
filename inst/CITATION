@@ -1,16 +1,45 @@
 citHeader("To cite fishtree in publications use:")
 
-citEntry(
-  entry    = "Article",
-  title    = "An R package and online resource for macroevolutionary studies using the ray‐finned fish tree of life",
+bibentry(
+  bibtype  = "Article",
+  title    = "An R package and online resource for macroevolutionary studies using the ray-finned fish tree of life",
   author   = c(
     person("Jonathan", "Chang", role = c("aut", "cre")),
-    person("Daniel L", "Rabosky", role = "ctb"),
-    person("Stephen A", "Smith", role = "ctb"),
-    person("Michael E", "Alfaro", role = "ctb")
+    person(c("Daniel", "L"), "Rabosky", role = "ctb"),
+    person(c("Stephen", "A"), "Smith", role = "ctb"),
+    person(c("Michael", "E"), "Alfaro", role = "ctb")
   ),
   journal  = "Methods in Ecology and Evolution",
   year     = 2019,
-  url      = "https://doi.org/10.1111/2041-210X.13182",
-  textVersion = "Chang, J., Rabosky, D. L., Smith, S. A., & Alfaro, M. E. (2019). An R package and online resource for macroevolutionary studies using the ray‐finned fish tree of life. Methods in Ecology and Evolution. doi:10.1111/2041-210x.13182"
+  volume   = 10,
+  number   = 7,
+  ISSN     = "2041-210X",
+  DOI      = "10.1111/2041-210x.13182",
+  month    = "Apr",
+  pages    = "1118-1124"
+)
+
+bibentry(
+  bibtype = "Article",
+  title   = "An inverse latitudinal gradient in speciation rate for marine fishes",
+  volume  = 559,
+  DOI     = "10.1038/s41586-018-0273-1",
+  number  = 7714,
+  journal = "Nature",
+  year    = 2018,
+  month   = "Jul",
+  pages   = "392-395",
+  author  = c(
+    person(c("Daniel", "L"), "Rabosky"),
+    person("Jonathan", "Chang"),
+    person(c("Pascal", "O"), "Title"),
+    person(c("Peter", "F"), "Cowman"),
+    person("Lauren", "Sallan"),
+    person("Matt", "Friedman"),
+    person("Kristin", "Kaschner"),
+    person("Cristina", "Garilao"),
+    person(c("Thomas", "J"), "Near"),
+    person("Marta", "Coll"),
+    person(c("Michael", "E"), "Alfaro")
+  )
 )
