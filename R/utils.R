@@ -17,6 +17,7 @@
 #' @param ... Additional arguments passed to `reader`.
 #' @return Whatever `reader` returns.
 #' @noRd
+#' @importFrom memoise memoise
 .get <- memoise::memoise(function(url, reader, ...) {
   if (rlang::is_missing(reader)) {
     rlang::abort("reader` must be specified when `url` is not in the cache.")
