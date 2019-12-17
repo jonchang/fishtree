@@ -1,5 +1,7 @@
 # fishtree (development version)
 
+* `fishtree_alignment()` now works correctly with `species = ...` arguments.
+
 * The internal `.name_check` function now emits structured warning output.
   This means that users supplying species names to e.g., `fishtree_phylogeny`
   that do not have matches in the taxonomy may use functions that capture
