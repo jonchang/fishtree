@@ -11,3 +11,8 @@ test_that("warn on extra species", {
   expect_warning(fishtree_phylogeny(species = spp), "only found 3 species")
 })
 
+
+test_that("alignment single species works", {
+    spp <- "Abalistes_stellaris"
+    expect_s3_class(fishtree_alignment(species = spp), "DNAbin")
+})

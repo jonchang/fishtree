@@ -186,7 +186,10 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
   }
 
   dna <- .get(url, ape::read.dna, format = "sequential", nlines = nlines)
-  if (!rlang::is_missing(species)) dna <- dna[.name_check(species), ]
+  if (!rlang::is_missing(species)) {
+    valid_names <- .name_check(species)
+    dna <- dna[gsub(" ", "_", valid_names), ]
+  }
   if (split) dna <- .split_seqs(dna)
   dna
 }
