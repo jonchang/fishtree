@@ -4,8 +4,11 @@
 \alias{fishtree_phylogeny}
 \title{Get a phylogeny from the Fish Tree of Life}
 \usage{
-fishtree_phylogeny(species, rank, type = c("chronogram", "phylogram",
-  "chronogram_mrca", "phylogram_mrca"))
+fishtree_phylogeny(
+  species,
+  rank,
+  type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")
+)
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}

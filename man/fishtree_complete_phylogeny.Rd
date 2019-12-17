@@ -4,8 +4,11 @@
 \alias{fishtree_complete_phylogeny}
 \title{Get complete (stochastically-resolved) phylogenies from the Fish Tree of Life}
 \usage{
-fishtree_complete_phylogeny(species, rank,
-  mc.cores = getOption("mc.cores", 1L))
+fishtree_complete_phylogeny(
+  species,
+  rank,
+  mc.cores = getOption("mc.cores", 1L)
+)
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
