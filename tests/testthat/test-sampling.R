@@ -13,6 +13,7 @@ test_that("warn on extra species", {
 
 
 test_that("alignment single species works", {
+    skip_on_cran() # Takes a long time
     spp <- "Abalistes_stellaris"
     expect_s3_class(fishtree_alignment(species = spp), "DNAbin")
 })
