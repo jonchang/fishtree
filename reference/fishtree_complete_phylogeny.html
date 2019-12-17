@@ -127,8 +127,11 @@
     <p>Retrieves a complete, stochastically-resolved phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny. WARNING: These phylogenies should generally not be used for downstream analyses of trait evolution. See Rabosky (2015) in the references for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fishtree_complete_phylogeny</span>(<span class='no'>species</span>, <span class='no'>rank</span>,
-  <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>))</pre>
+    <pre class="usage"><span class='fu'>fishtree_complete_phylogeny</span>(
+  <span class='no'>species</span>,
+  <span class='no'>rank</span>,
+  <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
