@@ -4,20 +4,17 @@
 #' @noRd
 .baseurl <- "https://fishtreeoflife.org/"
 
-#' Gets data from a URL, or a cache keyed by the same
+#' Gets data from a URL
 #'
-#' Uses the `.cache` internal object to check if an object keyed by `url` exists.
-#' If it does, returns it. Otherwise, it will download the `url` to a temporary
-#' file and load it with the `reader` function.
+#' Downloads `url` to a temporary file and loads it with the `reader` function.
 #'
-#' @param url The URL to retrieve, and the key for the cached data for the same.
+#' @param url The URL to retrieve.
 #' @param reader A function responsible for parsing the downloaded data. Its
 #'   first parameter should take a file name.
 #' @param quiet Should we \code{\link{download.file}} quietly? Defaults to `TRUE`.
 #' @param ... Additional arguments passed to `reader`.
 #' @return Whatever `reader` returns.
 #' @noRd
-#' @import memoise
 .get <- function(url, reader, ...) {
   if (rlang::is_missing(reader)) {
     rlang::abort("reader` must be specified when `url` is not in the cache.")
