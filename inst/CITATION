@@ -16,7 +16,8 @@ bibentry(
   ISSN     = "2041-210X",
   DOI      = "10.1111/2041-210x.13182",
   month    = "Apr",
-  pages    = "1118-1124"
+  pages    = "1118-1124",
+  key      = "Chang_2019"
 )
 
 bibentry(
@@ -29,6 +30,7 @@ bibentry(
   year    = 2018,
   month   = "Jul",
   pages   = "392-395",
+  key     = "Rabosky_2018",
   author  = c(
     person(c("Daniel", "L"), "Rabosky"),
     person("Jonathan", "Chang"),
