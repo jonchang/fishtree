@@ -17,8 +17,8 @@
 #' @param ... Additional arguments passed to `reader`.
 #' @return Whatever `reader` returns.
 #' @noRd
-#' @importFrom memoise memoise
-.get <- memoise::memoise(function(url, reader, ...) {
+#' @import memoise
+.get <- function(url, reader, ...) {
   if (rlang::is_missing(reader)) {
     rlang::abort("reader` must be specified when `url` is not in the cache.")
   }
@@ -31,7 +31,7 @@
     rlang::abort(paste("Download for URL", url, "failed with error code", res))
   }
   reader(tmp, ...)
-})
+}
 
 #' Reconcile names against a known good set
 #'
