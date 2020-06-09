@@ -1,26 +1,36 @@
-name: pkgdown
+name: CI
 
 on:
   push:
-    branches: master
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '14 12 * * 1' # At 12:14 on Monday
 
 jobs:
   build:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: r-lib/actions/setup-pandoc@master
     - uses: r-lib/actions/setup-r@v1
       with:
         r-version: 4.x
         Ncpus: 2
-    - uses: r-lib/actions/setup-pandoc@master
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages("remotes")' \
+        Rscript -e 'install.packages(c("remotes", "rcmdcheck"))' \
                 -e 'remotes::install_deps(dependencies = TRUE)' \
                 -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
+    - name: Run R CMD check
+      run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
       run: R CMD INSTALL .
+    - name: Build package documentation
+      run: |
+        Rscript -e "pkgdown::build_site('.')"
     - name: Deploy package
+      if: ${{ success() && github.ref == 'refs/heads/master' }}
       run: |
         Rscript -e "pkgdown:::deploy_local(new_process = FALSE, remote_url = 'https://x-access-token:${{ secrets.PACKAGE_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git')"
