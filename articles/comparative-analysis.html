@@ -99,7 +99,7 @@
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>tree &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span>(<span class="dt">rank =</span> <span class="st">"Tetraodontiformes"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tree, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(tree, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" width="672"></p>
 <p>Next, we need to get habitat data and associate it with our phylogeny. The <code>rfishbase</code> package (<a href="https://doi.org/10.1111/j.1095-8649.2012.03464.x">Boettiger et al. 2012</a>) has a variety of convenient functions to access data recorded by the Fishbase editors. Load the <code>rfishbase</code> package and retrieve the relevant data in the <code>DemersPelag</code> field, which identifies whether a species is reef-associated or not, among other things.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rfishbase)</span>
@@ -107,17 +107,21 @@
 <span id="cb2-3"><a href="#cb2-3"></a>tips &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"_"</span>, <span class="st">" "</span>, tree<span class="op">$</span>tip.label, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb2-4"><a href="#cb2-4"></a></span>
 <span id="cb2-5"><a href="#cb2-5"></a>fb_results &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/rfishbase/reference/species.html">species</a></span>(<span class="dt">species_list =</span> tips, <span class="dt">fields =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Species"</span>, <span class="st">"DemersPelag"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6"></a>fb_results &lt;-<span class="st"> </span>fb_results[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(fb_results<span class="op">$</span>Species), ]</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(fb_results)</span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;   Species                       DemersPelag  </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;        </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 1 Carinotetraodon lorteti       benthopelagic</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 2 Carinotetraodon borneensis    benthopelagic</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 3 Carinotetraodon irrubesco     benthopelagic</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 4 Carinotetraodon salivator     benthopelagic</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 5 Carinotetraodon travancoricus demersal     </span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; 6 Carinotetraodon imitator      benthopelagic</span></span></code></pre></div>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; Please use `tibble()` instead.</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>fb_results &lt;-<span class="st"> </span>fb_results[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(fb_results<span class="op">$</span>Species), ]</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(fb_results)</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;   Species                       DemersPelag  </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;   &lt;chr&gt;                         &lt;chr&gt;        </span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 1 Carinotetraodon lorteti       benthopelagic</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; 2 Carinotetraodon borneensis    benthopelagic</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; 3 Carinotetraodon irrubesco     benthopelagic</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; 4 Carinotetraodon salivator     benthopelagic</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; 5 Carinotetraodon travancoricus demersal     </span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; 6 Carinotetraodon imitator      benthopelagic</span></span></code></pre></div>
 <p>Note that we had to replace the underscores in the tip labels with spaces. This is a common source of errors, so if your analyses don’t seem to work correctly always check whether the functions you’re using expect underscores or spaces.</p>
 <p>There’s a lot of data in the <code>DemersPelag</code> field, but we only want to know if the species is reef-associated or not.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>reef &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">tip =</span> <span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">" "</span>, <span class="st">"_"</span>, fb_results<span class="op">$</span>Species),</span>
@@ -133,36 +137,33 @@
 <p>We’ve also converted the tip labels back to underscores, since we need to ensure that the tip labels on our phylogeny match the labels on our trait data. The <code>geiger</code> package (<a href="https://doi.org/10.1093/bioinformatics/btu181">Pennell et al. 2014</a>) provides a convenient function that will perform this check. The <code>name.check</code> function expects row names on our data object, so we will do that as well.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(geiger)</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; Loading required package: ape</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; Registered S3 method overwritten by 'geiger':</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;   method            from</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;   unique.multiPhylo ape</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(reef) &lt;-<span class="st"> </span>reef<span class="op">$</span>tip</span>
-<span id="cb4-8"><a href="#cb4-8"></a>nc &lt;-<span class="st"> </span>geiger<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/geiger/man/name.check.html">name.check</a></span>(tree, reef)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>nc</span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; $tree_not_data</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  [1] "Lagocephalus_lagocephalus_lagocephalus"</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  [2] "Monotrete_cochinchinensis"             </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  [3] "Monotrete_leiurus"                     </span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  [4] "Paramonacanthus_filicauda"             </span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  [5] "Rhinesomus_triqueter"                  </span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  [6] "Sphoeroides_cheesemanii"               </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;  [7] "Takifugu_fasciatus"                    </span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;  [8] "Tetraodon_abei"                        </span></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt;  [9] "Tetraodon_baileyi"                     </span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; [10] "Tetraodon_biocellatus"                 </span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; [11] "Tetraodon_cambodgiensis"               </span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; [12] "Tetraodon_cutcutia"                    </span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; [13] "Tetraodon_erythrotaenia"               </span></span>
-<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; [14] "Tetraodon_fluviatilis"                 </span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; [15] "Tetraodon_nigroviridis"                </span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; [16] "Tetraodon_palembangensis"              </span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; [17] "Tetraodon_suvattii"                    </span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; [18] "Tetraodon_turgidus"                    </span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; [19] "Tetrosomus_fornasini"                  </span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; </span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; $data_not_tree</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; character(0)</span></span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(reef) &lt;-<span class="st"> </span>reef<span class="op">$</span>tip</span>
+<span id="cb4-5"><a href="#cb4-5"></a>nc &lt;-<span class="st"> </span>geiger<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/geiger/man/name.check.html">name.check</a></span>(tree, reef)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>nc</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; $tree_not_data</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  [1] "Lagocephalus_lagocephalus_lagocephalus"</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  [2] "Monotrete_cochinchinensis"             </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  [3] "Monotrete_leiurus"                     </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  [4] "Paramonacanthus_filicauda"             </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  [5] "Rhinesomus_triqueter"                  </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  [6] "Sphoeroides_cheesemanii"               </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  [7] "Takifugu_fasciatus"                    </span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt;  [8] "Tetraodon_abei"                        </span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt;  [9] "Tetraodon_baileyi"                     </span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; [10] "Tetraodon_biocellatus"                 </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; [11] "Tetraodon_cambodgiensis"               </span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; [12] "Tetraodon_cutcutia"                    </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; [13] "Tetraodon_erythrotaenia"               </span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; [14] "Tetraodon_fluviatilis"                 </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; [15] "Tetraodon_nigroviridis"                </span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; [16] "Tetraodon_palembangensis"              </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; [17] "Tetraodon_suvattii"                    </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; [18] "Tetraodon_turgidus"                    </span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; [19] "Tetrosomus_fornasini"                  </span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; </span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; $data_not_tree</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; character(0)</span></span></code></pre></div>
 <p>We’ve identified a mismatch between the tree and the data. We’ll exclude the tips lacking trait data using <code>drop.tip</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ape)</span>
 <span id="cb5-2"><a href="#cb5-2"></a>tree &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/ape/man/drop.tip.html">drop.tip</a></span>(tree, nc<span class="op">$</span>tree_not_data)</span></code></pre></div>
@@ -206,7 +207,7 @@
 <p>It seems like for the most part, the Tetraodontiformes have a low speciation rate, except for a subset of non-reef species that have a faster rate.</p>
 <p>Of course, with any comparative method, it’s critical to consider the historical relationships between the species you’re examining. The following snippet of code is quite complex, but demonstrates how to draw rates onto a phylogeny using colored bars next to each tip in question.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Plot tree and extract plotting data</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(tree, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(tree, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a>obj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"last_plot.phylo"</span>, .PlotPhyloEnv)</span>
 <span id="cb11-4"><a href="#cb11-4"></a></span>
 <span id="cb11-5"><a href="#cb11-5"></a><span class="co"># Generate a color ramp</span></span>
