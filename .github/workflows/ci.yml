@@ -13,6 +13,10 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Configure git
+      uses: Homebrew/actions/git-user-config@master
+      with:
+        username: jonchang
     - uses: r-lib/actions/setup-pandoc@master
     - uses: r-lib/actions/setup-r@v1
       with:
