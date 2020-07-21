@@ -2,9 +2,11 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ![Build
-status](https://github.com/jonchang/fishtree/workflows/R%20CMD%20check/badge.svg)
+status](https://github.com/jonchang/fishtree/workflows/CI/badge.svg)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/fishtree)](https://cran.r-project.org/package=fishtree)
+[![CRANlogs downloads
+count](https://cranlogs.r-pkg.org/badges/fishtree)](https://cran.r-project.org/package=fishtree)
 [![Digital object
 identifier](https://zenodo.org/badge/DOI/10.1111/2041-210x.13182.svg)](https://doi.org/10.1111/2041-210x.13182)
 
