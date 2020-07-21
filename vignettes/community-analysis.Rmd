@@ -24,9 +24,9 @@ Here's a quick example to show how we could use the `fishtree` package to conduc
 ```{r load-packages}
 library(ape)
 library(fishtree)
-requireNamespace("rfishbase")
-requireNamespace("picante")
-requireNamespace("geiger")
+loadNamespace("rfishbase")
+loadNamespace("picante")
+loadNamespace("geiger")
 ```
 
 Next we'll start downloading some data from `rfishbase`. We'll be seeing if reef-associated ray-finned fish species are clustered or overdispersed in the Atlantic, Pacific, and Indian Oceans.
@@ -66,16 +66,18 @@ cophen <- cophenetic(phy)
 sample_matrix <- t(sample_matrix)
 ```
 
-We'll run `ses.mpd` and `ses.mntd` with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.
+We'll run `picante::ses.mpd` and `picante::ses.mntd` with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.
 
 ```{r results}
 picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 picante::ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 ```
 
-The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny. We can confirm these patterns visually:
+The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.
 
-```{r plot, fig.width = 7, fig.height = 15}
+We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.
+
+```{r plot, fig.width = 7, fig.height = 20}
 plot(phy, show.tip.label = FALSE, no.margin = TRUE)
 obj <- get("last_plot.phylo", .PlotPhyloEnv)
 
@@ -87,6 +89,4 @@ for (ii in 1:ncol(matr)) {
   present_idx <- matr[, ii] == 1
   points(xx[present_idx] + ii, yy[present_idx], col = cols[ii], cex = 0.1)
 }
-
-
 ```
