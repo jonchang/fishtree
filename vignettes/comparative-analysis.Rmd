@@ -1,5 +1,5 @@
 ---
-title: "Comparative methods with the Fish Tree of Life"
+title: "A simple comparative analysis with the Fish Tree of Life"
 author: "Jonathan Chang"
 output: rmarkdown::html_vignette
 vignette: >
