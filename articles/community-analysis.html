@@ -133,22 +133,22 @@
 <p>We’ll run <code><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">picante::ses.mpd</a></code> and <code><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">picante::ses.mntd</a></code> with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>picante<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">ses.mpd</a></span>(sample_matrix, cophen, <span class="dt">null.model =</span> <span class="st">"taxa.labels"</span>, <span class="dt">runs =</span> <span class="dv">99</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; Atlantic Ocean   623 238.1682      232.0363   1.9837227          100 3.09109762</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Indian Ocean    1213 233.1537      231.8250   1.0528003           90 1.26201747</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; Pacific Ocean   1497 231.6829      231.6238   0.9250156           48 0.06384613</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; Atlantic Ocean   623 238.1682      231.6335   2.2332543          100  2.9260712</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Indian Ocean    1213 233.1537      231.8212   1.1671617           86  1.1416639</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; Pacific Ocean   1497 231.6829      231.7973   0.8683233           39 -0.1317914</span></span>
 <span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;                mpd.obs.p runs</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; Atlantic Ocean      1.00   99</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; Indian Ocean        0.90   99</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; Pacific Ocean       0.48   99</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; Indian Ocean        0.86   99</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; Pacific Ocean       0.39   99</span></span>
 <span id="cb6-10"><a href="#cb6-10"></a>picante<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">ses.mntd</a></span>(sample_matrix, cophen, <span class="dt">null.model =</span> <span class="st">"taxa.labels"</span>, <span class="dt">runs =</span> <span class="dv">99</span>)</span>
 <span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; Atlantic Ocean   623 41.86956       48.15777    1.4897434             1</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; Indian Ocean    1213 34.99129       38.00565    0.8495382             1</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; Pacific Ocean   1497 34.08644       35.12593    0.5216007             2</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; Atlantic Ocean   623 41.86956       47.97582    1.4986723             1</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; Indian Ocean    1213 34.99129       38.03863    0.7540374             1</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; Pacific Ocean   1497 34.08644       35.00624    0.4940118             6</span></span>
 <span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Atlantic Ocean  -4.221003       0.01   99</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; Indian Ocean    -3.548240       0.01   99</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; Pacific Ocean   -1.992884       0.02   99</span></span></code></pre></div>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Atlantic Ocean  -4.074448       0.01   99</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; Indian Ocean    -4.041373       0.01   99</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; Pacific Ocean   -1.861899       0.06   99</span></span></code></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.</p>
 <p>We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(phy, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
