@@ -16,7 +16,7 @@ Description: An interface to the Fish Tree of Life API to download taxonomies,
 License: BSD_2_clause + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 URL: https://fishtreeoflife.org/
 BugReports: https://github.com/jonchang/fishtree/issues
 Depends:
@@ -29,12 +29,14 @@ Imports:
     memoise,
     parallel
 Suggests:
-    rfishbase,
-    hisse,
+    diversitree,
     geiger,
+    hisse,
     knitr,
-    rmarkdown,
+    phytools,
     picante,
+    rfishbase,
+    rmarkdown,
     spelling,
     testthat
 VignetteBuilder: knitr
