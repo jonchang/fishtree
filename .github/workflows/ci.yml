@@ -24,9 +24,8 @@ jobs:
         Ncpus: 2
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("remotes", "rcmdcheck"))' \
-                -e 'remotes::install_deps(dependencies = TRUE)' \
-                -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
+        Rscript -e 'install.packages(c("remotes", "rcmdcheck", "pkgdown"))' \
+                -e 'remotes::install_deps(dependencies = TRUE)'
     - name: Run R CMD check
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
@@ -37,4 +36,4 @@ jobs:
     - name: Deploy package
       if: ${{ success() && github.ref == 'refs/heads/master' }}
       run: |
-        Rscript -e "pkgdown:::deploy_local(new_process = FALSE, remote_url = 'https://x-access-token:${{ secrets.PACKAGE_ACCESS_TOKEN }}@github.com/${{ github.repository }}.git')"
+        Rscript -e "pkgdown::deploy_to_branch('.', clean = TRUE)"
