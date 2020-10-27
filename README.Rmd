@@ -60,7 +60,10 @@ install.packages("fishtree")
 Alternatively, download the development version with devtools:
 
 ```r
-devtools::install_github("jonchang/fishtree")
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+
+remotes::install_github("jonchang/fishtree")
 ```
 
 ## References
