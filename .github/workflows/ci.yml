@@ -30,10 +30,7 @@ jobs:
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
       run: R CMD INSTALL .
-    - name: Build package documentation
-      run: |
-        Rscript -e "pkgdown::build_site('.')"
     - name: Deploy package
-      if: ${{ success() && github.ref == 'refs/heads/master' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       run: |
-        Rscript -e "pkgdown::deploy_to_branch('.', clean = TRUE)"
+        Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
