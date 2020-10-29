@@ -4,7 +4,7 @@ Title: Interface to the Fish Tree of Life API
 Version: 0.3.2.9000
 Authors@R: c(
     person("Jonathan", "Chang", role = c("aut", "cre"),
-           email = "jonathan.chang@ucla.edu",
+           email = "me@jonathanchang.org",
            comment = c("ORCID" = "0000-0002-3811-1254")),
     person("Michael E", "Alfaro", role = "ctb"),
     person("Daniel L", "Rabosky", role = "ctb"),
