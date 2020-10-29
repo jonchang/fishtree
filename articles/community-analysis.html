@@ -6,19 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Phylogenetic community assembly with the Fish Tree of Life • fishtree</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Phylogenetic community assembly with the Fish Tree of Life">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="fishtree">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -65,7 +65,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/jonchang/fishtree/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -75,14 +82,15 @@
 
       
 
-      </header><script src="community-analysis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="community-analysis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="community-analysis_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="community-analysis_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Phylogenetic community assembly with the Fish Tree of Life</h1>
+      <h1 data-toc-skip>Phylogenetic community assembly with the Fish Tree of Life</h1>
                         <h4 class="author">Jonathan Chang</h4>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/jonchang/fishtree/blob/master/vignettes/community-analysis.Rmd"><code>vignettes/community-analysis.Rmd</code></a></small>
       <div class="hidden name"><code>community-analysis.Rmd</code></div>
 
     </div>
@@ -90,82 +98,89 @@
     
     
 <p>Here’s a quick example to show how we could use the <code>fishtree</code> package to conduct some phylogenetic community analyses. First, we load <code>fishtree</code> and ensure that the other packages that we need are installed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ape)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(fishtree)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span>(<span class="st">"rfishbase"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; &lt;environment: namespace:rfishbase&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span>(<span class="st">"picante"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; &lt;environment: namespace:picante&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span>(<span class="st">"geiger"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; &lt;environment: namespace:geiger&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/">ape</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fishtreeoflife.org/">fishtree</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span><span class="op">(</span><span class="st">"rfishbase"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: namespace:rfishbase&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span><span class="op">(</span><span class="st">"picante"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: namespace:picante&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">loadNamespace</a></span><span class="op">(</span><span class="st">"geiger"</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: namespace:geiger&gt;</span></pre></div>
 <p>Next we’ll start downloading some data from <code>rfishbase</code>. We’ll be seeing if reef-associated ray-finned fish species are clustered or overdispersed in the Atlantic, Pacific, and Indian Oceans.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Get reef-associated species from the `species` table</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>reef_species &lt;-<span class="st"> </span>rfishbase<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/rfishbase/reference/species.html">species</a></span>(<span class="dt">fields =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Species"</span>, <span class="st">"DemersPelag"</span>))</span>
-<span id="cb2-3"><a href="#cb2-3"></a>reef_species &lt;-<span class="st"> </span>reef_species[reef_species<span class="op">$</span>DemersPelag <span class="op">==</span><span class="st"> "reef-associated"</span>, ]</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># Get native and endemic species from the Atlantic, Pacific, and Indian Oceans</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>eco &lt;-<span class="st"> </span>rfishbase<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/rfishbase/reference/ecosystem.html">ecosystem</a></span>(<span class="dt">species_list =</span> reef_species<span class="op">$</span>Species)</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; Please use `tibble()` instead.</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>valid_idx &lt;-<span class="st"> </span>eco<span class="op">$</span>Status <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"native"</span>, <span class="st">"endemic"</span>) <span class="op">&amp;</span><span class="st"> </span>eco<span class="op">$</span>EcosystemName <span class="op">%in%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Atlantic Ocean"</span>, <span class="st">"Pacific Ocean"</span>, <span class="st">"Indian Ocean"</span>) </span>
-<span id="cb2-12"><a href="#cb2-12"></a>eco &lt;-<span class="st"> </span>eco[valid_idx, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Species"</span>, <span class="st">"EcosystemName"</span>)]</span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co"># Retrieve the phylogeny of only native reef species across all three oceans.</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>phy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span>(<span class="dt">species =</span> eco<span class="op">$</span>Species)</span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; Warning: Requested 5813 but only found 3961 species.</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; * Conger esculentus</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; * Lutjanus guttatus</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; * Lutjanus inermis</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; * Lutjanus jordani</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; * Lutjanus lemniscatus</span></span>
-<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; * ...and 1847 others</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># Get reef-associated species from the `species` table</span>
+<span class="va">reef_species</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html">species</a></span><span class="op">(</span>fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">reef_species</span> <span class="op">&lt;-</span> <span class="va">reef_species</span><span class="op">[</span><span class="va">reef_species</span><span class="op">$</span><span class="va">DemersPelag</span> <span class="op">==</span> <span class="st">"reef-associated"</span>, <span class="op">]</span>
+
+<span class="co"># Get native and endemic species from the Atlantic, Pacific, and Indian Oceans</span>
+<span class="va">eco</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/ecosystem.html">ecosystem</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">reef_species</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
+<span class="co">#&gt; Please use `tibble()` instead.</span>
+<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
+<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
+<span class="va">valid_idx</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">$</span><span class="va">Status</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"native"</span>, <span class="st">"endemic"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">eco</span><span class="op">$</span><span class="va">EcosystemName</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Atlantic Ocean"</span>, <span class="st">"Pacific Ocean"</span>, <span class="st">"Indian Ocean"</span><span class="op">)</span> 
+<span class="va">eco</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">[</span><span class="va">valid_idx</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"EcosystemName"</span><span class="op">)</span><span class="op">]</span>
+
+<span class="co"># Retrieve the phylogeny of only native reef species across all three oceans.</span>
+<span class="va">phy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>species <span class="op">=</span> <span class="va">eco</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Requested 5813 but only found 3961 species.</span>
+<span class="co">#&gt; * Conger esculentus</span>
+<span class="co">#&gt; * Lutjanus guttatus</span>
+<span class="co">#&gt; * Lutjanus inermis</span>
+<span class="co">#&gt; * Lutjanus jordani</span>
+<span class="co">#&gt; * Lutjanus lemniscatus</span>
+<span class="co">#&gt; * ...and 1847 others</span></pre></div>
 <p>We’ll have to clean up the data in a few ways before sending it to <code>picante</code> for analysis. First, we’ll need to convert our species-by-site data frame into a presence-absence matrix. We’ll use <code><a href="https://rdrr.io/r/base/table.html">base::table</a></code> for this, and use <code>unclass</code> to convert the <code>table</code> into a standard <code>matrix</code> object.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sample_matrix &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/class.html">unclass</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(eco))</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span>(sample_matrix)<span class="op">$</span>Species &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">" "</span>, <span class="st">"_"</span>, <span class="kw"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span>(sample_matrix)<span class="op">$</span>Species, <span class="dt">fixed =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html">unclass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">eco</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">$</span><span class="va">Species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">$</span><span class="va">Species</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p>Next, we’ll use <code><a href="https://rdrr.io/pkg/geiger/man/name.check.html">geiger::name.check</a></code> to ensure the tip labels of the phylogeny and the rows of the data matrix match each other.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>nc &lt;-<span class="st"> </span>geiger<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/geiger/man/name.check.html">name.check</a></span>(phy, sample_matrix)</span>
-<span id="cb4-2"><a href="#cb4-2"></a>sample_matrix &lt;-<span class="st"> </span>sample_matrix[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(sample_matrix) <span class="op">%in%</span><span class="st"> </span>nc<span class="op">$</span>data_not_tree, ]</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">geiger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geiger/man/name.check.html">name.check</a></span><span class="op">(</span><span class="va">phy</span>, <span class="va">sample_matrix</span><span class="op">)</span>
+<span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="va">sample_matrix</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">nc</span><span class="op">$</span><span class="va">data_not_tree</span>, <span class="op">]</span></pre></div>
 <p>Finally, we’ll generate the cophenetic matrix based on the phylogeny, and transpose the presence-absence matrix since <code>picante</code> likes its columns to be species and its rows to be sites.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>cophen &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/cophenetic.html">cophenetic</a></span>(phy)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>sample_matrix &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(sample_matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">cophen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cophenetic.html">cophenetic</a></span><span class="op">(</span><span class="va">phy</span><span class="op">)</span>
+<span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span></pre></div>
 <p>We’ll run <code><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">picante::ses.mpd</a></code> and <code><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">picante::ses.mntd</a></code> with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>picante<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">ses.mpd</a></span>(sample_matrix, cophen, <span class="dt">null.model =</span> <span class="st">"taxa.labels"</span>, <span class="dt">runs =</span> <span class="dv">99</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; Atlantic Ocean   623 238.1682      231.6335   2.2332543          100  2.9260712</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; Indian Ocean    1213 233.1537      231.8212   1.1671617           86  1.1416639</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; Pacific Ocean   1497 231.6829      231.7973   0.8683233           39 -0.1317914</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;                mpd.obs.p runs</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; Atlantic Ocean      1.00   99</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; Indian Ocean        0.86   99</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; Pacific Ocean       0.39   99</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a>picante<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">ses.mntd</a></span>(sample_matrix, cophen, <span class="dt">null.model =</span> <span class="st">"taxa.labels"</span>, <span class="dt">runs =</span> <span class="dv">99</span>)</span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; Atlantic Ocean   623 41.86956       47.97582    1.4986723             1</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; Indian Ocean    1213 34.99129       38.03863    0.7540374             1</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; Pacific Ocean   1497 34.08644       35.00624    0.4940118             6</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Atlantic Ocean  -4.074448       0.01   99</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; Indian Ocean    -4.041373       0.01   99</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; Pacific Ocean   -1.861899       0.06   99</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
+<span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span>
+<span class="co">#&gt; Atlantic Ocean   623 238.1682      231.7909   2.1193754          100  3.0090436</span>
+<span class="co">#&gt; Indian Ocean    1213 233.1537      231.9522   1.2535168           81  0.9584472</span>
+<span class="co">#&gt; Pacific Ocean   1497 231.6829      231.8634   0.9060525           44 -0.1992645</span>
+<span class="co">#&gt;                mpd.obs.p runs</span>
+<span class="co">#&gt; Atlantic Ocean      1.00   99</span>
+<span class="co">#&gt; Indian Ocean        0.81   99</span>
+<span class="co">#&gt; Pacific Ocean       0.44   99</span>
+<span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
+<span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span>
+<span class="co">#&gt; Atlantic Ocean   623 41.86956       48.03414    1.3262203             1</span>
+<span class="co">#&gt; Indian Ocean    1213 34.99129       38.07130    0.7201556             1</span>
+<span class="co">#&gt; Pacific Ocean   1497 34.08644       35.06710    0.5366935             5</span>
+<span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span>
+<span class="co">#&gt; Atlantic Ocean  -4.648232       0.01   99</span>
+<span class="co">#&gt; Indian Ocean    -4.276869       0.01   99</span>
+<span class="co">#&gt; Pacific Ocean   -1.827230       0.05   99</span></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.</p>
 <p>We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(phy, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>obj &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"last_plot.phylo"</span>, .PlotPhyloEnv)</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a>matr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/t.html">t</a></span>(sample_matrix)[phy<span class="op">$</span>tip.label, ]</span>
-<span id="cb7-5"><a href="#cb7-5"></a>xx &lt;-<span class="st"> </span>obj<span class="op">$</span>xx[<span class="dv">1</span><span class="op">:</span>obj<span class="op">$</span>Ntip]</span>
-<span id="cb7-6"><a href="#cb7-6"></a>yy &lt;-<span class="st"> </span>obj<span class="op">$</span>yy[<span class="dv">1</span><span class="op">:</span>obj<span class="op">$</span>Ntip]</span>
-<span id="cb7-7"><a href="#cb7-7"></a>cols &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#1b9e77"</span>, <span class="st">"#d95f02"</span>, <span class="st">"#7570b3"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="cf">for</span> (ii <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(matr)) {</span>
-<span id="cb7-9"><a href="#cb7-9"></a>  present_idx &lt;-<span class="st"> </span>matr[, ii] <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a>  <span class="kw"><a href="https://rdrr.io/r/graphics/points.html">points</a></span>(xx[present_idx] <span class="op">+</span><span class="st"> </span>ii, yy[present_idx], <span class="dt">col =</span> cols[ii], <span class="dt">cex =</span> <span class="fl">0.1</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">phy</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="st">"last_plot.phylo"</span>, <span class="va">.PlotPhyloEnv</span><span class="op">)</span>
+
+<span class="va">matr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">[</span><span class="va">phy</span><span class="op">$</span><span class="va">tip.label</span>, <span class="op">]</span>
+<span class="va">xx</span> <span class="op">&lt;-</span> <span class="va">obj</span><span class="op">$</span><span class="va">xx</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">obj</span><span class="op">$</span><span class="va">Ntip</span><span class="op">]</span>
+<span class="va">yy</span> <span class="op">&lt;-</span> <span class="va">obj</span><span class="op">$</span><span class="va">yy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">obj</span><span class="op">$</span><span class="va">Ntip</span><span class="op">]</span>
+<span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#1b9e77"</span>, <span class="st">"#d95f02"</span>, <span class="st">"#7570b3"</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">ii</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">matr</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">present_idx</span> <span class="op">&lt;-</span> <span class="va">matr</span><span class="op">[</span>, <span class="va">ii</span><span class="op">]</span> <span class="op">==</span> <span class="fl">1</span>
+  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span><span class="va">xx</span><span class="op">[</span><span class="va">present_idx</span><span class="op">]</span> <span class="op">+</span> <span class="va">ii</span>, <span class="va">yy</span><span class="op">[</span><span class="va">present_idx</span><span class="op">]</span>, col <span class="op">=</span> <span class="va">cols</span><span class="op">[</span><span class="va">ii</span><span class="op">]</span>, cex <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 <p><img src="community-analysis_files/figure-html/plot-1.png" width="672"></p>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
       </div>
 
@@ -178,7 +193,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
