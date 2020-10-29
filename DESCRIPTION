@@ -31,7 +31,7 @@ Imports:
 Suggests:
     diversitree,
     geiger,
-    hisse,
+    hisse (>= 1.9.10),
     knitr,
     phytools,
     picante,
