@@ -148,38 +148,43 @@ library(hisse)
 
 The `hisse` package parameterizes things differently from `diversitree` (where BiSSE lives), so we aren't able to exactly replicate the analyses in the Santini paper. Instead we'll settle by ensuring that the epsilon parameter, $\epsilon = \frac{\mu}{\lambda}$ is constrained to be equal for both reef and non-reef taxa. We'll also constrain transition rates to be equal, since it can be difficult to estimate those.
 
-First we'll construct and run the BiSSE model and the BiSSE null model:
+Note that to ensure this vignette can be run in a reasonable amoutn of time, we set `sann = FALSE` to disable the simulated annealing procedure in `hisse`. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.
+
+First, we'll construct and run the BiSSE model and the BiSSE null model:
 
 ```{r run_bisse}
-trans.rates.bisse <- ParEqual(TransMatMaker.old(hidden.states = FALSE), c(1, 2))
+trans.rates.bisse <- TransMatMakerHiSSE()
 
-pp.bisse.full <- hisse.old(tree, reef, hidden.states = FALSE,
-                       turnover.anc = c(1,2,0,0), eps.anc = c(1,1,0,0),
-                       trans.rate = trans.rates.bisse, output.type="raw")
+pp.bisse.full <- hisse(tree, reef,
+                       hidden.states = FALSE, sann = FALSE,
+                       turnover = c(1, 2), eps = c(1, 1),
+                       trans.rate = trans.rates.bisse)
 
-pp.bisse.null <- hisse.old(tree, reef, hidden.states = FALSE,
-                       turnover.anc = c(1,1,0,0), eps.anc = c(1,1,0,0),
-                       trans.rate = trans.rates.bisse, output.type="raw")
+pp.bisse.null <- hisse(tree, reef,
+                       hidden.states = FALSE, sann = FALSE,
+                       turnover = c(1, 1), eps = c(1, 1),
+                       trans.rate = trans.rates.bisse)
 ```
 
 Next, we'll run the full hisse model, save for the constrained transition rates and epsilon.
 
 ```{r run_hisse}
-trans.rates.hisse <- TransMatMaker.old(hidden.states = TRUE)
-trans.rates.hisse <- ParDrop(trans.rates.hisse, c(3,5,8,10))
-trans.rates.hisse <- ParEqual(trans.rates.hisse, c(1,2,1,3,1,4,1,5,1,6,1,7,1,8))
+trans.rates.hisse <- TransMatMakerHiSSE(hidden.traits = 1)
+trans.rates.hisse <- ParEqual(trans.rates.hisse, c(1, 2, 1, 3, 1, 4, 1, 5))
 
-pp.hisse.full <- hisse.old(tree, reef, hidden.states = TRUE,
-                       turnover.anc=c(1,2,3,4), eps.anc=c(1,1,1,1),
-                       trans.rate=trans.rates.hisse, output.type="raw")
+pp.hisse.full <- hisse(tree, reef,
+                       hidden.states = TRUE, sann = FALSE,
+                       turnover = c(1, 2, 3, 4), eps = c(1, 1, 1, 1),
+                       trans.rate = trans.rates.hisse)
 ```
 
 Finally, we'll build the 2 state character independent diversification model, sometimes called CID-2. We'll use this as our null model by forcing the visible states (reef or non-reef) to have the same net turnover rates, while permitting the hidden states to vary freely.
 
 ```{r run_hisse_null}
-pp.hisse.null2 <- hisse.old(tree, reef, hidden.states = TRUE,
-                        turnover.anc=c(1,1,2,2), eps.anc=c(1,1,1,1),
-                        trans.rate=trans.rates.hisse, output.type="raw")
+pp.hisse.null2 <- hisse(tree, reef,
+                        hidden.states = TRUE, sann = FALSE,
+                        turnover = c(1, 1, 2, 2), eps = c(1, 1, 1, 1),
+                        trans.rate = trans.rates.hisse)
 ```
 
 We can combine all of our results into a single table for easy comparison.
