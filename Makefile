@@ -1,4 +1,4 @@
 all: readme
 
 readme:
-	Rscript -e 'rmarkdown::render("README.Rmd")'
+	Rscript -e 'devtools::build_readme()'
