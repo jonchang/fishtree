@@ -148,7 +148,7 @@ library(hisse)
 
 The `hisse` package parameterizes things differently from `diversitree` (where BiSSE lives), so we aren't able to exactly replicate the analyses in the Santini paper. Instead we'll settle by ensuring that the epsilon parameter, $\epsilon = \frac{\mu}{\lambda}$ is constrained to be equal for both reef and non-reef taxa. We'll also constrain transition rates to be equal, since it can be difficult to estimate those.
 
-Note that to ensure this vignette can be run in a reasonable amoutn of time, we set `sann = FALSE` to disable the simulated annealing procedure in `hisse`. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.
+Note that to ensure this vignette can be run in a reasonable amount of time, we set `sann = FALSE` to disable the simulated annealing procedure in `hisse`. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.
 
 First, we'll construct and run the BiSSE model and the BiSSE null model:
 
