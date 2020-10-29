@@ -255,7 +255,7 @@
 <span class="co">#&gt; Loading required package: subplex</span>
 <span class="co">#&gt; Loading required package: nloptr</span></pre></div>
 <p>The <code>hisse</code> package parameterizes things differently from <code>diversitree</code> (where BiSSE lives), so we aren’t able to exactly replicate the analyses in the Santini paper. Instead we’ll settle by ensuring that the epsilon parameter, <span class="math inline">\(\epsilon = \frac{\mu}{\lambda}\)</span> is constrained to be equal for both reef and non-reef taxa. We’ll also constrain transition rates to be equal, since it can be difficult to estimate those.</p>
-<p>Note that to ensure this vignette can be run in a reasonable amoutn of time, we set <code>sann = FALSE</code> to disable the simulated annealing procedure in <code>hisse</code>. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.</p>
+<p>Note that to ensure this vignette can be run in a reasonable amount of time, we set <code>sann = FALSE</code> to disable the simulated annealing procedure in <code>hisse</code>. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.</p>
 <p>First, we’ll construct and run the BiSSE model and the BiSSE null model:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
 <span class="va">trans.rates.bisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMatMakerHiSSE.html">TransMatMakerHiSSE</a></span><span class="op">(</span><span class="op">)</span>
