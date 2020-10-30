@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fishtree</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.3</span>
       </span>
     </div>
 
@@ -129,9 +129,9 @@
       <small>Source: <a href='https://github.com/jonchang/fishtree/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="fishtree-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#fishtree-development-version" class="anchor"></a>fishtree (development version)<small> Unreleased </small>
+    <div id="fishtree-033" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.3">
+<a href="#fishtree-033" class="anchor"></a>fishtree 0.3.3<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>The internal <code>.get()</code> function now avoids a build-time dependency on <code><a href="https://rdrr.io/pkg/memoise/man/memoise.html">memoise::memoise()</a></code>, per <a href="https://github.com/r-lib/memoise/issues/76" class="uri">https://github.com/r-lib/memoise/issues/76</a></p></li>
@@ -144,7 +144,7 @@
 </h1>
 <ul>
 <li><p><code><a href="../reference/fishtree_alignment.html">fishtree_alignment()</a></code> now works correctly with <code>species = ...</code> arguments.</p></li>
-<li><p>The internal <code>.name_check</code> function now emits structured warning output. This means that users supplying species names to e.g., <code>fishtree_phylogeny</code> that do not have matches in the taxonomy may use functions that capture warning messages to programatically determine which species are missing, without parsing error messages.</p></li>
+<li><p>The internal <code>.name_check</code> function now emits structured warning output. This means that users supplying species names to e.g., <code>fishtree_phylogeny</code> that do not have matches in the taxonomy may use functions that capture warning messages to programmatically determine which species are missing, without parsing error messages.</p></li>
 <li><p>Converted some warnings to messages.</p></li>
 <li><p>Minor documentation changes.</p></li>
 </ul>
