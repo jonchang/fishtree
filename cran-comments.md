@@ -1,17 +1,25 @@
 ## Test environments
 
-* local macOS 10.15 install, R 3.6.2
+* local macOS 10.15.7 install, R 4.0.3
 * GitHub Actions CI
-    * macOS 10.15, R 3.x
+    * macOS 10.15, R 4.x
 * R-hub builder
-    * windows-x86_64-devel
-    * ubuntu-gcc-release
-    * fedora-clang-devel
+    * Ubuntu Linux 16.04 LTS, R-release, GCC
+    * Fedora Linux, R-devel, clang, gfortran
 * win-builder (devel)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 notes
+
+  New maintainer:
+    Jonathan Chang <me@jonathanchang.org>
+  Old maintainer(s):
+    Jonathan Chang <jonathan.chang@ucla.edu>
+
+I'm updating my email address. The old @ucla.edu address will be valid
+for the foreseeable future, so please feel free to contact me at that
+address if you need to confirm.
 
 ## Downstream dependencies
 
