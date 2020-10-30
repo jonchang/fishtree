@@ -24,7 +24,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jonathan Chang \email{jonathan.chang@ucla.edu} (\href{https://orcid.org/0000-0002-3811-1254}{ORCID})
+\strong{Maintainer}: Jonathan Chang \email{me@jonathanchang.org} (\href{https://orcid.org/0000-0002-3811-1254}{ORCID})
 
 Other contributors:
 \itemize{
