@@ -3,7 +3,8 @@
 * The internal `.get()` function now avoids a build-time dependency on
   `memoise::memoise()`, per https://github.com/r-lib/memoise/issues/76
 
-* Vignettes and citations have been updated.
+* Vignettes and citations have been updated to use the latest versions,
+  where relevant.
 
 # fishtree 0.3.2
 
