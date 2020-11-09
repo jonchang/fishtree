@@ -103,16 +103,16 @@
 <a href="#getting-and-cleaning-data" class="anchor"></a>Getting and cleaning data</h2>
 <p>A common hypothesis tested in comparative methods is whether habitat shifts drive rates of diversification in various groups. For example, <a href="https://doi.org/10.1111/jeb.12112">Santini et al. (2013)</a> tested, among other things, whether reef-associated pufferfishes enjoyed faster rates of speciation compared to their non-reef relatives.</p>
 <p>First, load the <code>fishtree</code> package and download the subset of the Fish Tree of Life corresponding to the taxon of interest. To make things more interesting we’ll work on the entire order (<a href="https://fishtreeoflife.org/taxonomy/order/Tetraodontiformes/">Tetraodontiformes</a>) rather than the family in the 2013 study.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fishtreeoflife.org/">fishtree</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fishtreeoflife.org/">fishtree</a></span><span class="op">)</span>
 
 <span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tree</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tree</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" width="672"></p>
 <p>Next, we need to get habitat data and associate it with our phylogeny. The <code>rfishbase</code> package (<a href="https://doi.org/10.1111/j.1095-8649.2012.03464.x">Boettiger et al. 2012</a>) has a variety of convenient functions to access data recorded by the Fishbase editors. Load the <code>rfishbase</code> package and retrieve the relevant data in the <code>DemersPelag</code> field, which identifies whether a species is reef-associated or not, among other things.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rfishbase">rfishbase</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rfishbase">rfishbase</a></span><span class="op">)</span>
 
 <span class="va">tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
@@ -131,11 +131,11 @@
 <span class="co">#&gt; 3 Carinotetraodon irrubesco     benthopelagic</span>
 <span class="co">#&gt; 4 Carinotetraodon salivator     benthopelagic</span>
 <span class="co">#&gt; 5 Carinotetraodon travancoricus demersal     </span>
-<span class="co">#&gt; 6 Carinotetraodon imitator      benthopelagic</span></pre></div>
+<span class="co">#&gt; 6 Carinotetraodon imitator      benthopelagic</span></code></pre></div>
 <p>Note that we had to replace the underscores in the tip labels with spaces. This is a common source of errors, so if your analyses don’t seem to work correctly always check whether the functions you’re using expect underscores or spaces.</p>
 <p>There’s a lot of data in the <code>DemersPelag</code> field, but we only want to know if the species is reef-associated or not.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">reef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>tip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="va">fb_results</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>,
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">reef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>tip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="va">fb_results</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>,
                    is_reef <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">$</span><span class="va">DemersPelag</span> <span class="op">==</span> <span class="st">"reef-associated"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span>
 <span class="co">#&gt;                             tip is_reef</span>
@@ -144,10 +144,10 @@
 <span class="co">#&gt; 3     Carinotetraodon_irrubesco       0</span>
 <span class="co">#&gt; 4     Carinotetraodon_salivator       0</span>
 <span class="co">#&gt; 5 Carinotetraodon_travancoricus       0</span>
-<span class="co">#&gt; 6      Carinotetraodon_imitator       0</span></pre></div>
+<span class="co">#&gt; 6      Carinotetraodon_imitator       0</span></code></pre></div>
 <p>We’ve also converted the tip labels back to underscores, since we need to ensure that the tip labels on our phylogeny match the labels on our trait data. The <code>geiger</code> package (<a href="https://doi.org/10.1093/bioinformatics/btu181">Pennell et al. 2014</a>) provides a convenient function that will perform this check. The <code>name.check</code> function expects row names on our data object, so we will do that as well.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mwpennell/geiger-v2">geiger</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mwpennell/geiger-v2">geiger</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ape</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">reef</span><span class="op">$</span><span class="va">tip</span>
@@ -175,25 +175,25 @@
 <span class="co">#&gt; [19] "Tetrosomus_fornasini"                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $data_not_tree</span>
-<span class="co">#&gt; character(0)</span></pre></div>
+<span class="co">#&gt; character(0)</span></code></pre></div>
 <p>We’ve identified a mismatch between the tree and the data. We’ll exclude the tips lacking trait data using <code>drop.tip</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/">ape</a></span><span class="op">)</span>
-<span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/drop.tip.html">drop.tip</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">nc</span><span class="op">$</span><span class="va">tree_not_data</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/">ape</a></span><span class="op">)</span>
+<span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/drop.tip.html">drop.tip</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">nc</span><span class="op">$</span><span class="va">tree_not_data</span><span class="op">)</span></code></pre></div>
 <p>If we also had data that was not in the tree, we could exclude that using the following command, but it isn’t necessary in this case:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">reef</span> <span class="op">&lt;-</span> <span class="va">reef</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">nc</span><span class="op">$</span><span class="va">data_not_tree</span>, <span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">reef</span> <span class="op">&lt;-</span> <span class="va">reef</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">nc</span><span class="op">$</span><span class="va">data_not_tree</span>, <span class="op">]</span></code></pre></div>
 <p>Confirm that we have the same number of observations in the tree and the data:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/ape/man/summary.phylo.html">Ntip</a></span><span class="op">(</span><span class="va">tree</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/ape/man/summary.phylo.html">Ntip</a></span><span class="op">(</span><span class="va">tree</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
 <div id="plotting-diversification-rates" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-diversification-rates" class="anchor"></a>Plotting diversification rates</h2>
 <p>There are several other data sources available in the <code>fishtree</code> package, including speciation rates computed via the DR method (<a href="https://doi.org/10.1038/nature11631">Jetz et al. 2012</a>). Retrieve speciation rate data:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_tip_rates.html">fishtree_tip_rates</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_tip_rates.html">fishtree_tip_rates</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rates</span><span class="op">)</span>
 <span class="co">#&gt;                           species  lambda.tv      mu.tv  lambda.tc      mu.tc</span>
 <span class="co">#&gt; 2             Abalistes stellaris 0.08859469 0.01282721 0.09181900 0.02239813</span>
@@ -208,24 +208,24 @@
 <span class="co">#&gt; 34  0.28175984</span>
 <span class="co">#&gt; 35  0.28406568</span>
 <span class="co">#&gt; 131 0.07606301</span>
-<span class="co">#&gt; 132 0.07213440</span></pre></div>
+<span class="co">#&gt; 132 0.07213440</span></code></pre></div>
 <p>We’re interested in just the <code>dr</code> column, so extract that and convert spaces to underscores again. Then merge the habitat data with the speciation rate data.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>tip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="va">rates</span><span class="op">$</span><span class="va">species</span><span class="op">)</span>, dr <span class="op">=</span> <span class="va">rates</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>tip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="va">rates</span><span class="op">$</span><span class="va">species</span><span class="op">)</span>, dr <span class="op">=</span> <span class="va">rates</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rates</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rates</span><span class="op">$</span><span class="va">tip</span>
-<span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">reef</span>, <span class="va">rates</span><span class="op">)</span></pre></div>
+<span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">reef</span>, <span class="va">rates</span><span class="op">)</span></code></pre></div>
 <p>As a quick check our data, let’s plot histograms of the DR rate of reef and non-reef species:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">breaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">breaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">merged</span><span class="op">$</span><span class="va">dr</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">merged</span>, <span class="va">is_reef</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="va">dr</span>, col <span class="op">=</span> <span class="st">"orange"</span>, density <span class="op">=</span> <span class="fl">20</span>, angle <span class="op">=</span> <span class="fl">135</span>,
      breaks <span class="op">=</span> <span class="va">breaks</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">merged</span>, <span class="va">is_reef</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">dr</span>, col <span class="op">=</span> <span class="st">"purple"</span>, density <span class="op">=</span> <span class="fl">20</span>, angle <span class="op">=</span> <span class="fl">45</span>,
-     breaks <span class="op">=</span> <span class="va">breaks</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+     breaks <span class="op">=</span> <span class="va">breaks</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="comparative-analysis_files/figure-html/dr_histo-1.png" width="672"></p>
 <p>It seems like for the most part, the Tetraodontiformes have a low speciation rate, except for a subset of non-reef species that have a faster rate.</p>
 <p>Of course, with any comparative method, it’s critical to consider the historical relationships between the species you’re examining. The following snippet of code is quite complex, but demonstrates how to draw rates onto a phylogeny using colored bars next to each tip in question.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="co"># Plot tree and extract plotting data</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot tree and extract plotting data</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">tree</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="st">"last_plot.phylo"</span>, <span class="va">.PlotPhyloEnv</span><span class="op">)</span>
 
@@ -241,24 +241,24 @@
     <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="va">xx</span><span class="op">[</span><span class="va">tip</span><span class="op">]</span> <span class="op">+</span> <span class="fl">0.5</span>, <span class="va">obj</span><span class="op">$</span><span class="va">xx</span><span class="op">[</span><span class="va">tip</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="va">scaled_rates</span><span class="op">[</span><span class="va">ii</span><span class="op">]</span><span class="op">)</span>,
           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="va">yy</span><span class="op">[</span><span class="va">tip</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span>,
           col <span class="op">=</span> <span class="va">tipcols</span><span class="op">[</span><span class="va">ii</span><span class="op">]</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p><img src="comparative-analysis_files/figure-html/plot_tree_dr-1.png" width="672"></p>
 </div>
 <div id="running-an-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-an-analysis" class="anchor"></a>Running an analysis</h2>
 <p>Let’s perform a more quantitative analysis using using <code>hisse</code>. We’ll test 4 models: a BiSSE-like model, a BiSSE-like null model, a hisse model, and the hisse 2 state null model.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hisse</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hisse</span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: deSolve</span>
 <span class="co">#&gt; Loading required package: GenSA</span>
 <span class="co">#&gt; Loading required package: subplex</span>
-<span class="co">#&gt; Loading required package: nloptr</span></pre></div>
+<span class="co">#&gt; Loading required package: nloptr</span></code></pre></div>
 <p>The <code>hisse</code> package parameterizes things differently from <code>diversitree</code> (where BiSSE lives), so we aren’t able to exactly replicate the analyses in the Santini paper. Instead we’ll settle by ensuring that the epsilon parameter, <span class="math inline">\(\epsilon = \frac{\mu}{\lambda}\)</span> is constrained to be equal for both reef and non-reef taxa. We’ll also constrain transition rates to be equal, since it can be difficult to estimate those.</p>
 <p>Note that to ensure this vignette can be run in a reasonable amount of time, we set <code>sann = FALSE</code> to disable the simulated annealing procedure in <code>hisse</code>. However, for any actual analysis this option should be turned on for maximum accuracy and confidence in your final results.</p>
 <p>First, we’ll construct and run the BiSSE model and the BiSSE null model:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">trans.rates.bisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMatMakerHiSSE.html">TransMatMakerHiSSE</a></span><span class="op">(</span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">trans.rates.bisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMatMakerHiSSE.html">TransMatMakerHiSSE</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">pp.bisse.full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/hisse.html">hisse</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">reef</span>,
                        hidden.states <span class="op">=</span> <span class="cn">FALSE</span>, sann <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -280,10 +280,10 @@
 <span class="co">#&gt; work but does not guarantee finding the MLE.</span>
 <span class="co">#&gt; Initializing... </span>
 <span class="co">#&gt; Finished. Beginning bounded subplex routine... </span>
-<span class="co">#&gt; Finished. Summarizing results...</span></pre></div>
+<span class="co">#&gt; Finished. Summarizing results...</span></code></pre></div>
 <p>Next, we’ll run the full hisse model, save for the constrained transition rates and epsilon.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="va">trans.rates.hisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMatMakerHiSSE.html">TransMatMakerHiSSE</a></span><span class="op">(</span>hidden.traits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">trans.rates.hisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMatMakerHiSSE.html">TransMatMakerHiSSE</a></span><span class="op">(</span>hidden.traits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="va">trans.rates.hisse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/transMat.html">ParEqual</a></span><span class="op">(</span><span class="va">trans.rates.hisse</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">pp.hisse.full</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/hisse.html">hisse</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">reef</span>,
@@ -295,10 +295,10 @@
 <span class="co">#&gt; work but does not guarantee finding the MLE.</span>
 <span class="co">#&gt; Initializing... </span>
 <span class="co">#&gt; Finished. Beginning bounded subplex routine... </span>
-<span class="co">#&gt; Finished. Summarizing results...</span></pre></div>
+<span class="co">#&gt; Finished. Summarizing results...</span></code></pre></div>
 <p>Finally, we’ll build the 2 state character independent diversification model, sometimes called CID-2. We’ll use this as our null model by forcing the visible states (reef or non-reef) to have the same net turnover rates, while permitting the hidden states to vary freely.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="va">pp.hisse.null2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/hisse.html">hisse</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">reef</span>,
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pp.hisse.null2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hisse/man/hisse.html">hisse</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">reef</span>,
                         hidden.states <span class="op">=</span> <span class="cn">TRUE</span>, sann <span class="op">=</span> <span class="cn">FALSE</span>,
                         turnover <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, eps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
                         trans.rate <span class="op">=</span> <span class="va">trans.rates.hisse</span><span class="op">)</span>
@@ -307,10 +307,10 @@
 <span class="co">#&gt; work but does not guarantee finding the MLE.</span>
 <span class="co">#&gt; Initializing... </span>
 <span class="co">#&gt; Finished. Beginning bounded subplex routine... </span>
-<span class="co">#&gt; Finished. Summarizing results...</span></pre></div>
+<span class="co">#&gt; Finished. Summarizing results...</span></code></pre></div>
 <p>We can combine all of our results into a single table for easy comparison.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">pp.bisse.full</span>, <span class="va">pp.bisse.null</span>, <span class="va">pp.hisse.null2</span>, <span class="va">pp.hisse.full</span><span class="op">)</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">pp.bisse.full</span>, <span class="va">pp.bisse.null</span>, <span class="va">pp.hisse.null2</span>, <span class="va">pp.hisse.full</span><span class="op">)</span>
 <span class="va">aicc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">`[[`</span>, <span class="st">"AICc"</span><span class="op">)</span>
 <span class="va">lnl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">`[[`</span>, <span class="st">"loglik"</span><span class="op">)</span>
 
@@ -319,7 +319,7 @@
 <span class="co">#&gt; 1 bisse_full 1928.654 -959.1933</span>
 <span class="co">#&gt; 2 bisse_null 1926.650 -959.2364</span>
 <span class="co">#&gt; 3 hisse_cid2 1914.993 -953.4075</span>
-<span class="co">#&gt; 4 hisse_full 1919.024 -953.3236</span></pre></div>
+<span class="co">#&gt; 4 hisse_full 1919.024 -953.3236</span></code></pre></div>
 <p>Summarizing the results on the basis of AICc suggests that the best supported model is a null model, where habitat has no effect on speciation rate.</p>
 </div>
   </div>
