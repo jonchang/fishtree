@@ -43,7 +43,7 @@ library(rfishbase)
 tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
 
 fb_results <- species(species_list = tips, fields = c("Species", "DemersPelag"))
-fb_results <- fb_results[!is.na(fb_results$Species), ]
+fb_results <- fb_results[!is.na(fb_results$DemersPelag), ]
 head(fb_results)
 ```
 
