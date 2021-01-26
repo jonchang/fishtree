@@ -114,21 +114,17 @@
 
 <span class="co"># Get native and endemic species from the Atlantic, Pacific, and Indian Oceans</span>
 <span class="va">eco</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/ecosystem.html">ecosystem</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">reef_species</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
-<span class="co">#&gt; Please use `tibble()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
 <span class="va">valid_idx</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">$</span><span class="va">Status</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"native"</span>, <span class="st">"endemic"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">eco</span><span class="op">$</span><span class="va">EcosystemName</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Atlantic Ocean"</span>, <span class="st">"Pacific Ocean"</span>, <span class="st">"Indian Ocean"</span><span class="op">)</span> 
 <span class="va">eco</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">[</span><span class="va">valid_idx</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"EcosystemName"</span><span class="op">)</span><span class="op">]</span>
 
 <span class="co"># Retrieve the phylogeny of only native reef species across all three oceans.</span>
 <span class="va">phy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>species <span class="op">=</span> <span class="va">eco</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Requested 5813 but only found 3961 species.</span>
-<span class="co">#&gt; * Conger esculentus</span>
-<span class="co">#&gt; * Lutjanus guttatus</span>
-<span class="co">#&gt; * Lutjanus inermis</span>
-<span class="co">#&gt; * Lutjanus jordani</span>
-<span class="co">#&gt; * Lutjanus lemniscatus</span>
+<span class="co">#&gt; * Ablabys binotatus</span>
+<span class="co">#&gt; * Ablabys macracanthus</span>
+<span class="co">#&gt; * Ablabys taenianotus</span>
+<span class="co">#&gt; * Abudefduf conformis</span>
+<span class="co">#&gt; * Abudefduf natalensis</span>
 <span class="co">#&gt; * ...and 1847 others</span></code></pre></div>
 <p>We’ll have to clean up the data in a few ways before sending it to <code>picante</code> for analysis. First, we’ll need to convert our species-by-site data frame into a presence-absence matrix. We’ll use <code><a href="https://rdrr.io/r/base/table.html">base::table</a></code> for this, and use <code>unclass</code> to convert the <code>table</code> into a standard <code>matrix</code> object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -146,22 +142,22 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
 <span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span>
-<span class="co">#&gt; Atlantic Ocean   623 238.1682      231.6986   2.3801769          100  2.7181146</span>
-<span class="co">#&gt; Indian Ocean    1213 233.1537      231.8345   1.1957698           89  1.1032149</span>
-<span class="co">#&gt; Pacific Ocean   1497 231.6829      231.7098   0.9584699           48 -0.0280622</span>
+<span class="co">#&gt; Atlantic Ocean   623 238.1682      231.9444   2.0115332          100  3.0940516</span>
+<span class="co">#&gt; Indian Ocean    1213 233.1537      231.8580   1.2271658           86  1.0558123</span>
+<span class="co">#&gt; Pacific Ocean   1497 231.6829      231.7790   0.8054184           47 -0.1193893</span>
 <span class="co">#&gt;                mpd.obs.p runs</span>
 <span class="co">#&gt; Atlantic Ocean      1.00   99</span>
-<span class="co">#&gt; Indian Ocean        0.89   99</span>
-<span class="co">#&gt; Pacific Ocean       0.48   99</span>
+<span class="co">#&gt; Indian Ocean        0.86   99</span>
+<span class="co">#&gt; Pacific Ocean       0.47   99</span>
 <span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
 <span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span>
-<span class="co">#&gt; Atlantic Ocean   623 41.86956       48.01181    1.2890428             1</span>
-<span class="co">#&gt; Indian Ocean    1213 34.99129       37.98720    0.6575202             1</span>
-<span class="co">#&gt; Pacific Ocean   1497 34.08644       35.05294    0.5055495             5</span>
+<span class="co">#&gt; Atlantic Ocean   623 41.86956       48.09370    1.4968552             1</span>
+<span class="co">#&gt; Indian Ocean    1213 34.99129       38.06382    0.7420758             1</span>
+<span class="co">#&gt; Pacific Ocean   1497 34.08644       35.14439    0.4615240             4</span>
 <span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span>
-<span class="co">#&gt; Atlantic Ocean  -4.764968       0.01   99</span>
-<span class="co">#&gt; Indian Ocean    -4.556383       0.01   99</span>
-<span class="co">#&gt; Pacific Ocean   -1.911789       0.05   99</span></code></pre></div>
+<span class="co">#&gt; Atlantic Ocean  -4.158145       0.01   99</span>
+<span class="co">#&gt; Indian Ocean    -4.140461       0.01   99</span>
+<span class="co">#&gt; Pacific Ocean   -2.292306       0.04   99</span></code></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.</p>
 <p>We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">

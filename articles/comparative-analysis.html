@@ -111,16 +111,12 @@
 <p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" width="672"></p>
 <p>Next, we need to get habitat data and associate it with our phylogeny. The <code>rfishbase</code> package (<a href="https://doi.org/10.1111/j.1095-8649.2012.03464.x">Boettiger et al. 2012</a>) has a variety of convenient functions to access data recorded by the Fishbase editors. Load the <code>rfishbase</code> package and retrieve the relevant data in the <code>DemersPelag</code> field, which identifies whether a species is reef-associated or not, among other things.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rfishbase">rfishbase</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/rfishbase/">rfishbase</a></span><span class="op">)</span>
 
 <span class="va">tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html">species</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">tips</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning: `data_frame()` is deprecated as of tibble 1.1.0.</span>
-<span class="co">#&gt; Please use `tibble()` instead.</span>
-<span class="co">#&gt; This warning is displayed once every 8 hours.</span>
-<span class="co">#&gt; Call `lifecycle::last_warnings()` to see where this warning was generated.</span>
-<span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="va">fb_results</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span>, <span class="op">]</span>
+<span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="va">fb_results</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">$</span><span class="va">DemersPelag</span><span class="op">)</span>, <span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   Species                       DemersPelag  </span>
