@@ -23,6 +23,7 @@ a lineage is more likely to split a new lineage at the present time. See Title (
 If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
 }
 \examples{
+\dontrun{
 # Get cichlid rates and trees
 rates <- fishtree_tip_rates(rank = "Cichlidae")
 tree <- fishtree_phylogeny(rank = "Cichlidae")
@@ -43,6 +44,7 @@ for (ii in 1:length(tiporder)) {
     lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]),
           y = rep(obj$yy[tip], 2),
           col = tipcols[ii])
+}
 }
 }
 \references{

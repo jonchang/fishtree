@@ -11,6 +11,7 @@
 #' @return An object of class `"phylo"`.
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
+#' \dontrun{
 #' # Get a phylogeny for a taxonomic rank
 #' surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
 #'
@@ -34,6 +35,7 @@
 #' pruned_gobies <- ape::drop.tip(gobies_mrca, rogue_gobies)
 #' # Now the trees are identical
 #' setequal(gobies$tip.label, pruned_gobies$tip.label)
+#' }
 
 #' @seealso \code{\link[fishtree]{fishtree_rogues}}, \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 #' @export
@@ -99,8 +101,10 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
 #' @export
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
+#' \dontrun{
 #' fishtree_rogues("Gobiidae")   # several rogue taxa!
 #' fishtree_rogues("Labridae")   # nice and monophlyetic
+#' }
 fishtree_rogues <- function(rank) {
   if (rlang::is_missing(rank))
     rlang::abort("`rank` must be specified.")
@@ -124,10 +128,12 @@ fishtree_rogues <- function(rank) {
 #' @export
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 #' @examples
+#' \dontrun{
 #' tax <- fishtree_taxonomy(rank = "Labridae")
 #' n_total <- length(tax$Labridae$species)
 #' n_sampl <- length(tax$Labridae$sampled_species)
 #' paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")
+#' }
 fishtree_taxonomy <- function(ranks = NULL) {
   tax <- .get("https://fishtreeoflife.org/api/taxonomy.json", jsonlite::fromJSON)
   tax_df <- utils::stack(tax)
@@ -159,9 +165,9 @@ fishtree_taxonomy <- function(ranks = NULL) {
 #' @seealso \link[ape]{DNAbin}
 #' @export
 #' @examples
+#' \dontrun{
 #' surgeon_dna <- fishtree_alignment(rank = "Acanthuridae", split = TRUE)
 #' surgeon_dna[[1]]
-#' \dontrun{
 #' par(mfrow = c(9, 3), mar = c(0.5, 0.5, 1, 0.5), xaxt = "n", yaxt = "n")
 #' for (gene in names(surgeon_dna)) {
 #'   image(surgeon_dna[[gene]], legend = FALSE, show.labels = FALSE)
@@ -216,6 +222,7 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #'
 #' Enhanced polytomy resolution strengthens evidence for global gradient in speciation rate for marine fishes. \url{https://fishtreeoflife.org/rabosky-et-al-2018-update/}
 #' @examples
+#' \dontrun{
 #' # Get cichlid rates and trees
 #' rates <- fishtree_tip_rates(rank = "Cichlidae")
 #' tree <- fishtree_phylogeny(rank = "Cichlidae")
@@ -236,6 +243,7 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #'     lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]),
 #'           y = rep(obj$yy[tip], 2),
 #'           col = tipcols[ii])
+#' }
 #' }
 fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")

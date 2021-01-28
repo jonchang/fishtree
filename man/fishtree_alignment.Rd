@@ -20,9 +20,9 @@ An object of class `"DNAbin"`, or a named list of the same if `split = TRUE``
 Retrieves an aligned sequence via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire sequence matrix.
 }
 \examples{
+\dontrun{
 surgeon_dna <- fishtree_alignment(rank = "Acanthuridae", split = TRUE)
 surgeon_dna[[1]]
-\dontrun{
 par(mfrow = c(9, 3), mar = c(0.5, 0.5, 1, 0.5), xaxt = "n", yaxt = "n")
 for (gene in names(surgeon_dna)) {
   image(surgeon_dna[[gene]], legend = FALSE, show.labels = FALSE)

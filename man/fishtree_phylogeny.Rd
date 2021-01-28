@@ -27,6 +27,7 @@ Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `r
 For maximum interoperability, `species` considers spaces and underscores equivalently. Internally, the phylogenies use underscores.
 }
 \examples{
+\dontrun{
 # Get a phylogeny for a taxonomic rank
 surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
 
@@ -50,6 +51,7 @@ rogue_gobies <- fishtree_rogues("Gobiidae")
 pruned_gobies <- ape::drop.tip(gobies_mrca, rogue_gobies)
 # Now the trees are identical
 setequal(gobies$tip.label, pruned_gobies$tip.label)
+}
 }
 \references{
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1

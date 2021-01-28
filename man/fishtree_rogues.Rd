@@ -18,8 +18,10 @@ uses the Fish Tree of Life API to identify which species prevented that clade
 from being recovered as monophyletic.
 }
 \examples{
+\dontrun{
 fishtree_rogues("Gobiidae")   # several rogue taxa!
 fishtree_rogues("Labridae")   # nice and monophlyetic
+}
 }
 \references{
 Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
