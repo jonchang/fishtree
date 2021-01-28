@@ -1,25 +1,19 @@
 ## Test environments
 
-* local macOS 10.15.7 install, R 4.0.3
-* GitHub Actions CI
-    * macOS 10.15, R 4.x
-* R-hub builder
-    * Ubuntu Linux 16.04 LTS, R-release, GCC
-    * Fedora Linux, R-devel, clang, gfortran
-* win-builder (devel)
+* local macOS 11.1 install, R 4.0.3
+* local Ubuntu 20.04 in Docker, R 4.0.3
+* GitHub Actions CI, macOS 10.15, R 4.x
+* R-hub builder, Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* win-builder devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-  New maintainer:
-    Jonathan Chang <me@jonathanchang.org>
-  Old maintainer(s):
-    Jonathan Chang <jonathan.chang@ucla.edu>
+This is a release addressing issues identified in periodic CRAN checks:
 
-I'm updating my email address. The old @ucla.edu address will be valid
-for the foreseeable future, so please feel free to contact me at that
-address if you need to confirm.
+* https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/fishtree-00check.html
+* https://www.r-project.org/nosvn/R.check/r-patched-solaris-x86/fishtree-00check.html
 
 ## Downstream dependencies
 
