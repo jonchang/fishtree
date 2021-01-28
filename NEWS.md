@@ -1,4 +1,4 @@
-# fishtree (development version)
+# fishtree 0.3.4
 
 * This release fixes some tests, and has no new user-facing features.
 
