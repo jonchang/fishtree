@@ -15,7 +15,6 @@ Description: An interface to the Fish Tree of Life API to download taxonomies,
     ray-finned fishes.
 License: BSD_2_clause + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.1
 URL: https://fishtreeoflife.org/, https://github.com/jonchang/fishtree
 BugReports: https://github.com/jonchang/fishtree/issues
