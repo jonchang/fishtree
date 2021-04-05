@@ -19,6 +19,7 @@ long-running R instances could use a lot of memory.
 Useful links:
 \itemize{
   \item \url{https://fishtreeoflife.org/}
+  \item \url{https://github.com/jonchang/fishtree}
   \item Report bugs at \url{https://github.com/jonchang/fishtree/issues}
 }
 
