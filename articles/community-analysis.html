@@ -141,23 +141,23 @@
 <p>We’ll run <code><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">picante::ses.mpd</a></code> and <code><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">picante::ses.mntd</a></code> with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
-<span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span>
-<span class="co">#&gt; Atlantic Ocean   623 238.1682      231.6655    1.857980           99  3.4998917</span>
-<span class="co">#&gt; Indian Ocean    1213 233.1537      231.6831    1.144547           89  1.2848653</span>
-<span class="co">#&gt; Pacific Ocean   1497 231.6829      231.7394    0.846828           44 -0.0667529</span>
+<span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z</span>
+<span class="co">#&gt; Atlantic Ocean   623 238.1682      231.7119   2.4143362           99  2.674164</span>
+<span class="co">#&gt; Indian Ocean    1213 233.1537      231.7173   1.2810503           89  1.121240</span>
+<span class="co">#&gt; Pacific Ocean   1497 231.6829      231.8557   0.8167986           38 -0.211546</span>
 <span class="co">#&gt;                mpd.obs.p runs</span>
 <span class="co">#&gt; Atlantic Ocean      0.99   99</span>
 <span class="co">#&gt; Indian Ocean        0.89   99</span>
-<span class="co">#&gt; Pacific Ocean       0.44   99</span>
+<span class="co">#&gt; Pacific Ocean       0.38   99</span>
 <span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>
 <span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span>
-<span class="co">#&gt; Atlantic Ocean   623 41.86956       48.26323    1.3286135             1</span>
-<span class="co">#&gt; Indian Ocean    1213 34.99129       37.99777    0.6811916             1</span>
-<span class="co">#&gt; Pacific Ocean   1497 34.08644       35.03964    0.5159417             2</span>
+<span class="co">#&gt; Atlantic Ocean   623 41.86956       48.41965    1.5353373             1</span>
+<span class="co">#&gt; Indian Ocean    1213 34.99129       37.90699    0.7534945             1</span>
+<span class="co">#&gt; Pacific Ocean   1497 34.08644       34.98514    0.5844454            10</span>
 <span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span>
-<span class="co">#&gt; Atlantic Ocean  -4.812285       0.01   99</span>
-<span class="co">#&gt; Indian Ocean    -4.413564       0.01   99</span>
-<span class="co">#&gt; Pacific Ocean   -1.847487       0.02   99</span></code></pre></div>
+<span class="co">#&gt; Atlantic Ocean  -4.266222       0.01   99</span>
+<span class="co">#&gt; Indian Ocean    -3.869572       0.01   99</span>
+<span class="co">#&gt; Pacific Ocean   -1.537701       0.10   99</span></code></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.</p>
 <p>We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
