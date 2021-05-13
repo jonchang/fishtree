@@ -24,6 +24,7 @@ jobs:
         Ncpus: 2
     - name: Install dependencies
       run: |
+        brew install harfbuzz fribidi
         Rscript -e 'install.packages(c("remotes", "rcmdcheck", "pkgdown"))' \
                 -e 'remotes::install_deps(dependencies = TRUE)'
     - name: Run R CMD check
