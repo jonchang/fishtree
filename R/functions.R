@@ -39,15 +39,16 @@
 
 #' @seealso \code{\link[fishtree]{fishtree_rogues}}, \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 #' @export
-fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")) {
+fishtree_phylogeny <- function(species, rank, edition, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+  if(rlang::is_missing(edition)) rlang::abort("Must supple edition of tree")
 
   type <- rlang::arg_match(type)
   fullurl <- switch(type,
-                    chronogram = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
-                    chronogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
-                    phylogram = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz",
-                    phylogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz")
+                    chronogram = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_treePL.tre.xz"),
+                    chronogram_mrca = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_treePL.tre.xz"),
+                    phylogram = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_raxml.tre.xz"),
+                    phylogram_mrca = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_raxml.tre.xz") )
 
   if (rlang::is_missing(rank)) {
     if (rlang::is_missing(species)) return(.get(fullurl, ape::read.tree))
@@ -105,7 +106,7 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
 #' fishtree_rogues("Gobiidae")   # several rogue taxa!
 #' fishtree_rogues("Labridae")   # nice and monophlyetic
 #' }
-fishtree_rogues <- function(rank) {
+fishtree_rogues <- function(rank, edition) {
   if (rlang::is_missing(rank))
     rlang::abort("`rank` must be specified.")
 
@@ -134,7 +135,7 @@ fishtree_rogues <- function(rank) {
 #' n_sampl <- length(tax$Labridae$sampled_species)
 #' paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")
 #' }
-fishtree_taxonomy <- function(ranks = NULL) {
+fishtree_taxonomy <- function(ranks = NULL, edition) {
   tax <- .get("https://fishtreeoflife.org/api/taxonomy.json", jsonlite::fromJSON)
   tax_df <- utils::stack(tax)
   colnames(tax_df) <- c("name", "rank")
@@ -174,7 +175,7 @@ fishtree_taxonomy <- function(ranks = NULL) {
 #'   title(gene)
 #' }
 #' }
-fishtree_alignment <- function(species, rank, split = FALSE) {
+fishtree_alignment <- function(species, rank, edition, split = FALSE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
     rlang::inform("Supplying both `species` and `rank` arguments may limit the number of results you see.")
 
@@ -245,7 +246,7 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #'           col = tipcols[ii])
 #' }
 #' }
-fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
+fishtree_tip_rates <- function(species, rank, edition, sampled_only = TRUE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
@@ -308,7 +309,7 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 #'   ape::tiplabels(pch = 19, col = ifelse(tree[[ii]]$tip.label %in% new_tips, "red", NA))
 #' }
 #' }
-fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.cores", 1L)) {
+fishtree_complete_phylogeny <- function(species, rank, edition, mc.cores = getOption("mc.cores", 1L)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   trees <- .get("https://fishtreeoflife.org/downloads/actinopt_full.trees.xz", ape::read.tree)
