@@ -42,7 +42,11 @@
 #' @return A vector of valid names, possibly smaller than `wanted_names`.
 #' @seealso \code\link[geiger]{name.check}
 #' @noRd
-.name_check <- function(wanted_names, valid_names = fishtree_phylogeny()$tip.label, warn = TRUE) {
+.name_check <- function(wanted_names, edition, valid_names = NULL, warn = TRUE) {
+  #default value for valid_names
+  if(valid_names == NULL)
+    valid_names <- fishtree_phylogeny(edition = edition)$tip.label
+  
   missing <- setdiff(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
   if (!rlang::is_empty(missing)) {
     missing_short <- missing
@@ -59,17 +63,17 @@
 }
 
 # Auto detects the rank from the name and downloads the relevant taxonomy file
-.fetch_rank <- function(name) {
+.fetch_rank <- function(name, edition) {
   if (!rlang::is_scalar_character(name)) {
     rlang::warn(paste0("`name` should be length 1, not ", length(name), ". Only the first element was used (", name[1], ")."))
     name <- name[1]
   }
 
-  tax <- fishtree_taxonomy()
+  tax <- fishtree_taxonomy(edition)
   what <- tax[tax$name == name, "rank"]
 
   if (length(what) == 1) {
-    context <- fishtree_taxonomy(name)
+    context <- fishtree_taxonomy(edition, name)
   } else {
     rlang::abort(paste0("Can't find data for `", name, "`."))
   }
@@ -77,8 +81,8 @@
 }
 
 # Splits an object of class DNAbin into partitions based on a RAxML-style partitions description.
-.split_seqs <- function(sequence) {
-  url <- paste0(.baseurl, "downloads/final_alignment.partitions")
+.split_seqs <- function(sequence, edition) {
+  url <- paste0(.baseurl, "downloads_", edition, "/final_alignment.partitions")
   partitions <- .get(url, readLines)
   tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
   splat <- strsplit(tt, "[= -]+")
