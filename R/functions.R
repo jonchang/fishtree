@@ -41,7 +41,7 @@
 #' @export
 fishtree_phylogeny <- function(species, rank, edition, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
-  if(rlang::is_missing(edition)) rlang::abort("Must supple edition of tree")
+  if(rlang::is_missing(edition)) rlang::abort("Must supply edition of tree")
 
   type <- rlang::arg_match(type)
   fullurl <- switch(type,
@@ -109,6 +109,7 @@ fishtree_phylogeny <- function(species, rank, edition, type = c("chronogram", "p
 fishtree_rogues <- function(rank, edition) {
   if (rlang::is_missing(rank))
     rlang::abort("`rank` must be specified.")
+  if(rlang::is_missing(edition)) rlang::abort("'edition' of tree must be specified")
 
   res <- .fetch_rank(rank)
   context <- res[[1]][[1]]
@@ -144,6 +145,8 @@ fishtree_taxonomy <- function(ranks = NULL, edition) {
 
   wanted <- tax_df[tax_df$name %in% ranks, ]
   if (nrow(wanted) < 1) rlang::abort("No matching taxa found.")
+  
+  if(rlang::is_missing(edition)) rlang::abort("Must supply edition of tree")
 
   output <- list()
   for (idx in 1:nrow(wanted)) {
@@ -178,6 +181,7 @@ fishtree_taxonomy <- function(ranks = NULL, edition) {
 fishtree_alignment <- function(species, rank, edition, split = FALSE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
     rlang::inform("Supplying both `species` and `rank` arguments may limit the number of results you see.")
+  if(rlang::is_missing(edition)) rlang::abort("Must supply edition of tree")
 
   if (rlang::is_missing(rank)) {
     url <- "https://fishtreeoflife.org/downloads/final_alignment.phylip.xz"
@@ -248,6 +252,7 @@ fishtree_alignment <- function(species, rank, edition, split = FALSE) {
 #' }
 fishtree_tip_rates <- function(species, rank, edition, sampled_only = TRUE) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+  if(rlang::is_missing(edition)) rlang::abort("Must supply edition of tree")
 
   rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(rates)
@@ -311,6 +316,7 @@ fishtree_tip_rates <- function(species, rank, edition, sampled_only = TRUE) {
 #' }
 fishtree_complete_phylogeny <- function(species, rank, edition, mc.cores = getOption("mc.cores", 1L)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+  if(rlang::is_missing(edition)) rlang::abort("Must supply edition of tree")
 
   trees <- .get("https://fishtreeoflife.org/downloads/actinopt_full.trees.xz", ape::read.tree)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(trees)
