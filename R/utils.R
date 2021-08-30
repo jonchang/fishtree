@@ -82,7 +82,7 @@
 
 # Splits an object of class DNAbin into partitions based on a RAxML-style partitions description.
 .split_seqs <- function(sequence, edition) {
-  url <- paste0(.baseurl, "downloads_", edition, "/final_alignment.partitions")
+  url <- paste0(.baseurl, "downloads/", edition, "/final_alignment.partitions")
   partitions <- .get(url, readLines)
   tt <- gsub("DNA, ", "", partitions, fixed = TRUE)
   splat <- strsplit(tt, "[= -]+")

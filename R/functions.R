@@ -45,10 +45,10 @@ fishtree_phylogeny <- function(species, rank, edition, type = c("chronogram", "p
 
   type <- rlang::arg_match(type)
   fullurl <- switch(type,
-                    chronogram = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_treePL.tre.xz"),
-                    chronogram_mrca = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_treePL.tre.xz"),
-                    phylogram = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_raxml.tre.xz"),
-                    phylogram_mrca = paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_12k_raxml.tre.xz") )
+                    chronogram = paste0("https://fishtreeoflife.org/downloads/", edition, "/actinopt_12k_treePL.tre.xz"),
+                    chronogram_mrca = paste0("https://fishtreeoflife.org/downloads/", edition, "/actinopt_12k_treePL.tre.xz"),
+                    phylogram = paste0("https://fishtreeoflife.org/downloads/", edition, "/actinopt_12k_raxml.tre.xz"),
+                    phylogram_mrca = paste0("https://fishtreeoflife.org/downloads/", edition, "/actinopt_12k_raxml.tre.xz") )
 
   if (rlang::is_missing(rank)) {
     if (rlang::is_missing(species)) return(.get(fullurl, ape::read.tree))
@@ -139,7 +139,7 @@ fishtree_rogues <- function(rank, edition) {
 fishtree_taxonomy <- function(edition, ranks = NULL) {
   if(rlang::is_missing(edition)) rlang::abort("Must supply edition of data")
   
-  tax <- .get(paste0("https://fishtreeoflife.org/api_", edition, "/taxonomy.json"), jsonlite::fromJSON)
+  tax <- .get(paste0("https://fishtreeoflife.org/api/", edition, "/taxonomy.json"), jsonlite::fromJSON)
   tax_df <- utils::stack(tax)
   colnames(tax_df) <- c("name", "rank")
   tax_df <- tax_df[c("rank", "name")]
@@ -151,7 +151,7 @@ fishtree_taxonomy <- function(edition, ranks = NULL) {
   output <- list()
   for (idx in 1:nrow(wanted)) {
     row <- wanted[idx, ]
-    url <- paste0("https://fishtreeoflife.org/api_", edition, "/taxonomy/", row$rank, "/", row$name, ".json")
+    url <- paste0("https://fishtreeoflife.org/api/", edition, "/taxonomy/", row$rank, "/", row$name, ".json")
     output[[row$name]] <- .get(url, jsonlite::fromJSON)
   }
 
@@ -186,7 +186,7 @@ fishtree_alignment <- function(species, rank, edition, split = FALSE) {
   
   
   if (rlang::is_missing(rank)) {
-    url <- paste0("https://fishtreeoflife.org/downloads_", edition, "/final_alignment.phylip.xz")
+    url <- paste0("https://fishtreeoflife.org/downloads/", edition, "/final_alignment.phylip.xz")
     nlines <- 11650
   } else {
     res <- .fetch_rank(rank, edition)
@@ -257,7 +257,7 @@ fishtree_tip_rates <- function(species, rank, edition, sampled_only = TRUE) {
   if(rlang::is_missing(edition)) rlang::abort("Must supply edition of data")
   
   
-  rates <- .get(paste0("https://fishtreeoflife.org/downloads_", edition, "/tiprates.csv.xz"), utils::read.csv, row.names = NULL)
+  rates <- .get(paste0("https://fishtreeoflife.org/downloads/", edition, "/tiprates.csv.xz"), utils::read.csv, row.names = NULL)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(rates)
 
   if (!rlang::is_missing(species)) {
@@ -321,7 +321,7 @@ fishtree_complete_phylogeny <- function(species, rank, edition, mc.cores = getOp
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
   if(rlang::is_missing(edition)) rlang::abort("Must supply edition of data")
   
-  trees <- .get(paste0("https://fishtreeoflife.org/downloads_", edition, "/actinopt_full.trees.xz"), ape::read.tree)
+  trees <- .get(paste0("https://fishtreeoflife.org/downloads/", edition, "/actinopt_full.trees.xz"), ape::read.tree)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(trees)
 
   if (!rlang::is_missing(rank)) {
