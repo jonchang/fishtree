@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
     - name: Configure git
@@ -22,11 +22,11 @@ jobs:
       with:
         r-version: 4.x
         Ncpus: 2
-    - name: Install dependencies
-      run: |
-        brew install harfbuzz fribidi
-        Rscript -e 'install.packages(c("remotes", "rcmdcheck", "pkgdown"))' \
-                -e 'remotes::install_deps(dependencies = TRUE)'
+    - uses: r-lib/actions/setup-r-dependencies@v1
+      with:
+        extra-packages: |
+          pkgdown
+          rcmdcheck
     - name: Run R CMD check
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
