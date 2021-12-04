@@ -27,6 +27,9 @@ jobs:
         extra-packages: |
           pkgdown
           rcmdcheck
+          remotes
+    - name: Install hisse 2.1.7
+      run: Rscript -e "remotes::install_github('thej022214/hisse', ref = 'f4d72ac0136a9845dec9764ca9d3a3fde59c8baa')"
     - name: Run R CMD check
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
