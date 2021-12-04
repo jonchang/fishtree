@@ -1,0 +1,6 @@
+url: https://fishtree.fishtreeoflife.org
+template:
+  bootstrap: 5
+  opengraph:
+    twitter:
+      creator: "@chang_jon"
