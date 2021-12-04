@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.github_token }}
     steps:
     - uses: actions/checkout@v2
     - name: Configure git
