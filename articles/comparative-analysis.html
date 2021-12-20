@@ -101,6 +101,10 @@
 <span class="va">tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">tips</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Joining, by = c("Subfamily", "GenCode", "FamCode")</span>
+<span class="co">#&gt; Joining, by = "FamCode"</span>
+<span class="co">#&gt; Joining, by = c("Order", "Ordnum", "Class", "ClassNum")</span>
+<span class="co">#&gt; Joining, by = c("Class", "ClassNum")</span>
 <span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="va">fb_results</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">$</span><span class="va">DemersPelag</span><span class="op">)</span>, <span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span>
@@ -134,30 +138,31 @@
 <span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">geiger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geiger/man/name.check.html" class="external-link">name.check</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">reef</span><span class="op">)</span>
 <span class="va">nc</span>
 <span class="co">#&gt; $tree_not_data</span>
-<span class="co">#&gt;  [1] "Lagocephalus_lagocephalus_lagocephalus"</span>
-<span class="co">#&gt;  [2] "Monotrete_cochinchinensis"             </span>
-<span class="co">#&gt;  [3] "Monotrete_leiurus"                     </span>
-<span class="co">#&gt;  [4] "Ostracion_cubicus"                     </span>
-<span class="co">#&gt;  [5] "Ostracion_immaculatus"                 </span>
-<span class="co">#&gt;  [6] "Ostracion_solorensis"                  </span>
-<span class="co">#&gt;  [7] "Paramonacanthus_filicauda"             </span>
-<span class="co">#&gt;  [8] "Rhinesomus_triqueter"                  </span>
-<span class="co">#&gt;  [9] "Sphoeroides_cheesemanii"               </span>
-<span class="co">#&gt; [10] "Stephanolepis_auratus"                 </span>
-<span class="co">#&gt; [11] "Stephanolepis_hispidus"                </span>
-<span class="co">#&gt; [12] "Takifugu_fasciatus"                    </span>
-<span class="co">#&gt; [13] "Tetraodon_abei"                        </span>
-<span class="co">#&gt; [14] "Tetraodon_baileyi"                     </span>
-<span class="co">#&gt; [15] "Tetraodon_biocellatus"                 </span>
-<span class="co">#&gt; [16] "Tetraodon_cambodgiensis"               </span>
-<span class="co">#&gt; [17] "Tetraodon_cutcutia"                    </span>
-<span class="co">#&gt; [18] "Tetraodon_erythrotaenia"               </span>
-<span class="co">#&gt; [19] "Tetraodon_fluviatilis"                 </span>
-<span class="co">#&gt; [20] "Tetraodon_nigroviridis"                </span>
-<span class="co">#&gt; [21] "Tetraodon_palembangensis"              </span>
-<span class="co">#&gt; [22] "Tetraodon_suvattii"                    </span>
-<span class="co">#&gt; [23] "Tetraodon_turgidus"                    </span>
-<span class="co">#&gt; [24] "Tetrosomus_fornasini"                  </span>
+<span class="co">#&gt;  [1] "Chilomycterus_spinosus_spinosus"       </span>
+<span class="co">#&gt;  [2] "Lagocephalus_lagocephalus_lagocephalus"</span>
+<span class="co">#&gt;  [3] "Monotrete_cochinchinensis"             </span>
+<span class="co">#&gt;  [4] "Monotrete_leiurus"                     </span>
+<span class="co">#&gt;  [5] "Ostracion_cubicus"                     </span>
+<span class="co">#&gt;  [6] "Ostracion_immaculatus"                 </span>
+<span class="co">#&gt;  [7] "Ostracion_solorensis"                  </span>
+<span class="co">#&gt;  [8] "Paramonacanthus_filicauda"             </span>
+<span class="co">#&gt;  [9] "Rhinesomus_triqueter"                  </span>
+<span class="co">#&gt; [10] "Sphoeroides_cheesemanii"               </span>
+<span class="co">#&gt; [11] "Stephanolepis_auratus"                 </span>
+<span class="co">#&gt; [12] "Stephanolepis_hispidus"                </span>
+<span class="co">#&gt; [13] "Takifugu_fasciatus"                    </span>
+<span class="co">#&gt; [14] "Tetraodon_abei"                        </span>
+<span class="co">#&gt; [15] "Tetraodon_baileyi"                     </span>
+<span class="co">#&gt; [16] "Tetraodon_biocellatus"                 </span>
+<span class="co">#&gt; [17] "Tetraodon_cambodgiensis"               </span>
+<span class="co">#&gt; [18] "Tetraodon_cutcutia"                    </span>
+<span class="co">#&gt; [19] "Tetraodon_erythrotaenia"               </span>
+<span class="co">#&gt; [20] "Tetraodon_fluviatilis"                 </span>
+<span class="co">#&gt; [21] "Tetraodon_nigroviridis"                </span>
+<span class="co">#&gt; [22] "Tetraodon_palembangensis"              </span>
+<span class="co">#&gt; [23] "Tetraodon_suvattii"                    </span>
+<span class="co">#&gt; [24] "Tetraodon_turgidus"                    </span>
+<span class="co">#&gt; [25] "Tetrosomus_fornasini"                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $data_not_tree</span>
 <span class="co">#&gt; character(0)</span></code></pre></div>
@@ -264,8 +269,7 @@
 <span class="co">#&gt; c(1, : You have chosen to rely on the internal starting points that generally</span>
 <span class="co">#&gt; work but does not guarantee finding the MLE.</span>
 <span class="co">#&gt; Initializing... </span>
-<span class="co">#&gt; Finished. Beginning bounded subplex routine...</span>
-<span class="co">#&gt; Warning in log(sum(1 - compE.root)): NaNs produced</span>
+<span class="co">#&gt; Finished. Beginning bounded subplex routine... </span>
 <span class="co">#&gt; Finished. Summarizing results...</span></code></pre></div>
 <p>Next, we’ll run the full hisse model, save for the constrained transition rates and epsilon.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
