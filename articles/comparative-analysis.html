@@ -134,7 +134,7 @@
 <span class="co">#&gt; 6      Carinotetraodon_imitator       0</span></code></pre></div>
 <p>We’ve also converted the tip labels back to underscores, since we need to ensure that the tip labels on our phylogeny match the labels on our trait data. The <code>geiger</code> package (<a href="https://doi.org/10.1093/bioinformatics/btu181" class="external-link">Pennell et al. 2014</a>) provides a convenient function that will perform this check. The <code>name.check</code> function expects row names on our data object, so we will do that as well.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mwpennell/geiger-v2" class="external-link">geiger</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">geiger</span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ape</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">reef</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">reef</span><span class="op">$</span><span class="va">tip</span>
