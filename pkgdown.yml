@@ -1,10 +1,10 @@
 pandoc: 2.7.3
-pkgdown: 2.0.3
+pkgdown: 2.0.4
 pkgdown_sha: ~
 articles:
   community-analysis: community-analysis.html
   comparative-analysis: comparative-analysis.html
-last_built: 2022-05-23T13:07Z
+last_built: 2022-06-20T13:36Z
 urls:
   reference: https://fishtree.fishtreeoflife.org/reference
   article: https://fishtree.fishtreeoflife.org/articles
