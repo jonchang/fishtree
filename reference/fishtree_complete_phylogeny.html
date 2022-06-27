@@ -58,11 +58,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fishtree_complete_phylogeny</span><span class="op">(</span>
-  <span class="va">species</span>,
-  <span class="va">rank</span>,
-  mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fishtree_complete_phylogeny</span><span class="op">(</span></span>
+<span>  <span class="va">species</span>,</span>
+<span>  <span class="va">rank</span>,</span>
+<span>  mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -95,17 +95,17 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">fishtree_complete_phylogeny</span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Acanthuridae"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sampled_tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Acanthuridae"</span><span class="op">)</span><span class="op">$</span><span class="va">tip.label</span></span>
-<span class="r-in"><span class="va">all_tips</span> <span class="op">&lt;-</span> <span class="va">tree</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">tip.label</span></span>
-<span class="r-in"><span class="va">new_tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">all_tips</span>, <span class="va">sampled_tips</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="kw">for</span> <span class="op">(</span><span class="va">ii</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span><span class="op">[[</span><span class="va">ii</span><span class="op">]</span><span class="op">]</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in">  <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/nodelabels.html" class="external-link">tiplabels</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">19</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">tree</span><span class="op">[[</span><span class="va">ii</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">tip.label</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">new_tips</span>, <span class="st">"red"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">fishtree_complete_phylogeny</span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Acanthuridae"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sampled_tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Acanthuridae"</span><span class="op">)</span><span class="op">$</span><span class="va">tip.label</span></span></span>
+<span class="r-in"><span><span class="va">all_tips</span> <span class="op">&lt;-</span> <span class="va">tree</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">tip.label</span></span></span>
+<span class="r-in"><span><span class="va">new_tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">all_tips</span>, <span class="va">sampled_tips</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">ii</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span><span class="op">[[</span><span class="va">ii</span><span class="op">]</span><span class="op">]</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/nodelabels.html" class="external-link">tiplabels</a></span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">19</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">tree</span><span class="op">[[</span><span class="va">ii</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">tip.label</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">new_tips</span>, <span class="st">"red"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -117,7 +117,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
