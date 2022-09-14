@@ -326,3 +326,61 @@ fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.
   class(res) <- "multiPhylo"
   res
 }
+
+
+
+#get information on how many genes are sampled by rank or species
+fishtree_gene_sampling <- function(species, rank, matrix = FALSE) {
+
+  if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+
+  gene_name_list <- list('12s','16s', '4c4','coi','cytb','enc1','ficd','glyt','hoxc6a','kiaa1239','myh6','nd2','nd4','panx2','plag12','ptr','rag1','rag2','rhodopsin','ripk4','sh3px3','sidkey','sreb2','svep1','tbr1','vcpip','zic1')
+
+  #return all gene info
+  #  if (rlang::is_missing(species) && rlang::is_missing(rank)) {
+  #    return(sampling)
+  #}
+  #do a name.check?
+
+  #if species is given
+  if (!rlang::is_missing(species))  rlang::abort("Haven't been able to program for a species input")
+  #species_list <- .name_check(species)
+
+  #get list of species from rank
+  if (!rlang::is_missing(rank)) {
+    rank_info <- .fetch_rank(rank)[[1]][[1]]
+
+    #get character of species, split into list
+    species_char <- rank_info$species
+    species <-strsplit(species_char, split = "        ")
+
+    gene_list <- rank_info$gene_sampling
+
+  }
+
+  if (!matrix) {
+    return(gene_list)
+  }
+
+  if (matrix) {
+    numcol <- length(species)
+    gene_matrix <- matrix(nrow = 0,ncol = numcol)
+    colnames(gene_matrix) <- species
+    for (ii in gene_list) {
+      #create a vector of true false for the gene and species
+      new_row <- integer(0)
+      #if each species is in the sublist for a gene, true, otherwise false
+      for (xx in species){
+        if (xx %in% ii) {
+          new_row <- append(new_row, 1)
+        }
+        else {
+          new_row <- append(new_row, 0)
+        }
+      }
+      gene_matrix <- rbind(gene_matrix, new_row)
+    }
+    rownames(gene_matrix) <- gene_name_list
+  }
+
+}
