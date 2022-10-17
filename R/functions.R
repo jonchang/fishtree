@@ -326,3 +326,30 @@ fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.
   class(res) <- "multiPhylo"
   res
 }
+
+
+
+#get information on how many genes are sampled by rank or species
+fishtree_gene_sampling <- function(species, rank, matrix = FALSE) {
+  if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
+
+  if (!rlang::is_missing(species))  rlang::abort("Not implemented")
+
+  if (!rlang::is_missing(rank)) {
+    rank_info <- .fetch_rank(rank)[[1]][[1]]
+    species <- rank_info$species
+    gene_list <- rank_info$gene_sampling
+  }
+
+  if (!matrix) {
+    return(gene_list)
+  }
+
+  gene_matrix <- matrix(ncol = length(gene_list),
+                        nrow = length(species),
+                        dimnames = list(species, names(gene_list)))
+  for (gene in names(gene_list)) {
+    gene_matrix[, gene] <- species %in% gene_list[[gene]]
+  }
+  gene_matrix
+}
