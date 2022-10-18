@@ -19,19 +19,17 @@ jobs:
       uses: Homebrew/actions/git-user-config@master
       with:
         username: jonchang
-    - uses: r-lib/actions/setup-pandoc@master
-    - uses: r-lib/actions/setup-r@v1
+    - uses: r-lib/actions/setup-pandoc@v2
+    - uses: r-lib/actions/setup-r@v2
       with:
         r-version: 4.x
         Ncpus: 2
-    - uses: r-lib/actions/setup-r-dependencies@v1
+    - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         extra-packages: |
           pkgdown
           rcmdcheck
           remotes
-    - name: Install hisse 2.1.7
-      run: Rscript -e "remotes::install_github('thej022214/hisse', ref = 'f4d72ac0136a9845dec9764ca9d3a3fde59c8baa')"
     - name: Run R CMD check
       run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error')"
     - name: Install package
