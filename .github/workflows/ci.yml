@@ -19,7 +19,7 @@ jobs:
       uses: Homebrew/actions/git-user-config@master
       with:
         username: jonchang
-    - uses: r-lib/actions/setup-pandoc@master
+    - uses: r-lib/actions/setup-pandoc@v1
     - uses: r-lib/actions/setup-r@v1
       with:
         r-version: 4.x
