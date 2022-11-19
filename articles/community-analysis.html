@@ -72,10 +72,12 @@
 
 
 
-<script src="community-analysis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Phylogenetic community assembly with the Fish Tree of Life</h1>
-                        <h4 data-toc-skip class="author">Jonathan Chang</h4>
+                        <h4 data-toc-skip class="author">Jonathan
+Chang</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/jonchang/fishtree/blob/HEAD/vignettes/community-analysis.Rmd" class="external-link"><code>vignettes/community-analysis.Rmd</code></a></small>
@@ -84,7 +86,10 @@
 
     
     
-<p>Here’s a quick example to show how we could use the <code>fishtree</code> package to conduct some phylogenetic community analyses. First, we load <code>fishtree</code> and ensure that the other packages that we need are installed.</p>
+<p>Here’s a quick example to show how we could use the
+<code>fishtree</code> package to conduct some phylogenetic community
+analyses. First, we load <code>fishtree</code> and ensure that the other
+packages that we need are installed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fishtreeoflife.org/" class="external-link">fishtree</a></span><span class="op">)</span></span>
@@ -94,7 +99,9 @@
 <span><span class="co">#&gt; &lt;environment: namespace:picante&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">loadNamespace</a></span><span class="op">(</span><span class="st">"geiger"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:geiger&gt;</span></span></code></pre></div>
-<p>Next we’ll start downloading some data from <code>rfishbase</code>. We’ll be seeing if reef-associated ray-finned fish species are clustered or overdispersed in the Atlantic, Pacific, and Indian Oceans.</p>
+<p>Next we’ll start downloading some data from <code>rfishbase</code>.
+We’ll be seeing if reef-associated ray-finned fish species are clustered
+or overdispersed in the Atlantic, Pacific, and Indian Oceans.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get reef-associated species from the `species` table</span></span>
 <span><span class="va">reef_species</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span></span>
@@ -122,40 +129,60 @@
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Acanthaluteres brownii</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Acanthanectes rufus</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> ...and 1924 others</span></span></code></pre></div>
-<p>We’ll have to clean up the data in a few ways before sending it to <code>picante</code> for analysis. First, we’ll need to convert our species-by-site data frame into a presence-absence matrix. We’ll use <code><a href="https://rdrr.io/r/base/table.html" class="external-link">base::table</a></code> for this, and use <code>unclass</code> to convert the <code>table</code> into a standard <code>matrix</code> object.</p>
+<p>We’ll have to clean up the data in a few ways before sending it to
+<code>picante</code> for analysis. First, we’ll need to convert our
+species-by-site data frame into a presence-absence matrix. We’ll use
+<code><a href="https://rdrr.io/r/base/table.html" class="external-link">base::table</a></code> for this, and use <code>unclass</code> to
+convert the <code>table</code> into a standard <code>matrix</code>
+object.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">eco</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">$</span><span class="va">Species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">"_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span><span class="op">$</span><span class="va">Species</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Next, we’ll use <code><a href="https://rdrr.io/pkg/geiger/man/name.check.html" class="external-link">geiger::name.check</a></code> to ensure the tip labels of the phylogeny and the rows of the data matrix match each other.</p>
+<p>Next, we’ll use <code><a href="https://rdrr.io/pkg/geiger/man/name.check.html" class="external-link">geiger::name.check</a></code> to ensure the tip
+labels of the phylogeny and the rows of the data matrix match each
+other.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">geiger</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/geiger/man/name.check.html" class="external-link">name.check</a></span><span class="op">(</span><span class="va">phy</span>, <span class="va">sample_matrix</span><span class="op">)</span></span>
 <span><span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="va">sample_matrix</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">nc</span><span class="op">$</span><span class="va">data_not_tree</span>, <span class="op">]</span></span></code></pre></div>
-<p>Finally, we’ll generate the cophenetic matrix based on the phylogeny, and transpose the presence-absence matrix since <code>picante</code> likes its columns to be species and its rows to be sites.</p>
+<p>Finally, we’ll generate the cophenetic matrix based on the phylogeny,
+and transpose the presence-absence matrix since <code>picante</code>
+likes its columns to be species and its rows to be sites.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cophen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cophenetic.html" class="external-link">cophenetic</a></span><span class="op">(</span><span class="va">phy</span><span class="op">)</span></span>
 <span><span class="va">sample_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">sample_matrix</span><span class="op">)</span></span></code></pre></div>
-<p>We’ll run <code><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html" class="external-link">picante::ses.mpd</a></code> and <code><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html" class="external-link">picante::ses.mntd</a></code> with only 100 iterations, to speed up the analysis. For a real analysis you would likely increase this to 1000, and possibly test other null models if your datasets have e.g., abundance information.</p>
+<p>We’ll run <code><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html" class="external-link">picante::ses.mpd</a></code> and
+<code><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html" class="external-link">picante::ses.mntd</a></code> with only 100 iterations, to speed up the
+analysis. For a real analysis you would likely increase this to 1000,
+and possibly test other null models if your datasets have e.g.,
+abundance information.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html" class="external-link">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   612 238.0090      231.8006   2.2656478          100 2.74023586</span></span>
-<span><span class="co">#&gt; Indian Ocean    1207 233.2275      231.6131   1.0733780           95 1.50407169</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1487 231.7967      231.7389   0.8445489           56 0.06841263</span></span>
+<span><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   612 238.0090      231.7364   2.2620469          100 2.7729564</span></span>
+<span><span class="co">#&gt; Indian Ocean    1207 233.2275      231.7402   1.1100900           94 1.3398163</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1487 231.7967      231.6521   0.8745781           60 0.1653483</span></span>
 <span><span class="co">#&gt;                mpd.obs.p runs</span></span>
 <span><span class="co">#&gt; Atlantic Ocean      1.00   99</span></span>
-<span><span class="co">#&gt; Indian Ocean        0.95   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean       0.56   99</span></span>
+<span><span class="co">#&gt; Indian Ocean        0.94   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean       0.60   99</span></span>
 <span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html" class="external-link">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   612 41.91627       48.58571    1.3366834             1</span></span>
-<span><span class="co">#&gt; Indian Ocean    1207 34.95466       38.11584    0.7066331             1</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1487 34.20019       35.09292    0.5430146             6</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   612 41.91627       48.63626    1.4339679             1</span></span>
+<span><span class="co">#&gt; Indian Ocean    1207 34.95466       37.88575    0.6994097             1</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1487 34.20019       35.03996    0.4671561             4</span></span>
 <span><span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span></span>
-<span><span class="co">#&gt; Atlantic Ocean  -4.989538       0.01   99</span></span>
-<span><span class="co">#&gt; Indian Ocean    -4.473591       0.01   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean   -1.644026       0.06   99</span></span></code></pre></div>
-<p>The Atlantic and Indian Oceans are overdispersed using the MPD metric, and all three oceans are clustered under the MNTD metric. MPD is thought to be more sensitive to patterns closer to the root of the tree, while MNTD is thought to more closely reflect patterns towards the tips of the phylogeny.</p>
-<p>We can confirm these patterns visually by running the following code, which will plot the phylogeny and add colored dots (red, green, and blue) to indicate whether a tip is associated with a specific ocean basin.</p>
+<span><span class="co">#&gt; Atlantic Ocean  -4.686288       0.01   99</span></span>
+<span><span class="co">#&gt; Indian Ocean    -4.190809       0.01   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean   -1.797610       0.04   99</span></span></code></pre></div>
+<p>The Atlantic and Indian Oceans are overdispersed using the MPD
+metric, and all three oceans are clustered under the MNTD metric. MPD is
+thought to be more sensitive to patterns closer to the root of the tree,
+while MNTD is thought to more closely reflect patterns towards the tips
+of the phylogeny.</p>
+<p>We can confirm these patterns visually by running the following code,
+which will plot the phylogeny and add colored dots (red, green, and
+blue) to indicate whether a tip is associated with a specific ocean
+basin.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">phy</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html" class="external-link">get</a></span><span class="op">(</span><span class="st">"last_plot.phylo"</span>, <span class="va">.PlotPhyloEnv</span><span class="op">)</span></span>
