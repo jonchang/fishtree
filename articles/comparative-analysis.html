@@ -121,10 +121,10 @@ among other things.</p>
 <span><span class="va">tips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">" "</span>, <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">tips</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining, by = c("Subfamily", "GenCode", "FamCode")</span></span>
-<span><span class="co">#&gt; Joining, by = "FamCode"</span></span>
-<span><span class="co">#&gt; Joining, by = c("Order", "Ordnum", "Class", "ClassNum")</span></span>
-<span><span class="co">#&gt; Joining, by = c("Class", "ClassNum")</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Subfamily, GenCode, FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Order, Ordnum, Class, ClassNum)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Class, ClassNum)`</span></span>
 <span><span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="va">fb_results</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">$</span><span class="va">DemersPelag</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fb_results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 2</span></span></span>

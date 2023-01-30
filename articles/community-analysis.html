@@ -105,18 +105,18 @@ or overdispersed in the Atlantic, Pacific, and Indian Oceans.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get reef-associated species from the `species` table</span></span>
 <span><span class="va">reef_species</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining, by = c("Subfamily", "GenCode", "FamCode")</span></span>
-<span><span class="co">#&gt; Joining, by = "FamCode"</span></span>
-<span><span class="co">#&gt; Joining, by = c("Order", "Ordnum", "Class", "ClassNum")</span></span>
-<span><span class="co">#&gt; Joining, by = c("Class", "ClassNum")</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Subfamily, GenCode, FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Order, Ordnum, Class, ClassNum)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Class, ClassNum)`</span></span>
 <span><span class="va">reef_species</span> <span class="op">&lt;-</span> <span class="va">reef_species</span><span class="op">[</span><span class="va">reef_species</span><span class="op">$</span><span class="va">DemersPelag</span> <span class="op">==</span> <span class="st">"reef-associated"</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Get native and endemic species from the Atlantic, Pacific, and Indian Oceans</span></span>
 <span><span class="va">eco</span> <span class="op">&lt;-</span> <span class="fu">rfishbase</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/ecosystem.html" class="external-link">ecosystem</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">reef_species</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining, by = c("Subfamily", "GenCode", "FamCode")</span></span>
-<span><span class="co">#&gt; Joining, by = "FamCode"</span></span>
-<span><span class="co">#&gt; Joining, by = c("Order", "Ordnum", "Class", "ClassNum")</span></span>
-<span><span class="co">#&gt; Joining, by = c("Class", "ClassNum")</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Subfamily, GenCode, FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(FamCode)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Order, Ordnum, Class, ClassNum)`</span></span>
+<span><span class="co">#&gt; Joining with `by = join_by(Class, ClassNum)`</span></span>
 <span><span class="va">valid_idx</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">$</span><span class="va">Status</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"native"</span>, <span class="st">"endemic"</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">eco</span><span class="op">$</span><span class="va">EcosystemName</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Atlantic Ocean"</span>, <span class="st">"Pacific Ocean"</span>, <span class="st">"Indian Ocean"</span><span class="op">)</span> </span>
 <span><span class="va">eco</span> <span class="op">&lt;-</span> <span class="va">eco</span><span class="op">[</span><span class="va">valid_idx</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"EcosystemName"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
@@ -158,22 +158,22 @@ abundance information.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html" class="external-link">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   612 238.0090      231.9767   2.4632125          100 2.4489629</span></span>
-<span><span class="co">#&gt; Indian Ocean    1207 233.2275      231.6220   1.3273270           89 1.2095791</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1487 231.7967      231.5891   0.8157116           58 0.2544573</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   612 238.0090      231.7315   2.1788238          100 2.8811424</span></span>
+<span><span class="co">#&gt; Indian Ocean    1207 233.2275      231.5993   1.2359893           90 1.3172917</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1487 231.7967      231.6420   0.8434865           57 0.1833511</span></span>
 <span><span class="co">#&gt;                mpd.obs.p runs</span></span>
 <span><span class="co">#&gt; Atlantic Ocean      1.00   99</span></span>
-<span><span class="co">#&gt; Indian Ocean        0.89   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean       0.58   99</span></span>
+<span><span class="co">#&gt; Indian Ocean        0.90   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean       0.57   99</span></span>
 <span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html" class="external-link">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   612 41.91627       48.59020    1.3717539             1</span></span>
-<span><span class="co">#&gt; Indian Ocean    1207 34.95466       37.96748    0.6948955             1</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1487 34.20019       35.06303    0.5462357             7</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   612 41.91627       48.55036    1.4029729             1</span></span>
+<span><span class="co">#&gt; Indian Ocean    1207 34.95466       38.09685    0.8187912             1</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1487 34.20019       35.09422    0.5352152             6</span></span>
 <span><span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span></span>
-<span><span class="co">#&gt; Atlantic Ocean  -4.865253       0.01   99</span></span>
-<span><span class="co">#&gt; Indian Ocean    -4.335649       0.01   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean   -1.579600       0.07   99</span></span></code></pre></div>
+<span><span class="co">#&gt; Atlantic Ocean  -4.728594       0.01   99</span></span>
+<span><span class="co">#&gt; Indian Ocean    -3.837596       0.01   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean   -1.670402       0.06   99</span></span></code></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD
 metric, and all three oceans are clustered under the MNTD metric. MPD is
 thought to be more sensitive to patterns closer to the root of the tree,
