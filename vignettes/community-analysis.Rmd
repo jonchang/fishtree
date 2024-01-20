@@ -33,11 +33,12 @@ Next we'll start downloading some data from `rfishbase`. We'll be seeing if reef
 
 ```{r get-data}
 # Get reef-associated species from the `species` table
-reef_species <- rfishbase::species(fields = c("Species", "DemersPelag"))
-reef_species <- reef_species[reef_species$DemersPelag == "reef-associated", ]
+species <- rfishbase::fb_tbl("species")
+species <- species[species$DemersPelag == "reef-associated", ]
+reef_species <- paste(species$Genus, species$Species)
 
 # Get native and endemic species from the Atlantic, Pacific, and Indian Oceans
-eco <- rfishbase::ecosystem(species_list = reef_species$Species)
+eco <- rfishbase::ecosystem(species_list = reef_species)
 valid_idx <- eco$Status %in% c("native", "endemic") & eco$EcosystemName %in% c("Atlantic Ocean", "Pacific Ocean", "Indian Ocean") 
 eco <- eco[valid_idx, c("Species", "EcosystemName")]
 
