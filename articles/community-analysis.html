@@ -151,22 +151,22 @@ abundance information.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mpd.html" class="external-link">ses.mpd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   598 237.7817      232.0901    2.060221          100 2.7625882</span></span>
-<span><span class="co">#&gt; Indian Ocean    1175 233.6108      231.7523    1.140796           95 1.6291175</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1449 232.1826      231.7863    1.044717           66 0.3793679</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   598 237.7817      232.0096   2.5806643           98 2.2366491</span></span>
+<span><span class="co">#&gt; Indian Ocean    1175 233.6108      231.7131   1.1994721           97 1.5821465</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1449 232.1826      231.8888   0.9240978           57 0.3178942</span></span>
 <span><span class="co">#&gt;                mpd.obs.p runs</span></span>
-<span><span class="co">#&gt; Atlantic Ocean      1.00   99</span></span>
-<span><span class="co">#&gt; Indian Ocean        0.95   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean       0.66   99</span></span>
+<span><span class="co">#&gt; Atlantic Ocean      0.98   99</span></span>
+<span><span class="co">#&gt; Indian Ocean        0.97   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean       0.57   99</span></span>
 <span><span class="fu">picante</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/picante/man/ses.mntd.html" class="external-link">ses.mntd</a></span><span class="op">(</span><span class="va">sample_matrix</span>, <span class="va">cophen</span>, null.model <span class="op">=</span> <span class="st">"taxa.labels"</span>, runs <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank</span></span>
-<span><span class="co">#&gt; Atlantic Ocean   598 41.73364       48.39160    1.5516423             1</span></span>
-<span><span class="co">#&gt; Indian Ocean    1175 35.12921       37.91182    0.7666089             1</span></span>
-<span><span class="co">#&gt; Pacific Ocean   1449 34.27236       35.09374    0.5633851            10</span></span>
+<span><span class="co">#&gt; Atlantic Ocean   598 41.73364       48.54614    1.4467587             1</span></span>
+<span><span class="co">#&gt; Indian Ocean    1175 35.12921       38.00064    0.7199578             1</span></span>
+<span><span class="co">#&gt; Pacific Ocean   1449 34.27236       34.91265    0.5006328            12</span></span>
 <span><span class="co">#&gt;                mntd.obs.z mntd.obs.p runs</span></span>
-<span><span class="co">#&gt; Atlantic Ocean  -4.290914       0.01   99</span></span>
-<span><span class="co">#&gt; Indian Ocean    -3.629764       0.01   99</span></span>
-<span><span class="co">#&gt; Pacific Ocean   -1.457933       0.10   99</span></span></code></pre></div>
+<span><span class="co">#&gt; Atlantic Ocean  -4.708801       0.01   99</span></span>
+<span><span class="co">#&gt; Indian Ocean    -3.988322       0.01   99</span></span>
+<span><span class="co">#&gt; Pacific Ocean   -1.278950       0.12   99</span></span></code></pre></div>
 <p>The Atlantic and Indian Oceans are overdispersed using the MPD
 metric, and all three oceans are clustered under the MNTD metric. MPD is
 thought to be more sensitive to patterns closer to the root of the tree,
