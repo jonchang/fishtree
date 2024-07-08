@@ -1,51 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/articles/community-analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/articles/comparative-analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree-package.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_alignment.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_complete_phylogeny.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_phylogeny.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_rogues.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/fishtree_tip_rates.html</loc>
-  </url>
-  <url>
-    <loc>https://fishtree.fishtreeoflife.org/reference/index.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://fishtree.fishtreeoflife.org/404.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/LICENSE-text.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/articles/community-analysis.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/articles/comparative-analysis.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/articles/index.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/authors.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/index.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/news/index.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree-package.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_alignment.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_complete_phylogeny.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_phylogeny.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_rogues.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/fishtree_tip_rates.html</loc></url>
+<url><loc>https://fishtree.fishtreeoflife.org/reference/index.html</loc></url>
 </urlset>
+
