@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options("duckdbfs_use_nightly" = FALSE)
 ```
 
 To demonstrate the functionality of the `fishtree` package and how it integrates well with the rest of the R phylogenetics ecosystem, this vignette will walk you through a simple comparative analysis.
