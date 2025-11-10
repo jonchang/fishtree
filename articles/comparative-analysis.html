@@ -89,7 +89,7 @@ rather than the family in the 2013 study.</p>
 <span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" width="672"></p>
+<p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" class="r-plt" width="672"></p>
 <p>Next, we need to get habitat data and associate it with our
 phylogeny. The <code>rfishbase</code> package (<a href="https://doi.org/10.1111/j.1095-8649.2012.03464.x" class="external-link">Boettiger et
 al. 2012</a>) has a variety of convenient functions to access data
@@ -234,7 +234,7 @@ reef and non-reef species:</p>
 <span>     breaks <span class="op">=</span> <span class="va">breaks</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">merged</span>, <span class="va">is_reef</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">$</span><span class="va">dr</span>, col <span class="op">=</span> <span class="st">"purple"</span>, density <span class="op">=</span> <span class="fl">20</span>, angle <span class="op">=</span> <span class="fl">45</span>,</span>
 <span>     breaks <span class="op">=</span> <span class="va">breaks</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="comparative-analysis_files/figure-html/dr_histo-1.png" width="672"></p>
+<p><img src="comparative-analysis_files/figure-html/dr_histo-1.png" class="r-plt" width="672"></p>
 <p>It seems like for the most part, the Tetraodontiformes have a low
 speciation rate, except for a subset of non-reef species that have a
 faster rate.</p>
@@ -261,7 +261,7 @@ question.</p>
 <span>          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="va">yy</span><span class="op">[</span><span class="va">tip</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>          col <span class="op">=</span> <span class="va">tipcols</span><span class="op">[</span><span class="va">ii</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><img src="comparative-analysis_files/figure-html/plot_tree_dr-1.png" width="672"></p>
+<p><img src="comparative-analysis_files/figure-html/plot_tree_dr-1.png" class="r-plt" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="running-an-analysis">Running an analysis<a class="anchor" aria-label="anchor" href="#running-an-analysis"></a>
@@ -375,7 +375,7 @@ speciation rate.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

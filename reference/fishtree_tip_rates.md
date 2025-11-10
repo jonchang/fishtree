@@ -1,0 +1,89 @@
+# Get tip rates for the Fish Tree of Life
+
+Downloads tip rates for the entire Fish Tree of Life, or for a specified
+subset. Tip rates can be thought of as an instantaneous speciation or
+extinction rate; for example, a higher tip-specific speciation rate
+might imply that a lineage is more likely to split a new lineage at the
+present time. See Title (2019) in references for details. If neither
+\`species\` nor \`rank\` are specified, returns the entire set of
+tip-specific diversification rates.
+
+## Usage
+
+``` r
+fishtree_tip_rates(species, rank, sampled_only = TRUE)
+```
+
+## Arguments
+
+- species:
+
+  (Optionally) subset the results based on a vector of species names.
+
+- rank:
+
+  (Optionally) subset the results based on the supplied taxonomic rank.
+
+- sampled_only:
+
+  Restricts the returned dataset to only those species that have genetic
+  data available. Defaults to \`TRUE\`.
+
+## Value
+
+A data frame. Columns ending with \`.tv\` indicate time-variable BAMM
+runs; those ending in \`.tc\` are time-constant runs. The \`dr\` column
+refers to the DR statistic, while \`lambda\` and \`mu\` are speciation
+and extinction, respectively.
+
+## References
+
+DR rates (supplement, section 1.2.2): Jetz, W., Thomas, G. H., Joy, J.
+B., Hartmann, K., & Mooers, A. O. (2012). The global diversity of birds
+in space and time. Nature, 491(7424), 444–448. doi:10.1038/nature11631
+
+Interpreting tip rates: Title, P. O., & Rabosky, D. L. (2019). Tip
+rates, phylogenies and diversification: What are we estimating, and how
+good are the estimates? Methods in Ecology and Evolution, 10(6),
+821–834. doi:10.1111/2041-210x.13153
+
+BAMM rates: Rabosky, D. L. (2014). Automatic Detection of Key
+Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic
+Trees. PLoS ONE, 9(2), e89543. doi:10.1371/journal.pone.0089543
+
+Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L.,
+Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro,
+M. E. (2018). An inverse latitudinal gradient in speciation rate for
+marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
+
+Enhanced polytomy resolution strengthens evidence for global gradient in
+speciation rate for marine fishes.
+<https://fishtreeoflife.org/rabosky-et-al-2018-update/>
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# Get cichlid rates and trees
+rates <- fishtree_tip_rates(rank = "Cichlidae")
+tree <- fishtree_phylogeny(rank = "Cichlidae")
+
+# Plot tree and extract plotting data
+plot(tree, show.tip.label = FALSE)
+obj <- get("last_plot.phylo", ape::.PlotPhyloEnv)
+
+# Generate a color ramp
+ramp <- grDevices::colorRamp(c("black", "red"), bias = 10)
+tiporder <- match(rates$species, gsub("_", " ", tree$tip.label))
+scaled_rates <- rates$lambda.tv / max(rates$lambda.tv, na.rm = TRUE)
+tipcols <- apply(ramp(scaled_rates), 1, function(x) do.call(rgb, as.list(x / 255)))
+
+# Place colored bars
+for (ii in 1:length(tiporder)) {
+    tip <- tiporder[ii]
+    lines(x = c(obj$xx[tip] + 0.5, obj$xx[tip] + 0.5 + scaled_rates[ii]),
+          y = rep(obj$yy[tip], 2),
+          col = tipcols[ii])
+}
+} # }
+```
