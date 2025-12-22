@@ -101,29 +101,30 @@ nc
 #>  [4] "Chelonodon_pleurospilus"               
 #>  [5] "Chilomycterus_spinosus_spinosus"       
 #>  [6] "Lagocephalus_lagocephalus_lagocephalus"
-#>  [7] "Monotrete_cochinchinensis"             
-#>  [8] "Monotrete_leiurus"                     
-#>  [9] "Ostracion_cubicus"                     
-#> [10] "Ostracion_immaculatus"                 
-#> [11] "Ostracion_solorensis"                  
-#> [12] "Paramonacanthus_filicauda"             
-#> [13] "Rhinesomus_triqueter"                  
-#> [14] "Sphoeroides_cheesemanii"               
-#> [15] "Stephanolepis_auratus"                 
-#> [16] "Stephanolepis_hispidus"                
-#> [17] "Takifugu_fasciatus"                    
-#> [18] "Tetraodon_abei"                        
-#> [19] "Tetraodon_baileyi"                     
-#> [20] "Tetraodon_biocellatus"                 
-#> [21] "Tetraodon_cambodgiensis"               
-#> [22] "Tetraodon_cutcutia"                    
-#> [23] "Tetraodon_erythrotaenia"               
-#> [24] "Tetraodon_fluviatilis"                 
-#> [25] "Tetraodon_nigroviridis"                
-#> [26] "Tetraodon_palembangensis"              
-#> [27] "Tetraodon_suvattii"                    
-#> [28] "Tetraodon_turgidus"                    
-#> [29] "Tetrosomus_fornasini"                  
+#>  [7] "Meuschenia_scaber"                     
+#>  [8] "Monotrete_cochinchinensis"             
+#>  [9] "Monotrete_leiurus"                     
+#> [10] "Ostracion_cubicus"                     
+#> [11] "Ostracion_immaculatus"                 
+#> [12] "Ostracion_solorensis"                  
+#> [13] "Paramonacanthus_filicauda"             
+#> [14] "Rhinesomus_triqueter"                  
+#> [15] "Sphoeroides_cheesemanii"               
+#> [16] "Stephanolepis_auratus"                 
+#> [17] "Stephanolepis_hispidus"                
+#> [18] "Takifugu_fasciatus"                    
+#> [19] "Tetraodon_abei"                        
+#> [20] "Tetraodon_baileyi"                     
+#> [21] "Tetraodon_biocellatus"                 
+#> [22] "Tetraodon_cambodgiensis"               
+#> [23] "Tetraodon_cutcutia"                    
+#> [24] "Tetraodon_erythrotaenia"               
+#> [25] "Tetraodon_fluviatilis"                 
+#> [26] "Tetraodon_nigroviridis"                
+#> [27] "Tetraodon_palembangensis"              
+#> [28] "Tetraodon_suvattii"                    
+#> [29] "Tetraodon_turgidus"                    
+#> [30] "Tetrosomus_fornasini"                  
 #> 
 #> $data_not_tree
 #> character(0)
@@ -333,10 +334,10 @@ lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1829.695 -909.7075
-#> 2 bisse_null 1827.743 -909.7785
-#> 3 hisse_cid2 1816.876 -904.3447
-#> 4 hisse_full 1820.233 -903.9193
+#> 1 bisse_full 1823.328 -906.5232
+#> 2 bisse_null 1821.332 -906.5726
+#> 3 hisse_cid2 1810.644 -901.2283
+#> 4 hisse_full 1813.123 -900.3632
 ```
 
 Summarizing the results on the basis of AICc suggests that the best

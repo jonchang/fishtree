@@ -38,13 +38,13 @@ eco <- eco[valid_idx, c("Species", "EcosystemName")]
 
 # Retrieve the phylogeny of only native reef species across all three oceans.
 phy <- fishtree_phylogeny(species = eco$Species)
-#> Warning: Requested 5992 but only found 3870 species.
+#> Warning: Requested 6449 but only found 4015 species.
 #> • Scyris indica
 #> • Lutjanus lemniscatus
 #> • Lutjanus lunulatus
 #> • Lutjanus timoriensis
 #> • Macolor macularis
-#> • ...and 2117 others
+#> • ...and 2429 others
 ```
 
 We’ll have to clean up the data in a few ways before sending it to
@@ -87,22 +87,22 @@ models if your datasets have e.g., abundance information.
 ``` r
 picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 #>                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z
-#> Atlantic Ocean   593 238.8793      232.2224   2.1225218          100 3.1362999
-#> Indian Ocean    1158 233.4871      231.8802   1.2074652           90 1.3308402
-#> Pacific Ocean   1436 232.0296      231.9821   0.8612623           54 0.0551219
+#> Atlantic Ocean   586 238.9500      232.3225   2.1550001          100 3.0754117
+#> Indian Ocean    1228 233.3068      231.8851   1.0681389           86 1.3310253
+#> Pacific Ocean   1431 232.0734      232.0126   0.7815354           53 0.0776838
 #>                mpd.obs.p runs
 #> Atlantic Ocean      1.00   99
-#> Indian Ocean        0.90   99
-#> Pacific Ocean       0.54   99
+#> Indian Ocean        0.86   99
+#> Pacific Ocean       0.53   99
 picante::ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 #>                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank
-#> Atlantic Ocean   593 42.01437       48.63394    1.5539615             1
-#> Indian Ocean    1158 35.24819       38.08806    0.7103801             1
-#> Pacific Ocean   1436 34.39742       35.07587    0.4469833             8
+#> Atlantic Ocean   586 42.12008       48.88476    1.4461655             1
+#> Indian Ocean    1228 34.33251       37.41040    0.6339495             1
+#> Pacific Ocean   1431 34.53339       35.15170    0.5522591            11
 #>                mntd.obs.z mntd.obs.p runs
-#> Atlantic Ocean  -4.259804       0.01   99
-#> Indian Ocean    -3.997682       0.01   99
-#> Pacific Ocean   -1.517842       0.08   99
+#> Atlantic Ocean  -4.677664       0.01   99
+#> Indian Ocean    -4.855091       0.01   99
+#> Pacific Ocean   -1.119589       0.11   99
 ```
 
 The Atlantic and Indian Oceans are overdispersed using the MPD metric,
