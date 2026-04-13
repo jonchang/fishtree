@@ -334,7 +334,7 @@ lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1823.328 -906.5232
+#> 1 bisse_full 1823.327 -906.5225
 #> 2 bisse_null 1821.332 -906.5726
 #> 3 hisse_cid2 1810.644 -901.2283
 #> 4 hisse_full 1813.123 -900.3632
