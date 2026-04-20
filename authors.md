@@ -19,7 +19,7 @@ Source:
 Chang J, Rabosky DL, Smith SA, Alfaro ME (2019). “An R package and
 online resource for macroevolutionary studies using the ray-finned fish
 tree of life.” *Methods in Ecology and Evolution*, **10**(7), 1118-1124.
-ISSN 2041-210X.
+ISSN 2041-210X,
 [doi:10.1111/2041-210x.13182](https://doi.org/10.1111/2041-210x.13182).
 
     @Article{Chang_2019,
