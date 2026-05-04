@@ -19,6 +19,7 @@ interesting we’ll work on the entire order
 rather than the family in the 2013 study.
 
 ``` r
+
 library(fishtree)
 
 tree <- fishtree_phylogeny(rank = "Tetraodontiformes")
@@ -37,6 +38,7 @@ the `DemersPelag` field, which identifies whether a species is
 reef-associated or not, among other things.
 
 ``` r
+
 library(rfishbase)
 
 tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
@@ -65,6 +67,7 @@ There’s a lot of data in the `DemersPelag` field, but we only want to
 know if the species is reef-associated or not.
 
 ``` r
+
 reef <- data.frame(tip = gsub(" ", "_", fb_results$Species),
                    is_reef = as.numeric(fb_results$DemersPelag == "reef-associated"))
 head(reef)
@@ -86,6 +89,7 @@ function expects row names on our data object, so we will do that as
 well.
 
 ``` r
+
 library(geiger)
 #> Loading required package: ape
 #> Loading required package: phytools
@@ -134,6 +138,7 @@ We’ve identified a mismatch between the tree and the data. We’ll exclude
 the tips lacking trait data using `drop.tip`:
 
 ``` r
+
 library(ape)
 tree <- drop.tip(tree, nc$tree_not_data)
 ```
@@ -142,6 +147,7 @@ If we also had data that was not in the tree, we could exclude that
 using the following command, but it isn’t necessary in this case:
 
 ``` r
+
 reef <- reef[!rownames(reef) %in% nc$data_not_tree, ]
 ```
 
@@ -149,6 +155,7 @@ Confirm that we have the same number of observations in the tree and the
 data:
 
 ``` r
+
 Ntip(tree) == nrow(reef)
 #> [1] TRUE
 ```
@@ -161,6 +168,7 @@ al. 2012](https://doi.org/10.1038/nature11631)). Retrieve speciation
 rate data:
 
 ``` r
+
 rates <- fishtree_tip_rates(rank = "Tetraodontiformes")
 head(rates)
 #>                           species  lambda.tv      mu.tv  lambda.tc      mu.tc
@@ -184,6 +192,7 @@ spaces to underscores again. Then merge the habitat data with the
 speciation rate data.
 
 ``` r
+
 rates <- data.frame(tip = gsub(" ", "_", rates$species), dr = rates$dr)
 rownames(rates) <- rates$tip
 merged <- merge(reef, rates)
@@ -193,6 +202,7 @@ As a quick check our data, let’s plot histograms of the DR rate of reef
 and non-reef species:
 
 ``` r
+
 breaks <- seq(min(merged$dr), max(merged$dr), length.out = 30)
 hist(subset(merged, is_reef == 1)$dr, col = "orange", density = 20, angle = 135,
      breaks = breaks)
@@ -212,6 +222,7 @@ following snippet of code is quite complex, but demonstrates how to draw
 rates onto a phylogeny using colored bars next to each tip in question.
 
 ``` r
+
 # Plot tree and extract plotting data
 plot(tree, show.tip.label = FALSE, no.margin = TRUE)
 obj <- get("last_plot.phylo", .PlotPhyloEnv)
@@ -240,6 +251,7 @@ test 4 models: a BiSSE-like model, a BiSSE-like null model, a hisse
 model, and the hisse 2 state null model.
 
 ``` r
+
 library(hisse)
 #> Loading required package: deSolve
 #> Loading required package: GenSA
@@ -250,7 +262,7 @@ library(hisse)
 The `hisse` package parameterizes things differently from `diversitree`
 (where BiSSE lives), so we aren’t able to exactly replicate the analyses
 in the Santini paper. Instead we’ll settle by ensuring that the epsilon
-parameter, $\epsilon = \frac{\mu}{\lambda}$ is constrained to be equal
+parameter, $`\epsilon = \frac{\mu}{\lambda}`$ is constrained to be equal
 for both reef and non-reef taxa. We’ll also constrain transition rates
 to be equal, since it can be difficult to estimate those.
 
@@ -262,6 +274,7 @@ turned on for maximum accuracy and confidence in your final results.
 First, we’ll construct and run the BiSSE model and the BiSSE null model:
 
 ``` r
+
 trans.rates.bisse <- TransMatMakerHiSSE()
 
 pp.bisse.full <- hisse(tree, reef,
@@ -291,6 +304,7 @@ Next, we’ll run the full hisse model, save for the constrained
 transition rates and epsilon.
 
 ``` r
+
 trans.rates.hisse <- TransMatMakerHiSSE(hidden.traits = 1)
 trans.rates.hisse <- ParEqual(trans.rates.hisse, c(1, 2, 1, 3, 1, 4, 1, 5))
 
@@ -312,6 +326,7 @@ forcing the visible states (reef or non-reef) to have the same net
 turnover rates, while permitting the hidden states to vary freely.
 
 ``` r
+
 pp.hisse.null2 <- hisse(tree, reef,
                         hidden.states = TRUE, sann = FALSE,
                         turnover = c(1, 1, 2, 2), eps = c(1, 1, 1, 1),
@@ -328,13 +343,14 @@ We can combine all of our results into a single table for easy
 comparison.
 
 ``` r
+
 results <- list(pp.bisse.full, pp.bisse.null, pp.hisse.null2, pp.hisse.full)
 aicc <- sapply(results, `[[`, "AICc")
 lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1823.327 -906.5225
+#> 1 bisse_full 1823.328 -906.5232
 #> 2 bisse_null 1821.332 -906.5726
 #> 3 hisse_cid2 1810.644 -901.2283
 #> 4 hisse_full 1813.123 -900.3632

@@ -11,6 +11,7 @@ package `ape`.
 See a list of taxa available to download.
 
 ``` r
+
 library(fishtree)
 
 tax <- fishtree_taxonomy()
@@ -28,6 +29,7 @@ Retrieve a phylogeny for the surgeonfishes and plot the phylogeny and
 lineage through time plot.
 
 ``` r
+
 library(ape)
 phy <- fishtree_phylogeny(rank = "Acanthuridae")
 phy
@@ -41,6 +43,7 @@ phy
 ```
 
 ``` r
+
 par(mfrow=c(2, 1))
 plot(phy, show.tip.label = FALSE)
 ltt.plot(phy)
@@ -54,12 +57,14 @@ You can install the released version of fishtree from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("fishtree")
 ```
 
 Alternatively, download the development version with devtools:
 
 ``` r
+
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
 

@@ -6,6 +6,7 @@ to conduct some phylogenetic community analyses. First, we load
 installed.
 
 ``` r
+
 library(ape)
 library(fishtree)
 loadNamespace("rfishbase")
@@ -21,6 +22,7 @@ if reef-associated ray-finned fish species are clustered or
 overdispersed in the Atlantic, Pacific, and Indian Oceans.
 
 ``` r
+
 # Get reef-associated species from the `species` table
 species <- rfishbase::fb_tbl("species")
 species <- species[species$DemersPelag == "reef-associated", ]
@@ -54,6 +56,7 @@ data frame into a presence-absence matrix. We’ll use
 `unclass` to convert the `table` into a standard `matrix` object.
 
 ``` r
+
 sample_matrix <- unclass(table(eco))
 dimnames(sample_matrix)$Species <- gsub(" ", "_", dimnames(sample_matrix)$Species, fixed = TRUE)
 ```
@@ -64,6 +67,7 @@ to ensure the tip labels of the phylogeny and the rows of the data
 matrix match each other.
 
 ``` r
+
 nc <- geiger::name.check(phy, sample_matrix)
 sample_matrix <- sample_matrix[!rownames(sample_matrix) %in% nc$data_not_tree, ]
 ```
@@ -73,6 +77,7 @@ and transpose the presence-absence matrix since `picante` likes its
 columns to be species and its rows to be sites.
 
 ``` r
+
 cophen <- cophenetic(phy)
 sample_matrix <- t(sample_matrix)
 ```
@@ -85,6 +90,7 @@ you would likely increase this to 1000, and possibly test other null
 models if your datasets have e.g., abundance information.
 
 ``` r
+
 picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 #>                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z
 #> Atlantic Ocean   586 238.9500      232.3225   2.1550001          100 3.0754117
@@ -117,6 +123,7 @@ blue) to indicate whether a tip is associated with a specific ocean
 basin.
 
 ``` r
+
 plot(phy, show.tip.label = FALSE, no.margin = TRUE)
 obj <- get("last_plot.phylo", .PlotPhyloEnv)
 
