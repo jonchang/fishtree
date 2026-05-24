@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Configure git
-      uses: Homebrew/actions/git-user-config@master
+      uses: Homebrew/actions/git-user-config@main
       with:
         username: jonchang
     - uses: r-lib/actions/setup-pandoc@v2
