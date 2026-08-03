@@ -26,7 +26,7 @@ overdispersed in the Atlantic, Pacific, and Indian Oceans.
 # Get reef-associated species from the `species` table
 species <- rfishbase::fb_tbl("species")
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpAI9FVb/duckdb
+#> ℹ /tmp/Rtmp3NzKJA/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
