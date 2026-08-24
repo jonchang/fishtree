@@ -104,7 +104,7 @@ among other things.</p>
 <span></span>
 <span><span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">tips</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; duckdb keeps downloaded extensions and secrets in a temporary directory:</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> /tmp/RtmpnNgEHN/duckdb</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> /tmp/RtmpWjDz53/duckdb</span></span>
 <span><span class="co">#&gt; This is removed when the R session ends.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Extensions are re-downloaded each session.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Secrets are lost.</span></span>
@@ -158,9 +158,9 @@ data object, so we will do that as well.</p>
 <span><span class="co">#&gt; $tree_not_data</span></span>
 <span><span class="co">#&gt;  [1] "Abalistes_stellaris"                   </span></span>
 <span><span class="co">#&gt;  [2] "Acanthostracion_polygonius"            </span></span>
-<span><span class="co">#&gt;  [3] "Chelonodon_patoca"                     </span></span>
-<span><span class="co">#&gt;  [4] "Chelonodon_pleurospilus"               </span></span>
-<span><span class="co">#&gt;  [5] "Chilomycterus_spinosus_spinosus"       </span></span>
+<span><span class="co">#&gt;  [3] "Chelonodon_pleurospilus"               </span></span>
+<span><span class="co">#&gt;  [4] "Chilomycterus_spinosus_spinosus"       </span></span>
+<span><span class="co">#&gt;  [5] "Colomesus_asellus"                     </span></span>
 <span><span class="co">#&gt;  [6] "Lagocephalus_lagocephalus_lagocephalus"</span></span>
 <span><span class="co">#&gt;  [7] "Meuschenia_scaber"                     </span></span>
 <span><span class="co">#&gt;  [8] "Monotrete_cochinchinensis"             </span></span>
@@ -170,22 +170,23 @@ data object, so we will do that as well.</p>
 <span><span class="co">#&gt; [12] "Ostracion_solorensis"                  </span></span>
 <span><span class="co">#&gt; [13] "Paramonacanthus_filicauda"             </span></span>
 <span><span class="co">#&gt; [14] "Rhinesomus_triqueter"                  </span></span>
-<span><span class="co">#&gt; [15] "Sphoeroides_cheesemanii"               </span></span>
-<span><span class="co">#&gt; [16] "Stephanolepis_auratus"                 </span></span>
-<span><span class="co">#&gt; [17] "Stephanolepis_hispidus"                </span></span>
-<span><span class="co">#&gt; [18] "Takifugu_fasciatus"                    </span></span>
-<span><span class="co">#&gt; [19] "Tetraodon_abei"                        </span></span>
-<span><span class="co">#&gt; [20] "Tetraodon_baileyi"                     </span></span>
-<span><span class="co">#&gt; [21] "Tetraodon_biocellatus"                 </span></span>
-<span><span class="co">#&gt; [22] "Tetraodon_cambodgiensis"               </span></span>
-<span><span class="co">#&gt; [23] "Tetraodon_cutcutia"                    </span></span>
-<span><span class="co">#&gt; [24] "Tetraodon_erythrotaenia"               </span></span>
-<span><span class="co">#&gt; [25] "Tetraodon_fluviatilis"                 </span></span>
-<span><span class="co">#&gt; [26] "Tetraodon_nigroviridis"                </span></span>
-<span><span class="co">#&gt; [27] "Tetraodon_palembangensis"              </span></span>
-<span><span class="co">#&gt; [28] "Tetraodon_suvattii"                    </span></span>
-<span><span class="co">#&gt; [29] "Tetraodon_turgidus"                    </span></span>
-<span><span class="co">#&gt; [30] "Tetrosomus_fornasini"                  </span></span>
+<span><span class="co">#&gt; [15] "Rhynchostracion_nasus"                 </span></span>
+<span><span class="co">#&gt; [16] "Sphoeroides_cheesemanii"               </span></span>
+<span><span class="co">#&gt; [17] "Stephanolepis_auratus"                 </span></span>
+<span><span class="co">#&gt; [18] "Stephanolepis_hispidus"                </span></span>
+<span><span class="co">#&gt; [19] "Takifugu_fasciatus"                    </span></span>
+<span><span class="co">#&gt; [20] "Tetraodon_abei"                        </span></span>
+<span><span class="co">#&gt; [21] "Tetraodon_baileyi"                     </span></span>
+<span><span class="co">#&gt; [22] "Tetraodon_biocellatus"                 </span></span>
+<span><span class="co">#&gt; [23] "Tetraodon_cambodgiensis"               </span></span>
+<span><span class="co">#&gt; [24] "Tetraodon_cutcutia"                    </span></span>
+<span><span class="co">#&gt; [25] "Tetraodon_erythrotaenia"               </span></span>
+<span><span class="co">#&gt; [26] "Tetraodon_fluviatilis"                 </span></span>
+<span><span class="co">#&gt; [27] "Tetraodon_nigroviridis"                </span></span>
+<span><span class="co">#&gt; [28] "Tetraodon_palembangensis"              </span></span>
+<span><span class="co">#&gt; [29] "Tetraodon_suvattii"                    </span></span>
+<span><span class="co">#&gt; [30] "Tetraodon_turgidus"                    </span></span>
+<span><span class="co">#&gt; [31] "Tetrosomus_fornasini"                  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $data_not_tree</span></span>
 <span><span class="co">#&gt; character(0)</span></span></code></pre></div>
@@ -365,10 +366,10 @@ comparison.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bisse_full"</span>, <span class="st">"bisse_null"</span>, <span class="st">"hisse_cid2"</span>, <span class="st">"hisse_full"</span><span class="op">)</span>, <span class="va">aicc</span>, <span class="va">lnl</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        model     aicc       lnl</span></span>
-<span><span class="co">#&gt; 1 bisse_full 1823.328 -906.5232</span></span>
-<span><span class="co">#&gt; 2 bisse_null 1821.332 -906.5726</span></span>
-<span><span class="co">#&gt; 3 hisse_cid2 1810.644 -901.2283</span></span>
-<span><span class="co">#&gt; 4 hisse_full 1813.123 -900.3632</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 bisse_full 1821.419 -905.5677</span></span>
+<span><span class="co">#&gt; 2 bisse_null 1819.483 -905.6478</span></span>
+<span><span class="co">#&gt; 3 hisse_cid2 1808.042 -899.9269</span></span>
+<span><span class="co">#&gt; 4 hisse_full 1811.311 -899.4567</span></span></code></pre></div>
 <p>Summarizing the results on the basis of AICc suggests that the best
 supported model is a null model, where habitat has no effect on
 speciation rate.</p>

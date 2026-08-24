@@ -45,7 +45,7 @@ tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
 
 fb_results <- species(species_list = tips, fields = c("Species", "DemersPelag"))
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpnNgEHN/duckdb
+#> ℹ /tmp/RtmpWjDz53/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -109,9 +109,9 @@ nc
 #> $tree_not_data
 #>  [1] "Abalistes_stellaris"                   
 #>  [2] "Acanthostracion_polygonius"            
-#>  [3] "Chelonodon_patoca"                     
-#>  [4] "Chelonodon_pleurospilus"               
-#>  [5] "Chilomycterus_spinosus_spinosus"       
+#>  [3] "Chelonodon_pleurospilus"               
+#>  [4] "Chilomycterus_spinosus_spinosus"       
+#>  [5] "Colomesus_asellus"                     
 #>  [6] "Lagocephalus_lagocephalus_lagocephalus"
 #>  [7] "Meuschenia_scaber"                     
 #>  [8] "Monotrete_cochinchinensis"             
@@ -121,22 +121,23 @@ nc
 #> [12] "Ostracion_solorensis"                  
 #> [13] "Paramonacanthus_filicauda"             
 #> [14] "Rhinesomus_triqueter"                  
-#> [15] "Sphoeroides_cheesemanii"               
-#> [16] "Stephanolepis_auratus"                 
-#> [17] "Stephanolepis_hispidus"                
-#> [18] "Takifugu_fasciatus"                    
-#> [19] "Tetraodon_abei"                        
-#> [20] "Tetraodon_baileyi"                     
-#> [21] "Tetraodon_biocellatus"                 
-#> [22] "Tetraodon_cambodgiensis"               
-#> [23] "Tetraodon_cutcutia"                    
-#> [24] "Tetraodon_erythrotaenia"               
-#> [25] "Tetraodon_fluviatilis"                 
-#> [26] "Tetraodon_nigroviridis"                
-#> [27] "Tetraodon_palembangensis"              
-#> [28] "Tetraodon_suvattii"                    
-#> [29] "Tetraodon_turgidus"                    
-#> [30] "Tetrosomus_fornasini"                  
+#> [15] "Rhynchostracion_nasus"                 
+#> [16] "Sphoeroides_cheesemanii"               
+#> [17] "Stephanolepis_auratus"                 
+#> [18] "Stephanolepis_hispidus"                
+#> [19] "Takifugu_fasciatus"                    
+#> [20] "Tetraodon_abei"                        
+#> [21] "Tetraodon_baileyi"                     
+#> [22] "Tetraodon_biocellatus"                 
+#> [23] "Tetraodon_cambodgiensis"               
+#> [24] "Tetraodon_cutcutia"                    
+#> [25] "Tetraodon_erythrotaenia"               
+#> [26] "Tetraodon_fluviatilis"                 
+#> [27] "Tetraodon_nigroviridis"                
+#> [28] "Tetraodon_palembangensis"              
+#> [29] "Tetraodon_suvattii"                    
+#> [30] "Tetraodon_turgidus"                    
+#> [31] "Tetrosomus_fornasini"                  
 #> 
 #> $data_not_tree
 #> character(0)
@@ -358,10 +359,10 @@ lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1823.328 -906.5232
-#> 2 bisse_null 1821.332 -906.5726
-#> 3 hisse_cid2 1810.644 -901.2283
-#> 4 hisse_full 1813.123 -900.3632
+#> 1 bisse_full 1821.419 -905.5677
+#> 2 bisse_null 1819.483 -905.6478
+#> 3 hisse_cid2 1808.042 -899.9269
+#> 4 hisse_full 1811.311 -899.4567
 ```
 
 Summarizing the results on the basis of AICc suggests that the best

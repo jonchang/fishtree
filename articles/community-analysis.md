@@ -26,7 +26,7 @@ overdispersed in the Atlantic, Pacific, and Indian Oceans.
 # Get reef-associated species from the `species` table
 species <- rfishbase::fb_tbl("species")
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpO6B3o6/duckdb
+#> ℹ /tmp/RtmpFvqJz9/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -48,13 +48,13 @@ eco <- eco[valid_idx, c("Species", "EcosystemName")]
 
 # Retrieve the phylogeny of only native reef species across all three oceans.
 phy <- fishtree_phylogeny(species = eco$Species)
-#> Warning: Requested 6449 but only found 4015 species.
+#> Warning: Requested 6492 but only found 4001 species.
 #> • Scyris indica
 #> • Lutjanus lemniscatus
 #> • Lutjanus lunulatus
 #> • Lutjanus timoriensis
 #> • Macolor macularis
-#> • ...and 2429 others
+#> • ...and 2486 others
 ```
 
 We’ll have to clean up the data in a few ways before sending it to
@@ -100,23 +100,23 @@ models if your datasets have e.g., abundance information.
 ``` r
 
 picante::ses.mpd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
-#>                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank mpd.obs.z
-#> Atlantic Ocean   586 238.9500      232.3225   2.1550001          100 3.0754117
-#> Indian Ocean    1228 233.3068      231.8851   1.0681389           86 1.3310253
-#> Pacific Ocean   1431 232.0734      232.0126   0.7815354           53 0.0776838
+#>                ntaxa  mpd.obs mpd.rand.mean mpd.rand.sd mpd.obs.rank  mpd.obs.z
+#> Atlantic Ocean   585 239.0055      232.1327   2.2346591          100 3.07554839
+#> Indian Ocean    1215 233.5489      232.4824   1.1748913           83 0.90779194
+#> Pacific Ocean   1419 232.2639      232.2036   0.9885731           53 0.06103204
 #>                mpd.obs.p runs
 #> Atlantic Ocean      1.00   99
-#> Indian Ocean        0.86   99
+#> Indian Ocean        0.83   99
 #> Pacific Ocean       0.53   99
 picante::ses.mntd(sample_matrix, cophen, null.model = "taxa.labels", runs = 99)
 #>                ntaxa mntd.obs mntd.rand.mean mntd.rand.sd mntd.obs.rank
-#> Atlantic Ocean   586 42.12008       48.88476    1.4461655             1
-#> Indian Ocean    1228 34.33251       37.41040    0.6339495             1
-#> Pacific Ocean   1431 34.53339       35.15170    0.5522591            11
+#> Atlantic Ocean   585 42.15678       48.78075    1.6512804             1
+#> Indian Ocean    1215 34.37517       37.61213    0.6833006             1
+#> Pacific Ocean   1419 34.61914       35.35819    0.5180346            10
 #>                mntd.obs.z mntd.obs.p runs
-#> Atlantic Ocean  -4.677664       0.01   99
-#> Indian Ocean    -4.855091       0.01   99
-#> Pacific Ocean   -1.119589       0.11   99
+#> Atlantic Ocean  -4.011414       0.01   99
+#> Indian Ocean    -4.737241       0.01   99
+#> Pacific Ocean   -1.426641       0.10   99
 ```
 
 The Atlantic and Indian Oceans are overdispersed using the MPD metric,
