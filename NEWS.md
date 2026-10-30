@@ -1,5 +1,9 @@
 # fishtree (development version)
 
+* Taxa with spaces in their names (e.g., "Incertae sedis in Carangaria")
+  now work with `fishtree_taxonomy()` and all functions that take a
+  `rank = ...` argument. Their download URLs are now percent-encoded.
+
 # fishtree 0.3.4
 
 * This release fixes some tests, and has no new user-facing features.

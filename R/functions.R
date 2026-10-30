@@ -87,7 +87,7 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
   if (length(fishtree_rogues(rank)) > 0 && type %in% c("chronogram", "phylogram")) {
     rlang::inform(paste0(what, " ", rank, ' is not monophyletic. To instead retrieve the phylogeny descending from the common ancestor of all species in ', rank, ', use `type = "', paste0(type, "_mrca"), '"`'))
   }
-  return(.get(paste0(.baseurl, url), ape::read.tree))
+  return(.get(paste0(.baseurl, .encode_path(url)), ape::read.tree))
 }
 
 #' Get rogue taxa that break the monophyly of defined taxa
@@ -147,7 +147,7 @@ fishtree_taxonomy <- function(ranks = NULL) {
   output <- list()
   for (idx in 1:nrow(wanted)) {
     row <- wanted[idx, ]
-    url <- paste0("https://fishtreeoflife.org/api/taxonomy/", row$rank, "/", row$name, ".json")
+    url <- paste0("https://fishtreeoflife.org/api/taxonomy/", row$rank, "/", utils::URLencode(row$name, reserved = TRUE), ".json")
     output[[row$name]] <- .get(url, jsonlite::fromJSON)
   }
 
@@ -187,7 +187,7 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
     what <- res[[2]]
 
     if (is.null(context$matrix_phylip)) rlang::abort(paste("Can't find sequences for", what, rank, "because there are too few sampled species."))
-    url <- paste0(.baseurl, context$matrix_phylip)
+    url <- paste0(.baseurl, .encode_path(context$matrix_phylip))
     nlines <- length(context$sampled_species) + 2
   }
 
