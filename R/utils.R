@@ -58,6 +58,12 @@
   intersect(gsub("_", " ", wanted_names), gsub("_", " ", valid_names))
 }
 
+# Percent-encodes each segment of a URL path, keeping the slashes
+.encode_path <- function(path) {
+  segments <- strsplit(path, "/", fixed = TRUE)[[1]]
+  paste(vapply(segments, utils::URLencode, character(1), reserved = TRUE, USE.NAMES = FALSE), collapse = "/")
+}
+
 # Auto detects the rank from the name and downloads the relevant taxonomy file
 .fetch_rank <- function(name) {
   if (!rlang::is_scalar_character(name)) {
