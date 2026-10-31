@@ -39,7 +39,7 @@ Suggests:
     rfishbase (>= 4.1.2),
     rmarkdown,
     spelling,
-    testthat,
+    testthat (>= 3.1.7),
     withr
 VignetteBuilder: knitr
 Language: en-US
