@@ -2,6 +2,12 @@
 
 ## fishtree (development version)
 
+- Taxa with spaces in their names (e.g., “Incertae sedis in Carangaria”)
+  now work with
+  [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md)
+  and all functions that take a `rank = ...` argument. Their download
+  URLs are now percent-encoded.
+
 ## fishtree 0.3.4
 
 CRAN release: 2021-01-30
