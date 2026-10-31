@@ -49,7 +49,7 @@ phy
 #> Tip labels:
 #>   Acanthurus_mata, Acanthurus_blochii, Acanthurus_xanthopterus, Acanthurus_bariene, Acanthurus_dussumieri, Acanthurus_leucocheilus, ...
 #> 
-#> Rooted; includes branch lengths.
+#> Rooted; includes branch length(s).
 ```
 
 ``` r

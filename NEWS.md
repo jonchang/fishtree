@@ -1,4 +1,4 @@
-# fishtree (development version)
+# fishtree 0.4.0
 
 * `taxon` replaces `rank` as the argument that names a taxon, e.g.,
   `fishtree_phylogeny(taxon = "Acanthuridae")`, and replaces `ranks` in
@@ -27,6 +27,8 @@
 * Downloads are checked against their size and, on R 4.5.0 and later, their
   SHA-256 checksum in the manifest. They're kept in a cache that lasts between
   sessions; see `fishtree_cache_info()` and `fishtree_cache_clear()`.
+  Cached files that the manifest no longer lists are deleted whenever fishtree
+  downloads a file.
 
 * Downloads now wait at least 10 minutes before timing out.
 
