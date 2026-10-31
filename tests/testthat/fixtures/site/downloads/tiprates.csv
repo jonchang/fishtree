@@ -1,0 +1,6 @@
+species,lambda.tv,mu.tv,lambda.tc,mu.tc,dr
+Aus bus,0.1,0.01,0.1,0.01,0.2
+Aus cus,0.2,0.02,0.2,0.02,0.3
+Aus zus,NA,NA,NA,NA,0.25
+Bus dus,0.3,0.03,0.3,0.03,0.4
+Cus eus,0.4,0.04,0.4,0.04,0.5

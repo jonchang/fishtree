@@ -7,7 +7,8 @@
 fishtree_phylogeny(
   species,
   rank,
-  type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")
+  type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca"),
+  release = getOption("fishtree.release", .default_release)
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ fishtree_phylogeny(
 \item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
 \item{type}{Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retrieving a phylogeny by rank, and that rank is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the specified rank.}
+
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
 }
 \value{
 An object of class `"phylo"`.

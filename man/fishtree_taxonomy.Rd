@@ -4,10 +4,15 @@
 \alias{fishtree_taxonomy}
 \title{Get taxonomies and other data from the Fish Tree of Life}
 \usage{
-fishtree_taxonomy(ranks = NULL)
+fishtree_taxonomy(
+  ranks = NULL,
+  release = getOption("fishtree.release", .default_release)
+)
 }
 \arguments{
 \item{ranks}{One or more taxonomic ranks to retrieve.}
+
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
 }
 \value{
 A list, with components containing data on the specified taxa. If `ranks`

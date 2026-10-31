@@ -4,7 +4,12 @@
 \alias{fishtree_tip_rates}
 \title{Get tip rates for the Fish Tree of Life}
 \usage{
-fishtree_tip_rates(species, rank, sampled_only = TRUE)
+fishtree_tip_rates(
+  species,
+  rank,
+  sampled_only = TRUE,
+  release = getOption("fishtree.release", .default_release)
+)
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
@@ -12,6 +17,8 @@ fishtree_tip_rates(species, rank, sampled_only = TRUE)
 \item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
 \item{sampled_only}{Restricts the returned dataset to only those species that have genetic data available. Defaults to `TRUE`.}
+
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
 }
 \value{
 A data frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. The `dr` column refers to the DR statistic, while `lambda` and `mu` are speciation and extinction, respectively.
