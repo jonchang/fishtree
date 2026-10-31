@@ -1,20 +1,27 @@
 ## Test environments
 
-* local macOS 11.1 install, R 4.0.3
-* local Ubuntu 20.04 in Docker, R 4.0.3
-* GitHub Actions CI, macOS 10.15, R 4.x
-* R-hub builder, Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-* win-builder devel
+* local macOS 27.2, R 4.6.2
+* GitHub Actions, Ubuntu 24.04, R release and R-devel
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
 
-This is a release addressing issues identified in periodic CRAN checks:
+## This release
 
-* https://www.r-project.org/nosvn/R.check/r-devel-linux-x86_64-fedora-clang/fishtree-00check.html
-* https://www.r-project.org/nosvn/R.check/r-patched-solaris-x86/fishtree-00check.html
+fishtree now finds its files through a data manifest published on
+fishtreeoflife.org, checks downloads against their checksums, and keeps them in
+a cache in `tools::R_user_dir("fishtree", "cache")`, which
+`fishtree_cache_clear()` empties. The `rank` argument is deprecated in favor of
+`taxon`, using lifecycle.
 
 ## Downstream dependencies
 
-There are currently no downstream dependencies for this package.
+I checked the 4 reverse dependencies (aptg, FishPhyloMaker, phylosem,
+prepR4pcm) with `tools::check_packages_in_dir()`. None has new problems:
+
+* FishPhyloMaker has the NOTE about unused Imports that it has on CRAN. It
+  passes `rank` to `fishtree_taxonomy()`, which still works with a
+  deprecation warning.
+* phylosem's vignette that uses fishtree builds. Its other vignette needs the
+  Bioconductor package graph, which wasn't installed.
