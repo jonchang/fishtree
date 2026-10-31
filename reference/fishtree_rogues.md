@@ -8,16 +8,17 @@ prevented that clade from being recovered as monophyletic.
 
 ``` r
 fishtree_rogues(
-  rank,
-  release = getOption("fishtree.release", .default_release)
+  taxon,
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 ```
 
 ## Arguments
 
-- rank:
+- taxon:
 
-  the (possibly paraphyletic) rank for which rogue or intruder species
+  the (possibly paraphyletic) taxon for which rogue or intruder species
   should be identified.
 
 - release:
@@ -25,8 +26,11 @@ fishtree_rogues(
   The tree release to use, from
   [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
   Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
-  is unset. Looking up taxa by \`rank\` is only available for
-  \`"R2018"\`.
+  is unset. Looking up a \`taxon\` is only available for \`"R2018"\`.
+
+- rank:
+
+  Deprecated; use \`taxon\` instead.
 
 ## Value
 

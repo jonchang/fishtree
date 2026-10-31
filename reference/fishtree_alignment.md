@@ -1,7 +1,7 @@
 # Get aligned sequences from the Fish Tree of Life
 
 Retrieves an aligned sequence via the Fish Tree of Life API. If neither
-\`species\` nor \`rank\` are specified, returns the entire sequence
+\`species\` nor \`taxon\` are specified, returns the entire sequence
 matrix.
 
 ## Usage
@@ -9,9 +9,10 @@ matrix.
 ``` r
 fishtree_alignment(
   species,
-  rank,
+  taxon,
   split = FALSE,
-  release = getOption("fishtree.release", .default_release)
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 ```
 
@@ -21,9 +22,10 @@ fishtree_alignment(
 
   (Optionally) subset the results based on a vector of species names.
 
-- rank:
+- taxon:
 
-  (Optionally) subset the results based on the supplied taxonomic rank.
+  (Optionally) subset the results to the taxon with this name, such as a
+  family or order (e.g., \`"Acanthuridae"\`).
 
 - split:
 
@@ -34,8 +36,11 @@ fishtree_alignment(
   The tree release to use, from
   [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
   Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
-  is unset. Looking up taxa by \`rank\` is only available for
-  \`"R2018"\`.
+  is unset. Looking up a \`taxon\` is only available for \`"R2018"\`.
+
+- rank:
+
+  Deprecated; use \`taxon\` instead.
 
 ## Value
 
@@ -57,7 +62,7 @@ marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
 
 ``` r
 if (FALSE) { # \dontrun{
-surgeon_dna <- fishtree_alignment(rank = "Acanthuridae", split = TRUE)
+surgeon_dna <- fishtree_alignment(taxon = "Acanthuridae", split = TRUE)
 surgeon_dna[[1]]
 par(mfrow = c(9, 3), mar = c(0.5, 0.5, 1, 0.5), xaxt = "n", yaxt = "n")
 for (gene in names(surgeon_dna)) {

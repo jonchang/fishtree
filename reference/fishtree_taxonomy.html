@@ -45,8 +45,9 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fishtree_taxonomy</span><span class="op">(</span></span>
-<span>  ranks <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  release <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"fishtree.release"</span>, <span class="va">.default_release</span><span class="op">)</span></span>
+<span>  taxon <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  release <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"fishtree.release"</span>, <span class="va">.default_release</span><span class="op">)</span>,</span>
+<span>  ranks <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -54,18 +55,47 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-ranks">ranks<a class="anchor" aria-label="anchor" href="#arg-ranks"></a></dt>
-<dd><p>One or more taxonomic ranks to retrieve.</p></dd>
+<dl><dt id="arg-taxon">taxon<a class="anchor" aria-label="anchor" href="#arg-taxon"></a></dt>
+<dd><p>One or more taxon names to retrieve, such as `"Labridae"`.</p></dd>
 
 
 <dt id="arg-release">release<a class="anchor" aria-label="anchor" href="#arg-release"></a></dt>
-<dd><p>The tree release to use, from <code><a href="fishtree_releases.html">fishtree_releases</a></code>. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.</p></dd>
+<dd><p>The tree release to use, from <code><a href="fishtree_releases.html">fishtree_releases</a></code>. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up a `taxon` is only available for `"R2018"`.</p></dd>
+
+
+<dt id="arg-ranks">ranks<a class="anchor" aria-label="anchor" href="#arg-ranks"></a></dt>
+<dd><p>Deprecated; use `taxon` instead.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list, with components containing data on the specified taxa. If `ranks`
-is unspecified, a data frame with all valid taxa is returned instead.</p>
+    <p>If `taxon` is unspecified, a data frame of all valid taxa, with
+  columns `rank` and `name`. Otherwise, a list with one element per taxon,
+  named by taxon. Each element is a list with:</p><dl><dt>`species`</dt>
+<dd><p>All species in the taxon.</p></dd>
+
+    <dt>`sampled_species`</dt>
+<dd><p>The species in the taxon that are in the phylogeny.</p></dd>
+
+    <dt>`unsampled_species`</dt>
+<dd><p>The species in the taxon that are not in the phylogeny.</p></dd>
+
+    <dt>`taxonomy`</dt>
+<dd><p>A list, named by rank, of the names at each rank
+      among the taxon's species. Look up ranks by name, as in
+      `taxonomy$order`; which ranks are present, and their order, depend on
+      the taxonomy.</p></dd>
+
+
+</dl><p>Future versions of fishtree will keep these fields and the columns of the
+  data frame. The other fields are deprecated and will be removed in
+  fishtree 1.0: use <code><a href="fishtree_rogues.html">fishtree_rogues</a></code> instead of `rogues`;
+  <code><a href="fishtree_tip_rates.html">fishtree_tip_rates</a></code> instead of `tiprates_dr`,
+  `tiprates_bamm_lambda`, `tiprates_bamm_mu`, `mean_dr`, `mean_bamm_lambda`
+  and `mean_bamm_mu`; and <code><a href="fishtree_phylogeny.html">fishtree_phylogeny</a></code> and
+  <code><a href="fishtree_alignment.html">fishtree_alignment</a></code> instead of the download paths
+  `chronogram`, `phylogram`, `chronogram_mrca`, `phylogram_mrca`,
+  `matrix_phylip` and `matrix_nexus`. `gene_sampling` has no replacement.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -75,7 +105,7 @@ is unspecified, a data frame with all valid taxa is returned instead.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">tax</span> <span class="op">&lt;-</span> <span class="fu">fishtree_taxonomy</span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Labridae"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tax</span> <span class="op">&lt;-</span> <span class="fu">fishtree_taxonomy</span><span class="op">(</span><span class="st">"Labridae"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">n_total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tax</span><span class="op">$</span><span class="va">Labridae</span><span class="op">$</span><span class="va">species</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">n_sampl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tax</span><span class="op">$</span><span class="va">Labridae</span><span class="op">$</span><span class="va">sampled_species</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="va">n_sampl</span>, <span class="st">"sampled species out of"</span>, <span class="va">n_total</span>, <span class="st">"in wrasses."</span><span class="op">)</span></span></span>

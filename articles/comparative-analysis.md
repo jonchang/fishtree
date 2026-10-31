@@ -22,7 +22,7 @@ rather than the family in the 2013 study.
 
 library(fishtree)
 
-tree <- fishtree_phylogeny(rank = "Tetraodontiformes")
+tree <- fishtree_phylogeny(taxon = "Tetraodontiformes")
 
 plot(tree, show.tip.label = FALSE, no.margin = TRUE)
 ```
@@ -45,7 +45,7 @@ tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
 
 fb_results <- species(species_list = tips, fields = c("Species", "DemersPelag"))
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpD90dFV/duckdb
+#> ℹ /tmp/RtmpX1RYn6/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -178,7 +178,7 @@ rate data:
 
 ``` r
 
-rates <- fishtree_tip_rates(rank = "Tetraodontiformes")
+rates <- fishtree_tip_rates(taxon = "Tetraodontiformes")
 head(rates)
 #>                           species  lambda.tv      mu.tv  lambda.tc      mu.tc
 #> 2             Abalistes stellaris 0.08859469 0.01282721 0.09181900 0.02239813
@@ -359,7 +359,7 @@ lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1821.419 -905.5677
+#> 1 bisse_full 1821.418 -905.5677
 #> 2 bisse_null 1819.483 -905.6478
 #> 3 hisse_cid2 1808.042 -899.9269
 #> 4 hisse_full 1811.311 -899.4567

@@ -2,6 +2,19 @@
 
 ## fishtree (development version)
 
+- `taxon` replaces `rank` as the argument that names a taxon, e.g.,
+  `fishtree_phylogeny(taxon = "Acanthuridae")`, and replaces `ranks` in
+  [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md).
+  `rank` and `ranks` still work, with a warning, and will be removed in
+  fishtree 1.0.
+
+- [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md)
+  documents the fields that future versions will keep: `species`,
+  `sampled_species`, `unsampled_species` and `taxonomy` for each taxon,
+  and the `rank` and `name` columns of the table of taxa. Its other
+  fields are deprecated and will be removed in fishtree 1.0. Look up
+  ranks in `taxonomy` by name, not position.
+
 - New
   [`fishtree_releases()`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md)
   and
@@ -13,7 +26,7 @@
 - Every function has a new `release` argument, which defaults to
   `getOption("fishtree.release", "R2018")`. The default is fixed for
   each version of fishtree, so a new release on the website never
-  changes your results. Looking up taxa by `rank` is only available for
+  changes your results. Looking up a `taxon` is only available for
   `"R2018"`.
 
 - fishtree now finds its files through the data manifest at
@@ -32,8 +45,7 @@
 - Taxa with spaces in their names (e.g., “Incertae sedis in Carangaria”)
   now work with
   [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md)
-  and all functions that take a `rank = ...` argument. Their download
-  URLs are now percent-encoded.
+  and all functions that take a `taxon = ...` argument.
 
 ## fishtree 0.3.4
 

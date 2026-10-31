@@ -86,7 +86,7 @@ rather than the family in the 2013 study.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fishtreeoflife.org/" class="external-link">fishtree</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span></span>
+<span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_phylogeny.html">fishtree_phylogeny</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, show.tip.label <span class="op">=</span> <span class="cn">FALSE</span>, no.margin <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="comparative-analysis_files/figure-html/get_phylo-1.png" class="r-plt" alt="" width="672"></p>
@@ -104,7 +104,7 @@ among other things.</p>
 <span></span>
 <span><span class="va">fb_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/rfishbase/reference/species.html" class="external-link">species</a></span><span class="op">(</span>species_list <span class="op">=</span> <span class="va">tips</span>, fields <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Species"</span>, <span class="st">"DemersPelag"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; duckdb keeps downloaded extensions and secrets in a temporary directory:</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> /tmp/RtmpD90dFV/duckdb</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">ℹ</span> /tmp/RtmpX1RYn6/duckdb</span></span>
 <span><span class="co">#&gt; This is removed when the R session ends.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Extensions are re-downloaded each session.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> Secrets are lost.</span></span>
@@ -213,7 +213,7 @@ the data:</p>
 the DR method (<a href="https://doi.org/10.1038/nature11631" class="external-link">Jetz et
 al. 2012</a>). Retrieve speciation rate data:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_tip_rates.html">fishtree_tip_rates</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fishtree_tip_rates.html">fishtree_tip_rates</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">"Tetraodontiformes"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rates</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                           species  lambda.tv      mu.tv  lambda.tc      mu.tc</span></span>
 <span><span class="co">#&gt; 2             Abalistes stellaris 0.08859469 0.01282721 0.09181900 0.02239813</span></span>
@@ -366,7 +366,7 @@ comparison.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bisse_full"</span>, <span class="st">"bisse_null"</span>, <span class="st">"hisse_cid2"</span>, <span class="st">"hisse_full"</span><span class="op">)</span>, <span class="va">aicc</span>, <span class="va">lnl</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        model     aicc       lnl</span></span>
-<span><span class="co">#&gt; 1 bisse_full 1821.419 -905.5677</span></span>
+<span><span class="co">#&gt; 1 bisse_full 1821.418 -905.5677</span></span>
 <span><span class="co">#&gt; 2 bisse_null 1819.483 -905.6478</span></span>
 <span><span class="co">#&gt; 3 hisse_cid2 1808.042 -899.9269</span></span>
 <span><span class="co">#&gt; 4 hisse_full 1811.311 -899.4567</span></span></code></pre></div>

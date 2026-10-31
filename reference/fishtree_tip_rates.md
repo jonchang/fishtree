@@ -5,7 +5,7 @@ subset. Tip rates can be thought of as an instantaneous speciation or
 extinction rate; for example, a higher tip-specific speciation rate
 might imply that a lineage is more likely to split a new lineage at the
 present time. See Title (2019) in references for details. If neither
-\`species\` nor \`rank\` are specified, returns the entire set of
+\`species\` nor \`taxon\` are specified, returns the entire set of
 tip-specific diversification rates.
 
 ## Usage
@@ -13,9 +13,10 @@ tip-specific diversification rates.
 ``` r
 fishtree_tip_rates(
   species,
-  rank,
+  taxon,
   sampled_only = TRUE,
-  release = getOption("fishtree.release", .default_release)
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 ```
 
@@ -25,9 +26,10 @@ fishtree_tip_rates(
 
   (Optionally) subset the results based on a vector of species names.
 
-- rank:
+- taxon:
 
-  (Optionally) subset the results based on the supplied taxonomic rank.
+  (Optionally) subset the results to the taxon with this name, such as a
+  family or order (e.g., \`"Acanthuridae"\`).
 
 - sampled_only:
 
@@ -39,8 +41,11 @@ fishtree_tip_rates(
   The tree release to use, from
   [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
   Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
-  is unset. Looking up taxa by \`rank\` is only available for
-  \`"R2018"\`.
+  is unset. Looking up a \`taxon\` is only available for \`"R2018"\`.
+
+- rank:
+
+  Deprecated; use \`taxon\` instead.
 
 ## Value
 
@@ -78,8 +83,8 @@ speciation rate for marine fishes.
 ``` r
 if (FALSE) { # \dontrun{
 # Get cichlid rates and trees
-rates <- fishtree_tip_rates(rank = "Cichlidae")
-tree <- fishtree_phylogeny(rank = "Cichlidae")
+rates <- fishtree_tip_rates(taxon = "Cichlidae")
+tree <- fishtree_phylogeny(taxon = "Cichlidae")
 
 # Plot tree and extract plotting data
 plot(tree, show.tip.label = FALSE)
