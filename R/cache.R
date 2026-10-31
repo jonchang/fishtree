@@ -50,13 +50,26 @@ fishtree_cache_clear <- function() {
   tmp <- tempfile(tmpdir = dir)
   on.exit(unlink(tmp))
   .download(file$url, tmp)
-  hash <- .sha256(tmp)
-  if (file.size(tmp) != file$bytes || (!is.na(hash) && hash != file$sha256)) {
+  if (!.matches(tmp, file) && grepl("^https?://", file$url)) {
+    # Just after the website updates, a CDN can serve an older copy than the manifest lists.
+    .download(.cache_bust(file$url), tmp)
+  }
+  if (!.matches(tmp, file)) {
     rlang::abort(paste("Download for URL", file$url, "doesn't match the size or checksum in the data manifest.",
                        "The file may have been corrupted in transit; consider retrying your request."))
   }
   file.rename(tmp, path)
   path
+}
+
+.matches <- function(path, file) {
+  hash <- .sha256(path)
+  file.size(path) == file$bytes && (is.na(hash) || hash == file$sha256)
+}
+
+# Adds a unique query so caches pass the request through.
+.cache_bust <- function(url) {
+  paste0(url, if (grepl("?", url, fixed = TRUE)) "&" else "?", "nocache=", sprintf("%.0f", as.numeric(Sys.time()) * 1e6))
 }
 
 # Cached paths are named by sha256, so this is memoised in .onLoad.
