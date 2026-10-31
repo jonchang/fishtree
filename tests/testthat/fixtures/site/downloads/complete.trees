@@ -1,0 +1,2 @@
+(((Aus_bus:1,Aus_zus:1):0.5,Aus_cus:1.5):0.5,(Bus_dus:1.5,Cus_eus:1.5):0.5);
+((Aus_bus:0.5,(Aus_cus:0.4,Aus_zus:0.4):0.1):1.5,(Bus_dus:1.5,Cus_eus:1.5):0.5);

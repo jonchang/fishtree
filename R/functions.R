@@ -7,6 +7,7 @@
 #'
 #' @param species (Optionally) subset the results based on a vector of species names.
 #' @param rank (Optionally) subset the results based on the supplied taxonomic rank.
+#' @param release The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.
 #' @param type Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retrieving a phylogeny by rank, and that rank is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the specified rank.
 #' @return An object of class `"phylo"`.
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
@@ -39,26 +40,23 @@
 
 #' @seealso \code{\link[fishtree]{fishtree_rogues}}, \code{\link[ape]{read.tree}}, \code{\link[phytools]{force.ultrametric}}
 #' @export
-fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")) {
+fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca"),
+                               release = getOption("fishtree.release", .default_release)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   type <- rlang::arg_match(type)
-  fullurl <- switch(type,
-                    chronogram = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
-                    chronogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_treePL.tre.xz",
-                    phylogram = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz",
-                    phylogram_mrca = "https://fishtreeoflife.org/downloads/actinopt_12k_raxml.tre.xz")
 
   if (rlang::is_missing(rank)) {
-    if (rlang::is_missing(species)) return(.get(fullurl, ape::read.tree))
+    tree <- .read_release_file(release, sub("_mrca", "", type), ape::read.tree)
+    if (rlang::is_missing(species)) return(tree)
     if (length(species) < 2) rlang::abort("Must include at least 2 tips in `species`")
-    valid_names <- .name_check(species)
+    valid_names <- .name_check(species, release = release)
     if (length(valid_names) < 2) rlang::abort("Must include at least 2 sampled tips in `species`")
-    tree <- .get(fullurl, ape::read.tree)
     return(ape::keep.tip(tree, tree$tip.label[tree$tip.label %in% gsub(" ", "_", valid_names)]))
   }
 
-  res <- .fetch_rank(rank)
+  api <- .legacy_api(release)
+  res <- .fetch_rank(rank, release)
   context <- res[[1]][[1]]
   what <- res[[2]]
 
@@ -84,10 +82,10 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
   }
 
   # Family not monophyletic?
-  if (length(fishtree_rogues(rank)) > 0 && type %in% c("chronogram", "phylogram")) {
+  if (length(fishtree_rogues(rank, release = release)) > 0 && type %in% c("chronogram", "phylogram")) {
     rlang::inform(paste0(what, " ", rank, ' is not monophyletic. To instead retrieve the phylogeny descending from the common ancestor of all species in ', rank, ', use `type = "', paste0(type, "_mrca"), '"`'))
   }
-  return(.get(paste0(.baseurl, .encode_path(url)), ape::read.tree))
+  return(.get(.resolve_url(.encode_path(url), api$root), ape::read.tree))
 }
 
 #' Get rogue taxa that break the monophyly of defined taxa
@@ -97,6 +95,7 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
 #' from being recovered as monophyletic.
 #'
 #' @param rank the (possibly paraphyletic) rank for which rogue or intruder species should be identified.
+#' @inheritParams fishtree_phylogeny
 #' @return A vector of species names, potentially empty.
 #' @export
 #' @references Rabosky, D. L., Chang, J., Title, P. O., Cowman, P. F., Sallan, L., Friedman, M., Kashner, K., Garilao, C., Near, T. J., Coll, M., Alfaro, M. E. (2018). An inverse latitudinal gradient in speciation rate for marine fishes. Nature, 559(7714), 392–395. doi:10.1038/s41586-018-0273-1
@@ -105,11 +104,11 @@ fishtree_phylogeny <- function(species, rank, type = c("chronogram", "phylogram"
 #' fishtree_rogues("Gobiidae")   # several rogue taxa!
 #' fishtree_rogues("Labridae")   # nice and monophlyetic
 #' }
-fishtree_rogues <- function(rank) {
+fishtree_rogues <- function(rank, release = getOption("fishtree.release", .default_release)) {
   if (rlang::is_missing(rank))
     rlang::abort("`rank` must be specified.")
 
-  res <- .fetch_rank(rank)
+  res <- .fetch_rank(rank, release)
   context <- res[[1]][[1]]
   what <- res[[2]]
 
@@ -123,6 +122,7 @@ fishtree_rogues <- function(rank) {
 #' Retrieves taxonomic and other information from the Fish Tree of Life API.
 #'
 #' @param ranks One or more taxonomic ranks to retrieve.
+#' @inheritParams fishtree_phylogeny
 #' @return A list, with components containing data on the specified taxa. If `ranks`
 #' is unspecified, a data frame with all valid taxa is returned instead.
 #' @export
@@ -134,8 +134,9 @@ fishtree_rogues <- function(rank) {
 #' n_sampl <- length(tax$Labridae$sampled_species)
 #' paste("There are", n_sampl, "sampled species out of", n_total, "in wrasses.")
 #' }
-fishtree_taxonomy <- function(ranks = NULL) {
-  tax <- .get("https://fishtreeoflife.org/api/taxonomy.json", jsonlite::fromJSON)
+fishtree_taxonomy <- function(ranks = NULL, release = getOption("fishtree.release", .default_release)) {
+  api <- .legacy_api(release)
+  tax <- .get(api$index, jsonlite::fromJSON)
   tax_df <- utils::stack(tax)
   colnames(tax_df) <- c("name", "rank")
   tax_df <- tax_df[c("rank", "name")]
@@ -147,7 +148,7 @@ fishtree_taxonomy <- function(ranks = NULL) {
   output <- list()
   for (idx in 1:nrow(wanted)) {
     row <- wanted[idx, ]
-    url <- paste0("https://fishtreeoflife.org/api/taxonomy/", row$rank, "/", utils::URLencode(row$name, reserved = TRUE), ".json")
+    url <- paste0(api$base, row$rank, "/", utils::URLencode(row$name, reserved = TRUE), ".json")
     output[[row$name]] <- .get(url, jsonlite::fromJSON)
   }
 
@@ -174,29 +175,28 @@ fishtree_taxonomy <- function(ranks = NULL) {
 #'   title(gene)
 #' }
 #' }
-fishtree_alignment <- function(species, rank, split = FALSE) {
+fishtree_alignment <- function(species, rank, split = FALSE, release = getOption("fishtree.release", .default_release)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank))
     rlang::inform("Supplying both `species` and `rank` arguments may limit the number of results you see.")
 
   if (rlang::is_missing(rank)) {
-    url <- "https://fishtreeoflife.org/downloads/final_alignment.phylip.xz"
-    nlines <- 11650
+    dna <- .read_release_file(release, "alignment", ape::read.dna, format = "sequential")
   } else {
-    res <- .fetch_rank(rank)
+    api <- .legacy_api(release)
+    res <- .fetch_rank(rank, release)
     context <- res[[1]][[1]]
     what <- res[[2]]
 
     if (is.null(context$matrix_phylip)) rlang::abort(paste("Can't find sequences for", what, rank, "because there are too few sampled species."))
-    url <- paste0(.baseurl, .encode_path(context$matrix_phylip))
-    nlines <- length(context$sampled_species) + 2
+    url <- .resolve_url(.encode_path(context$matrix_phylip), api$root)
+    dna <- .get(url, ape::read.dna, format = "sequential", nlines = length(context$sampled_species) + 2)
   }
 
-  dna <- .get(url, ape::read.dna, format = "sequential", nlines = nlines)
   if (!rlang::is_missing(species)) {
-    valid_names <- .name_check(species)
+    valid_names <- .name_check(species, release = release)
     dna <- dna[gsub(" ", "_", valid_names), ]
   }
-  if (split) dna <- .split_seqs(dna)
+  if (split) dna <- .split_seqs(dna, release)
   dna
 }
 
@@ -245,15 +245,15 @@ fishtree_alignment <- function(species, rank, split = FALSE) {
 #'           col = tipcols[ii])
 #' }
 #' }
-fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
+fishtree_tip_rates <- function(species, rank, sampled_only = TRUE, release = getOption("fishtree.release", .default_release)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
-  rates <- .get("https://fishtreeoflife.org/downloads/tiprates.csv.xz", utils::read.csv, row.names = NULL)
+  rates <- .read_release_file(release, "tip_rates", utils::read.csv, row.names = NULL)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(rates)
 
   if (!rlang::is_missing(species)) {
     # Figure out which species are sampled
-    tree <- fishtree_phylogeny()
+    tree <- fishtree_phylogeny(release = release)
     tips <- gsub("_", " ", tree$tip.label)
     if (sampled_only) wanted <- rates$species[rates$species %in% tips]
     else wanted <- rates$species
@@ -263,7 +263,7 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
   }
 
   if (!rlang::is_missing(rank)) {
-    res <- .fetch_rank(rank)
+    res <- .fetch_rank(rank, release)
     sampled_species <- res[[1]][[1]]$sampled_species
     species <- res[[1]][[1]]$species
     what <- res[[2]]
@@ -308,14 +308,14 @@ fishtree_tip_rates <- function(species, rank, sampled_only = TRUE) {
 #'   ape::tiplabels(pch = 19, col = ifelse(tree[[ii]]$tip.label %in% new_tips, "red", NA))
 #' }
 #' }
-fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.cores", 1L)) {
+fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.cores", 1L), release = getOption("fishtree.release", .default_release)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
-  trees <- .get("https://fishtreeoflife.org/downloads/actinopt_full.trees.xz", ape::read.tree)
+  trees <- .read_release_file(release, "complete_trees", ape::read.tree)
   if (rlang::is_missing(species) && rlang::is_missing(rank)) return(trees)
 
   if (!rlang::is_missing(rank)) {
-    res <- .fetch_rank(rank)
+    res <- .fetch_rank(rank, release)
     if (length(res[[1]][[1]]$rogues) > 0) rlang::warn(paste(res[[2]], rank, "is not monophyletic; only including species in this taxon"))
     valid_spp <- .name_check(res[[1]][[1]]$species, trees[[1]]$tip.label)
   } else if (!rlang::is_missing(species)) {
@@ -330,13 +330,13 @@ fishtree_complete_phylogeny <- function(species, rank, mc.cores = getOption("mc.
 
 
 #get information on how many genes are sampled by rank or species
-fishtree_gene_sampling <- function(species, rank, matrix = FALSE) {
+fishtree_gene_sampling <- function(species, rank, matrix = FALSE, release = getOption("fishtree.release", .default_release)) {
   if (!rlang::is_missing(species) && !rlang::is_missing(rank)) rlang::abort("Must supply at most one of either `species` or `rank`, not both")
 
   if (!rlang::is_missing(species))  rlang::abort("Not implemented")
 
   if (!rlang::is_missing(rank)) {
-    rank_info <- .fetch_rank(rank)[[1]][[1]]
+    rank_info <- .fetch_rank(rank, release)[[1]][[1]]
     species <- rank_info$species
     gene_list <- rank_info$gene_sampling
   }

@@ -4,9 +4,10 @@
 #' fishes with R. Download taxonomies, phylogenies, sequence matrices, and
 #' diversification rate data with a simple set of functions.
 #'
-#' Implementation note: this package makes calls over the network and caches
-#' its (sometimes large) results for faster loading. Because of this,
-#' long-running R instances could use a lot of memory.
+#' Implementation note: this package makes calls over the network. It keeps
+#' downloaded files in a cache on disk (see \code{\link{fishtree_cache_info}})
+#' and their (sometimes large) parsed results in memory, so long-running R
+#' instances could use a lot of memory.
 #'
 #' @docType package
 #' @keywords internal

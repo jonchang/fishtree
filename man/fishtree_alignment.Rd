@@ -4,7 +4,12 @@
 \alias{fishtree_alignment}
 \title{Get aligned sequences from the Fish Tree of Life}
 \usage{
-fishtree_alignment(species, rank, split = FALSE)
+fishtree_alignment(
+  species,
+  rank,
+  split = FALSE,
+  release = getOption("fishtree.release", .default_release)
+)
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
@@ -12,6 +17,8 @@ fishtree_alignment(species, rank, split = FALSE)
 \item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
 \item{split}{Splits the output into a list by gene locus.}
+
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
 }
 \value{
 An object of class `"DNAbin"`, or a named list of the same if `split = TRUE``

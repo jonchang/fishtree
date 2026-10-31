@@ -7,7 +7,8 @@
 fishtree_complete_phylogeny(
   species,
   rank,
-  mc.cores = getOption("mc.cores", 1L)
+  mc.cores = getOption("mc.cores", 1L),
+  release = getOption("fishtree.release", .default_release)
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ fishtree_complete_phylogeny(
 \item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
 
 \item{mc.cores}{Number of cores to use in \link[parallel]{mclapply} when subsetting the tree (default `1`)}
+
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
 }
 \value{
 An object of class `"multiPhylo"` that should probably not be used for analyses of trait evolution, including (but not limited to) \link[ape]{pic}, \link[ape]{ace}, \link[ape]{corBrownian}, \link[diversitree]{make.bisse}, or \link[hisse]{hisse}.

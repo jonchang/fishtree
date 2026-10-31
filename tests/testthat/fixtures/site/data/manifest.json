@@ -1,0 +1,113 @@
+{
+  "$schema": "https://fishtreeoflife.org/schema/manifest/v1.json",
+  "schema_version": 1,
+  "default_release": "R2018",
+  "releases": [
+    {
+      "id": "R2018",
+      "title": "Test release",
+      "status": "stable",
+      "citation": "Doe, J. (2018). A test tree. Journal of Fixtures, 1, 1-2.",
+      "doi": "10.1234/test.2018",
+      "license": "CC0-1.0",
+      "native_taxonomy": "PFC2018",
+      "views": [
+        {
+          "taxonomy": "PFC2018",
+          "legacy_api": "../api/taxonomy/"
+        }
+      ],
+      "files": [
+        {
+          "role": "chronogram",
+          "url": "../downloads/chronogram.tre",
+          "format": "newick",
+          "bytes": 57,
+          "sha256": "54a82a092b463c37c951b4f637e5ff55f77a5ab29c19ec987e15e4f0f4ebbc9a",
+          "title": "Timetree"
+        },
+        {
+          "role": "phylogram",
+          "url": "../downloads/phylogram.tre",
+          "format": "newick",
+          "bytes": 65,
+          "sha256": "3c53c4bf57760fb5bb895f406159602a636ae0bbc06fc55e93ea49090a725f8c"
+        },
+        {
+          "role": "complete_trees",
+          "url": "../downloads/complete.trees",
+          "format": "newick",
+          "bytes": 158,
+          "sha256": "3a295ee5ad0ed72f6cc73cd18a19c9ba978503ce801c51177af4ebef816a8fd2",
+          "taxonomy": "PFC2018",
+          "count": 2
+        },
+        {
+          "role": "tip_rates",
+          "url": "../downloads/tiprates.csv",
+          "format": "csv",
+          "bytes": 188,
+          "sha256": "0701f74e4aa44561043490d5bb9fe5973243f5da52b5d9e8c7cd8e3543e044d2"
+        },
+        {
+          "role": "alignment",
+          "url": "../downloads/alignment.phy",
+          "format": "phylip",
+          "bytes": 89,
+          "sha256": "0e3a73780ed5f4d071cb548a1f58cf84c57d56cf194949033456451edf10a852"
+        },
+        {
+          "role": "partitions",
+          "url": "../downloads/alignment.partitions",
+          "format": "raxml-partitions",
+          "bytes": 35,
+          "sha256": "2c22d0c22d65ba00a6562725edf1991269b8307ed91f52cdd1825ff006c85ba5"
+        }
+      ]
+    },
+    {
+      "id": "X2030",
+      "title": "Release without a legacy API",
+      "status": "preview",
+      "citation": "Doe, J. (2030). Another test tree.",
+      "license": "CC0-1.0",
+      "native_taxonomy": "PFC2018",
+      "views": [
+        {
+          "taxonomy": "PFC2018"
+        }
+      ],
+      "files": [
+        {
+          "role": "chronogram",
+          "url": "../downloads/chronogram-x2030.tre",
+          "format": "newick",
+          "bytes": 71,
+          "sha256": "b706352dc8023280cf8e46915b03e72ee908f925fad0bcef0e1a1a663e062583"
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "id": "PFC2018",
+      "title": "Test taxonomy",
+      "citation": "Doe, J. (2018). A test tree. Journal of Fixtures, 1, 1-2.",
+      "license": "CC0-1.0",
+      "ranks": [
+        "family",
+        "genus"
+      ],
+      "files": [
+        {
+          "role": "taxonomy",
+          "url": "../downloads/tiprates.csv",
+          "format": "csv",
+          "bytes": 188,
+          "sha256": "0701f74e4aa44561043490d5bb9fe5973243f5da52b5d9e8c7cd8e3543e044d2",
+          "species_column": "species"
+        }
+      ]
+    }
+  ]
+}
