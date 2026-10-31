@@ -11,6 +11,7 @@
 #'
 #' @docType package
 #' @keywords internal
+#' @importFrom lifecycle deprecated
 "_PACKAGE"
 
 

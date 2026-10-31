@@ -37,7 +37,7 @@ Retrieve a phylogeny for the surgeonfishes and plot the phylogeny and lineage th
 
 ```{r}
 library(ape)
-phy <- fishtree_phylogeny(rank = "Acanthuridae")
+phy <- fishtree_phylogeny(taxon = "Acanthuridae")
 phy
 ```
 

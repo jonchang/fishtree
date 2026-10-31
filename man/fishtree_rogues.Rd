@@ -5,14 +5,17 @@
 \title{Get rogue taxa that break the monophyly of defined taxa}
 \usage{
 fishtree_rogues(
-  rank,
-  release = getOption("fishtree.release", .default_release)
+  taxon,
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 }
 \arguments{
-\item{rank}{the (possibly paraphyletic) rank for which rogue or intruder species should be identified.}
+\item{taxon}{the (possibly paraphyletic) taxon for which rogue or intruder species should be identified.}
 
-\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up a `taxon` is only available for `"R2018"`.}
+
+\item{rank}{Deprecated; use `taxon` instead.}
 }
 \value{
 A vector of species names, potentially empty.
