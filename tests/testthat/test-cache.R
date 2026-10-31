@@ -41,3 +41,13 @@ test_that("cache busting keeps an existing query", {
   expect_match(fishtree:::.cache_bust("https://example.org/a"), "^https://example.org/a\\?nocache=[0-9]+$")
   expect_match(fishtree:::.cache_bust("https://example.org/a?b=1"), "^https://example.org/a\\?b=1&nocache=[0-9]+$")
 })
+
+test_that("files the manifest no longer lists are pruned", {
+  local_fixture()
+  stale <- file.path(getOption("fishtree.cache_dir"), strrep("0", 64))
+  dir.create(dirname(stale), recursive = TRUE, showWarnings = FALSE)
+  writeLines("old", stale)
+  fishtree_phylogeny()
+  expect_false(file.exists(stale))
+  expect_equal(fishtree_cache_info()$file, fishtree_release()$files$sha256[1])
+})
