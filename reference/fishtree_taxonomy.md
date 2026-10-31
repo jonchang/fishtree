@@ -6,7 +6,10 @@ API.
 ## Usage
 
 ``` r
-fishtree_taxonomy(ranks = NULL)
+fishtree_taxonomy(
+  ranks = NULL,
+  release = getOption("fishtree.release", .default_release)
+)
 ```
 
 ## Arguments
@@ -14,6 +17,14 @@ fishtree_taxonomy(ranks = NULL)
 - ranks:
 
   One or more taxonomic ranks to retrieve.
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

@@ -9,7 +9,8 @@ Retrieves a phylogeny via the Fish Tree of Life API. If neither
 fishtree_phylogeny(
   species,
   rank,
-  type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca")
+  type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca"),
+  release = getOption("fishtree.release", .default_release)
 )
 ```
 
@@ -32,6 +33,14 @@ fishtree_phylogeny(
   monophyletic, acceptable types also include \`"chronogram_mrca"\` and
   \`"phylogram_mrca"\`, which returns a tree with \*all\* species
   descending from the common ancestor of species in the specified rank.
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

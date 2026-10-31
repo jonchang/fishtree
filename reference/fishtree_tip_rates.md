@@ -11,7 +11,12 @@ tip-specific diversification rates.
 ## Usage
 
 ``` r
-fishtree_tip_rates(species, rank, sampled_only = TRUE)
+fishtree_tip_rates(
+  species,
+  rank,
+  sampled_only = TRUE,
+  release = getOption("fishtree.release", .default_release)
+)
 ```
 
 ## Arguments
@@ -28,6 +33,14 @@ fishtree_tip_rates(species, rank, sampled_only = TRUE)
 
   Restricts the returned dataset to only those species that have genetic
   data available. Defaults to \`TRUE\`.
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

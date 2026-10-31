@@ -6,9 +6,11 @@ matrices, and diversification rate data with a simple set of functions.
 
 ## Details
 
-Implementation note: this package makes calls over the network and
-caches its (sometimes large) results for faster loading. Because of
-this, long-running R instances could use a lot of memory.
+Implementation note: this package makes calls over the network. It keeps
+downloaded files in a cache on disk (see
+[`fishtree_cache_info`](https://fishtree.fishtreeoflife.org/reference/fishtree_cache_info.md))
+and their (sometimes large) parsed results in memory, so long-running R
+instances could use a lot of memory.
 
 ## See also
 

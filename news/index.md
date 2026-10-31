@@ -2,6 +2,33 @@
 
 ## fishtree (development version)
 
+- New
+  [`fishtree_releases()`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md)
+  and
+  [`fishtree_release()`](https://fishtree.fishtreeoflife.org/reference/fishtree_release.md)
+  list the tree releases on the Fish Tree of Life and describe one: how
+  to cite it, its license, and its files with their URLs, sizes and
+  SHA-256 checksums.
+
+- Every function has a new `release` argument, which defaults to
+  `getOption("fishtree.release", "R2018")`. The default is fixed for
+  each version of fishtree, so a new release on the website never
+  changes your results. Looking up taxa by `rank` is only available for
+  `"R2018"`.
+
+- fishtree now finds its files through the data manifest at
+  <https://fishtreeoflife.org/data/manifest.json>. Set
+  `options(fishtree.manifest = ...)` to use another copy.
+
+- Downloads are checked against their size and, on R 4.5.0 and later,
+  their SHA-256 checksum in the manifest. They’re kept in a cache that
+  lasts between sessions; see
+  [`fishtree_cache_info()`](https://fishtree.fishtreeoflife.org/reference/fishtree_cache_info.md)
+  and
+  [`fishtree_cache_clear()`](https://fishtree.fishtreeoflife.org/reference/fishtree_cache_info.md).
+
+- Downloads now wait at least 10 minutes before timing out.
+
 - Taxa with spaces in their names (e.g., “Incertae sedis in Carangaria”)
   now work with
   [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md)

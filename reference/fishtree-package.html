@@ -51,9 +51,10 @@ diversification rate data with a simple set of functions.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Implementation note: this package makes calls over the network and caches
-its (sometimes large) results for faster loading. Because of this,
-long-running R instances could use a lot of memory.</p>
+    <p>Implementation note: this package makes calls over the network. It keeps
+downloaded files in a cache on disk (see <code><a href="fishtree_cache_info.html">fishtree_cache_info</a></code>)
+and their (sometimes large) parsed results in memory, so long-running R
+instances could use a lot of memory.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

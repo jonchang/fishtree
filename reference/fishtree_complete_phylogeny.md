@@ -14,7 +14,8 @@ See Rabosky (2015) for details.
 fishtree_complete_phylogeny(
   species,
   rank,
-  mc.cores = getOption("mc.cores", 1L)
+  mc.cores = getOption("mc.cores", 1L),
+  release = getOption("fishtree.release", .default_release)
 )
 ```
 
@@ -33,6 +34,14 @@ fishtree_complete_phylogeny(
   Number of cores to use in
   [mclapply](https://rdrr.io/r/parallel/mclapply.html) when subsetting
   the tree (default \`1\`)
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

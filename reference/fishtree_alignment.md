@@ -7,7 +7,12 @@ matrix.
 ## Usage
 
 ``` r
-fishtree_alignment(species, rank, split = FALSE)
+fishtree_alignment(
+  species,
+  rank,
+  split = FALSE,
+  release = getOption("fishtree.release", .default_release)
+)
 ```
 
 ## Arguments
@@ -23,6 +28,14 @@ fishtree_alignment(species, rank, split = FALSE)
 - split:
 
   Splits the output into a list by gene locus.
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

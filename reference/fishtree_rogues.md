@@ -7,7 +7,10 @@ prevented that clade from being recovered as monophyletic.
 ## Usage
 
 ``` r
-fishtree_rogues(rank)
+fishtree_rogues(
+  rank,
+  release = getOption("fishtree.release", .default_release)
+)
 ```
 
 ## Arguments
@@ -16,6 +19,14 @@ fishtree_rogues(rank)
 
   the (possibly paraphyletic) rank for which rogue or intruder species
   should be identified.
+
+- release:
+
+  The tree release to use, from
+  [`fishtree_releases`](https://fishtree.fishtreeoflife.org/reference/fishtree_releases.md).
+  Defaults to \`getOption("fishtree.release")\`, or \`"R2018"\` if that
+  is unset. Looking up taxa by \`rank\` is only available for
+  \`"R2018"\`.
 
 ## Value
 

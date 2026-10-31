@@ -39,7 +39,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="fishtree-development-version">fishtree (development version)<a class="anchor" aria-label="anchor" href="#fishtree-development-version"></a></h2>
-<ul><li>Taxa with spaces in their names (e.g., “Incertae sedis in Carangaria”) now work with <code><a href="../reference/fishtree_taxonomy.html">fishtree_taxonomy()</a></code> and all functions that take a <code>rank = ...</code> argument. Their download URLs are now percent-encoded.</li>
+<ul><li><p>New <code><a href="../reference/fishtree_releases.html">fishtree_releases()</a></code> and <code><a href="../reference/fishtree_release.html">fishtree_release()</a></code> list the tree releases on the Fish Tree of Life and describe one: how to cite it, its license, and its files with their URLs, sizes and SHA-256 checksums.</p></li>
+<li><p>Every function has a new <code>release</code> argument, which defaults to <code>getOption("fishtree.release", "R2018")</code>. The default is fixed for each version of fishtree, so a new release on the website never changes your results. Looking up taxa by <code>rank</code> is only available for <code>"R2018"</code>.</p></li>
+<li><p>fishtree now finds its files through the data manifest at <a href="https://fishtreeoflife.org/data/manifest.json" class="external-link uri">https://fishtreeoflife.org/data/manifest.json</a>. Set <code>options(fishtree.manifest = ...)</code> to use another copy.</p></li>
+<li><p>Downloads are checked against their size and, on R 4.5.0 and later, their SHA-256 checksum in the manifest. They’re kept in a cache that lasts between sessions; see <code><a href="../reference/fishtree_cache_info.html">fishtree_cache_info()</a></code> and <code><a href="../reference/fishtree_cache_info.html">fishtree_cache_clear()</a></code>.</p></li>
+<li><p>Downloads now wait at least 10 minutes before timing out.</p></li>
+<li><p>Taxa with spaces in their names (e.g., “Incertae sedis in Carangaria”) now work with <code><a href="../reference/fishtree_taxonomy.html">fishtree_taxonomy()</a></code> and all functions that take a <code>rank = ...</code> argument. Their download URLs are now percent-encoded.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.4" id="fishtree-034">fishtree 0.3.4<a class="anchor" aria-label="anchor" href="#fishtree-034"></a></h2><p class="text-muted">CRAN release: 2021-01-30</p>
