@@ -41,7 +41,7 @@ lineage through time plot.
 
 ``` r
 library(ape)
-phy <- fishtree_phylogeny(rank = "Acanthuridae")
+phy <- fishtree_phylogeny(taxon = "Acanthuridae")
 phy
 #> 
 #> Phylogenetic tree with 67 tips and 66 internal nodes.

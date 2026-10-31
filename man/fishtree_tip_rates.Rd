@@ -6,19 +6,22 @@
 \usage{
 fishtree_tip_rates(
   species,
-  rank,
+  taxon,
   sampled_only = TRUE,
-  release = getOption("fishtree.release", .default_release)
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
 
-\item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
+\item{taxon}{(Optionally) subset the results to the taxon with this name, such as a family or order (e.g., `"Acanthuridae"`).}
 
 \item{sampled_only}{Restricts the returned dataset to only those species that have genetic data available. Defaults to `TRUE`.}
 
-\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up a `taxon` is only available for `"R2018"`.}
+
+\item{rank}{Deprecated; use `taxon` instead.}
 }
 \value{
 A data frame. Columns ending with `.tv` indicate time-variable BAMM runs; those ending in `.tc` are time-constant runs. The `dr` column refers to the DR statistic, while `lambda` and `mu` are speciation and extinction, respectively.
@@ -27,13 +30,13 @@ A data frame. Columns ending with `.tv` indicate time-variable BAMM runs; those 
 Downloads tip rates for the entire Fish Tree of Life, or for a specified subset. Tip rates can be thought of as an
 instantaneous speciation or extinction rate; for example, a higher tip-specific speciation rate might imply that
 a lineage is more likely to split a new lineage at the present time. See Title (2019) in references for details.
-If neither `species` nor `rank` are specified, returns the entire set of tip-specific diversification rates.
+If neither `species` nor `taxon` are specified, returns the entire set of tip-specific diversification rates.
 }
 \examples{
 \dontrun{
 # Get cichlid rates and trees
-rates <- fishtree_tip_rates(rank = "Cichlidae")
-tree <- fishtree_phylogeny(rank = "Cichlidae")
+rates <- fishtree_tip_rates(taxon = "Cichlidae")
+tree <- fishtree_phylogeny(taxon = "Cichlidae")
 
 # Plot tree and extract plotting data
 plot(tree, show.tip.label = FALSE)

@@ -6,29 +6,32 @@
 \usage{
 fishtree_alignment(
   species,
-  rank,
+  taxon,
   split = FALSE,
-  release = getOption("fishtree.release", .default_release)
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
 
-\item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
+\item{taxon}{(Optionally) subset the results to the taxon with this name, such as a family or order (e.g., `"Acanthuridae"`).}
 
 \item{split}{Splits the output into a list by gene locus.}
 
-\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up a `taxon` is only available for `"R2018"`.}
+
+\item{rank}{Deprecated; use `taxon` instead.}
 }
 \value{
 An object of class `"DNAbin"`, or a named list of the same if `split = TRUE``
 }
 \description{
-Retrieves an aligned sequence via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire sequence matrix.
+Retrieves an aligned sequence via the Fish Tree of Life API. If neither `species` nor `taxon` are specified, returns the entire sequence matrix.
 }
 \examples{
 \dontrun{
-surgeon_dna <- fishtree_alignment(rank = "Acanthuridae", split = TRUE)
+surgeon_dna <- fishtree_alignment(taxon = "Acanthuridae", split = TRUE)
 surgeon_dna[[1]]
 par(mfrow = c(9, 3), mar = c(0.5, 0.5, 1, 0.5), xaxt = "n", yaxt = "n")
 for (gene in names(surgeon_dna)) {

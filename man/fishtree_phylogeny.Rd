@@ -6,33 +6,36 @@
 \usage{
 fishtree_phylogeny(
   species,
-  rank,
+  taxon,
   type = c("chronogram", "phylogram", "chronogram_mrca", "phylogram_mrca"),
-  release = getOption("fishtree.release", .default_release)
+  release = getOption("fishtree.release", .default_release),
+  rank = deprecated()
 )
 }
 \arguments{
 \item{species}{(Optionally) subset the results based on a vector of species names.}
 
-\item{rank}{(Optionally) subset the results based on the supplied taxonomic rank.}
+\item{taxon}{(Optionally) subset the results to the taxon with this name, such as a family or order (e.g., `"Acanthuridae"`).}
 
-\item{type}{Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retrieving a phylogeny by rank, and that rank is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the specified rank.}
+\item{type}{Either `"chronogram"` or `"phylogram"`. A chronogram has branch lengths proportional to units of time, while a phylogram has branch lengths proportional to the amount of character change. When retrieving a phylogeny for a taxon that is not recovered as monophyletic, acceptable types also include `"chronogram_mrca"` and `"phylogram_mrca"`, which returns a tree with *all* species descending from the common ancestor of species in the taxon.}
 
-\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up taxa by `rank` is only available for `"R2018"`.}
+\item{release}{The tree release to use, from \code{\link{fishtree_releases}}. Defaults to `getOption("fishtree.release")`, or `"R2018"` if that is unset. Looking up a `taxon` is only available for `"R2018"`.}
+
+\item{rank}{Deprecated; use `taxon` instead.}
 }
 \value{
 An object of class `"phylo"`.
 }
 \description{
-Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `rank` are specified, returns the entire phylogeny.
+Retrieves a phylogeny via the Fish Tree of Life API. If neither `species` nor `taxon` are specified, returns the entire phylogeny.
 }
 \details{
 For maximum interoperability, `species` considers spaces and underscores equivalently. Internally, the phylogenies use underscores.
 }
 \examples{
 \dontrun{
-# Get a phylogeny for a taxonomic rank
-surgeons <- fishtree_phylogeny(rank = "Acanthuridae")
+# Get a phylogeny for a taxon
+surgeons <- fishtree_phylogeny(taxon = "Acanthuridae")
 
 # Get a phylogeny for only certain species
 genomic_fish <- c("Oryzias latipes", "Tetraodon nigroviridis",
@@ -45,8 +48,8 @@ ape::is.ultrametric(surgeons)
 ape::is.ultrametric(surgeons, tol = 0.00001)
 
 # Difference between MRCA trees and regular trees
-gobies_mrca <- fishtree_phylogeny(rank = "Gobiidae", type = "chronogram_mrca")
-gobies <- fishtree_phylogeny(rank = "Gobiidae", type = "chronogram")
+gobies_mrca <- fishtree_phylogeny(taxon = "Gobiidae", type = "chronogram_mrca")
+gobies <- fishtree_phylogeny(taxon = "Gobiidae", type = "chronogram")
 # MRCA trees will have more tips for non-monophyletic groups
 length(gobies_mrca$tip.label) > length(gobies$tip.label)
 # Drop rogue tips in the MRCA tree

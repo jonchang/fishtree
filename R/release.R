@@ -133,7 +133,7 @@ fishtree_release <- function(release = getOption("fishtree.release", .default_re
   rel <- .release(release)
   views <- Filter(function(v) identical(v$taxonomy, rel$native_taxonomy) && !is.null(v$legacy_api), rel$views)
   if (!length(views)) {
-    rlang::abort(paste0("Looking up taxa by `rank` isn't available for release ", release,
+    rlang::abort(paste0("Looking up a `taxon` isn't available for release ", release,
                         " in this version of fishtree."))
   }
   base <- .resolve_url(views[[1]]$legacy_api, .manifest_url())

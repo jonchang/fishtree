@@ -23,6 +23,7 @@ Depends:
 Imports:
     ape (>= 5.2),
     jsonlite (>= 1.5),
+    lifecycle (>= 1.0.0),
     memoise,
     parallel,
     rlang (>= 0.4.1),

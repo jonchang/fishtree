@@ -48,15 +48,15 @@ test_that("release can be chosen per call or per session", {
   expect_error(fishtree_tip_rates(), "Release X2030 has no tip_rates file")
 })
 
-test_that("rank lookups use the release's legacy API", {
+test_that("taxon lookups use the release's legacy API", {
   local_fixture()
   expect_equal(fishtree_taxonomy()$name, c("Ausidae", "Busidae"))
   expect_equal(fishtree_taxonomy("Ausidae")$Ausidae$sampled_species, c("Aus bus", "Aus cus"))
-  expect_equal(fishtree_phylogeny(rank = "Ausidae")$tip.label, c("Aus_bus", "Aus_cus"))
+  expect_equal(fishtree_phylogeny(taxon = "Ausidae")$tip.label, c("Aus_bus", "Aus_cus"))
   expect_equal(fishtree_rogues("Ausidae"), character())
-  expect_equal(dim(fishtree_alignment(rank = "Ausidae")), c(2, 12))
-  expect_equal(fishtree_tip_rates(rank = "Ausidae")$species, c("Aus bus", "Aus cus"))
-  expect_error(fishtree_phylogeny(rank = "Ausidae", release = "X2030"), "isn't available for release X2030")
+  expect_equal(dim(fishtree_alignment(taxon = "Ausidae")), c(2, 12))
+  expect_equal(fishtree_tip_rates(taxon = "Ausidae")$species, c("Aus bus", "Aus cus"))
+  expect_error(fishtree_phylogeny(taxon = "Ausidae", release = "X2030"), "isn't available for release X2030")
 })
 
 test_that("an unknown manifest schema version is refused", {
