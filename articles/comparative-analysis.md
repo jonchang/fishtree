@@ -45,7 +45,7 @@ tips <- gsub("_", " ", tree$tip.label, fixed = TRUE)
 
 fb_results <- species(species_list = tips, fields = c("Species", "DemersPelag"))
 #> duckdb keeps downloaded extensions and secrets in a temporary directory:
-#> ℹ /tmp/RtmpX1RYn6/duckdb
+#> ℹ /tmp/RtmpNrK89j/duckdb
 #> This is removed when the R session ends.
 #> • Extensions are re-downloaded each session.
 #> • Secrets are lost.
@@ -359,7 +359,7 @@ lnl <- sapply(results, `[[`, "loglik")
 
 data.frame(model = c("bisse_full", "bisse_null", "hisse_cid2", "hisse_full"), aicc, lnl)
 #>        model     aicc       lnl
-#> 1 bisse_full 1821.418 -905.5677
+#> 1 bisse_full 1821.419 -905.5677
 #> 2 bisse_null 1819.483 -905.6478
 #> 3 hisse_cid2 1808.042 -899.9269
 #> 4 hisse_full 1811.311 -899.4567
