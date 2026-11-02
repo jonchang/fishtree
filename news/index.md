@@ -39,6 +39,8 @@
   [`fishtree_cache_info()`](https://fishtree.fishtreeoflife.org/reference/fishtree_cache_info.md)
   and
   [`fishtree_cache_clear()`](https://fishtree.fishtreeoflife.org/reference/fishtree_cache_info.md).
+  Cached files that the manifest no longer lists are deleted whenever
+  fishtree downloads a file.
 
 - Downloads now wait at least 10 minutes before timing out.
 

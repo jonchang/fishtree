@@ -2,7 +2,9 @@
 
 Files from a release are downloaded once, checked against the release's
 checksums, and kept in a cache. \`fishtree_cache_info()\` lists the
-cached files and \`fishtree_cache_clear()\` deletes them.
+cached files and \`fishtree_cache_clear()\` deletes them. Cached files
+that the data manifest no longer lists are deleted whenever fishtree
+downloads a file.
 
 ## Usage
 
