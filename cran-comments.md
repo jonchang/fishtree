@@ -2,6 +2,7 @@
 
 * local macOS 27.2, R 4.6.2
 * GitHub Actions, Ubuntu 24.04, R release and R-devel
+* win-builder, Windows Server 2022, R-devel
 
 ## R CMD check results
 
@@ -12,8 +13,9 @@
 fishtree now finds its files through a data manifest published on
 fishtreeoflife.org, checks downloads against their checksums, and keeps them in
 a cache in `tools::R_user_dir("fishtree", "cache")`, which
-`fishtree_cache_clear()` empties. The `rank` argument is deprecated in favor of
-`taxon`, using lifecycle.
+`fishtree_cache_clear()` empties. Cached files that the manifest no longer
+lists are deleted automatically, and the tests use a temporary cache. The
+`rank` argument is deprecated in favor of `taxon`, using lifecycle.
 
 ## Downstream dependencies
 
