@@ -4,7 +4,8 @@
 #'
 #' Files from a release are downloaded once, checked against the release's
 #' checksums, and kept in a cache. `fishtree_cache_info()` lists the cached
-#' files and `fishtree_cache_clear()` deletes them.
+#' files and `fishtree_cache_clear()` deletes them. Cached files that the data
+#' manifest no longer lists are deleted whenever fishtree downloads a file.
 #'
 #' The cache is in `tools::R_user_dir("fishtree", "cache")`. Set
 #' `options(fishtree.cache_dir = ...)` to use another directory.
@@ -19,7 +20,7 @@
 #' fishtree_cache_clear()
 #' }
 fishtree_cache_info <- function() {
-  paths <- list.files(.cache_dir(), pattern = "^[0-9a-f]{64}$", full.names = TRUE)
+  paths <- .cache_files()
   info <- file.info(paths)
   data.frame(file = basename(paths), bytes = info$size, modified = info$mtime, stringsAsFactors = FALSE)
 }
@@ -27,12 +28,22 @@ fishtree_cache_info <- function() {
 #' @rdname fishtree_cache_info
 #' @export
 fishtree_cache_clear <- function() {
-  paths <- list.files(.cache_dir(), pattern = "^[0-9a-f]{64}$", full.names = TRUE)
+  paths <- .cache_files()
   unlink(paths)
   invisible(length(paths))
 }
 
 .cache_dir <- function() getOption("fishtree.cache_dir", tools::R_user_dir("fishtree", "cache"))
+
+.cache_files <- function() list.files(.cache_dir(), pattern = "^[0-9a-f]{64}$", full.names = TRUE)
+
+# Deletes cached files that no release or taxonomy in the manifest lists.
+.prune_cache <- function() {
+  manifest <- .manifest()
+  current <- unlist(lapply(c(manifest$releases, manifest$taxonomies), function(x) vapply(x$files, `[[`, "", "sha256")))
+  paths <- .cache_files()
+  unlink(paths[!basename(paths) %in% current])
+}
 
 .sha256 <- function(path) {
   # tools::sha256sum() is new in R 4.5.0; older versions check only the size.
@@ -59,6 +70,7 @@ fishtree_cache_clear <- function() {
                        "The file may have been corrupted in transit; consider retrying your request."))
   }
   file.rename(tmp, path)
+  .prune_cache()
   path
 }
 
