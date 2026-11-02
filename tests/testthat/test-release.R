@@ -5,6 +5,14 @@ test_that("relative URLs resolve like a browser's", {
   expect_equal(fishtree:::.resolve_url("../../", "https://fishtreeoflife.org/api/taxonomy/"), "https://fishtreeoflife.org/")
   expect_equal(fishtree:::.resolve_url("https://zenodo.org/x", base), "https://zenodo.org/x")
   expect_equal(fishtree:::.resolve_url("../downloads/a", "file:///tmp/site/data/manifest.json"), "file:///tmp/site/downloads/a")
+  expect_equal(fishtree:::.resolve_url("../downloads/a", "file://D:/site/data/manifest.json"), "file://D:/site/downloads/a")
+})
+
+test_that("Windows drive letters aren't URL schemes", {
+  expect_false(fishtree:::.is_url("C:/Users/me/manifest.json"))
+  expect_false(fishtree:::.is_url("D:\\temp\\site\\data\\manifest.json"))
+  expect_true(fishtree:::.is_url("https://fishtreeoflife.org/data/manifest.json"))
+  expect_true(fishtree:::.is_url("file:///tmp/site/data/manifest.json"))
 })
 
 test_that("releases are listed from the manifest", {

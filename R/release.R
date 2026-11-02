@@ -68,9 +68,12 @@ fishtree_release <- function(release = getOption("fishtree.release", .default_re
 
 `%||%` <- function(x, y) if (is.null(x)) y else x
 
+# A one-letter scheme is a Windows drive, as in C:/path.
+.is_url <- function(x) grepl("^[A-Za-z][A-Za-z0-9+.-]+:", x)
+
 .manifest_url <- function() {
   url <- getOption("fishtree.manifest", .default_manifest)
-  if (!grepl("^[A-Za-z][A-Za-z0-9+.-]*:", url)) url <- paste0("file://", normalizePath(url, winslash = "/", mustWork = TRUE))
+  if (!.is_url(url)) url <- paste0("file://", normalizePath(url, winslash = "/", mustWork = TRUE))
   url
 }
 
@@ -96,7 +99,7 @@ fishtree_release <- function(release = getOption("fishtree.release", .default_re
 
 # Resolves a URL relative to `base`, as a browser would.
 .resolve_url <- function(url, base) {
-  if (grepl("^[A-Za-z][A-Za-z0-9+.-]*:", url)) return(url)
+  if (.is_url(url)) return(url)
   origin <- regmatches(base, regexpr("^[A-Za-z][A-Za-z0-9+.-]*://[^/]*", base))
   dir <- sub("[^/]*$", "", substring(base, nchar(origin) + 1))
   out <- character()
