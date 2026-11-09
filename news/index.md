@@ -4,6 +4,8 @@
 
 ## fishtree 0.4.0
 
+CRAN release: 2026-11-02
+
 - `taxon` replaces `rank` as the argument that names a taxon, e.g.,
   `fishtree_phylogeny(taxon = "Acanthuridae")`, and replaces `ranks` in
   [`fishtree_taxonomy()`](https://fishtree.fishtreeoflife.org/reference/fishtree_taxonomy.md).
